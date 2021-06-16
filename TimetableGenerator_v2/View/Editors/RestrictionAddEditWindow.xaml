@@ -1,0 +1,62 @@
+﻿<Window x:Class="Generator.View.Editors.RestrictionAddEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Generator.View.Editors"
+        mc:Ignorable="d"
+        Title="Редактор ограничений"
+        Height="330"
+        Width="300"
+        WindowStartupLocation="CenterOwner">
+    <StackPanel VerticalAlignment="Center">
+        <GroupBox Header="Выражение"
+                  BorderThickness="0"
+                  Margin="5">
+            <TextBox TextWrapping="Wrap"
+                     Height="50"
+                     Text="{Binding Expression}" />
+        </GroupBox>
+        <GroupBox BorderThickness="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Вес+:"
+                           Margin="9, 3, 3, 3" />
+                <TextBox Text="{Binding WeightPozitive}"
+                         Margin="3"
+                         Width="40" />
+                <TextBlock Text="Вес-:"
+                           Margin="3" />
+                <TextBox Text="{Binding WeightNegative}"
+                         Margin="3"
+                         Width="40" />
+                <TextBlock Text="Обязательное:"
+                           Margin="3" />
+                <CheckBox IsChecked="{Binding IsRequirement}"
+                          Margin="3"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="40" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Комментарий"
+                  BorderThickness="0"
+                  Margin="5">
+            <TextBox TextWrapping="Wrap"
+                     Height="50"
+                     Text="{Binding Comment}" />
+        </GroupBox>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Height="30"
+                    Width="100"
+                    Margin="6"
+                    Content="Отмена"
+                    Command="{Binding CancelCommand}" />
+            <Button Height="30"
+                    Width="100"
+                    Margin="6"
+                    Content="ОК"
+                    Command="{Binding AccessCommand}" />
+        </StackPanel>
+    </StackPanel>
+</Window>
