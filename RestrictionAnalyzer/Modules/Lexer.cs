@@ -5,7 +5,7 @@ namespace RestrictionAnalyzer.Modules
 {
     internal class Lexer
     {
-        private IO _io;
+        private readonly IO _io;
 
         public Lexer(IO io)
         {
@@ -102,19 +102,22 @@ namespace RestrictionAnalyzer.Modules
                     return token;
                 }
                 // else пойдет в конец метода к SetError
-            } 
+            }
             // оператор ->
             else if (ch == '-')
             {
-                var nextCh = _io.ShowNextNthChar();
+                var nextCh = _io.GetNextChar();
                 if (nextCh != null && nextCh == '>')
                 {
                     var token = new OperatorToken(OperatorType.opImply, charNumber);
                     _io.GetNextChar();
-                    _io.GetNextChar();
                     return token;
                 }
-                // else пойдет в конец метода к SetError
+                else
+                {
+                    var token = new OperatorToken(OperatorType.opSubt, charNumber);
+                    return token;
+                }
             }
             // оставшиеся односимвольные операторы
             else if (_operators.ContainsKey(ch.ToString()))
@@ -172,7 +175,7 @@ namespace RestrictionAnalyzer.Modules
         {
             var charNumber = _io.CharNumber;
             var str = _io.ReadWhile(ch => char.IsDigit(ch));
-            
+
             if (int.TryParse(str, out int value))
             {
                 var integerValue = new ValueToken(value, charNumber);
@@ -189,9 +192,8 @@ namespace RestrictionAnalyzer.Modules
         private Token ScanIdentOrKeyword()
         {
             var charNumber = _io.CharNumber;
-
             var str = _io.ReadWhile(ch => char.IsLetterOrDigit(ch));
-           
+
             if (_operators.TryGetValue(str, out OperatorType type))
             {
                 var @operator = new OperatorToken(type, charNumber);

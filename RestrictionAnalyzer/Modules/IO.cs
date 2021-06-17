@@ -75,33 +75,6 @@ namespace RestrictionAnalyzer.Modules
             {
                 Console.WriteLine(error);
             }
-            //Console.WriteLine("----------------------------------------------------------------------------");
-            //Console.WriteLine($"Количество ошибок: {_errors.Count}");
-            //Console.WriteLine();
-
-            //var lines = _path.Split('\n');
-            //int i = 1;
-
-            //var reader = new StreamReader(_path);
-            //string line;
-            //while ((line = reader.ReadLine()) != null)
-            //{
-            //    Console.WriteLine($"{i,4} {line.Replace("\t", "    ")}");
-            //    var errors = _errors.Where(x => x.LineNumber == i).ToList();
-            //    foreach (var error in errors)
-            //    {
-            //        _errors.Remove(error);
-            //        PrintError(error);
-            //    }
-            //    i++;
-            //}
-            //Console.WriteLine("----------------------------------------------------------------------------");
-        }
-
-        private void PrintError(Error error)
-        {
-            //var offset = new string(' ', error.CharNumber - 1);
-            //Console.WriteLine($"****{offset}^{Error.Errors[error.Code]}");
         }
     }
 }

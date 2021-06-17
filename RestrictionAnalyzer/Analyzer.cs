@@ -1,5 +1,4 @@
 ﻿using RestrictionAnalyzer.Modules;
-using RestrictionAnalyzer.Tools;
 using System;
 
 namespace RestrictionAnalyzer
@@ -22,16 +21,8 @@ namespace RestrictionAnalyzer
             var lexer = new Lexer(io);
             var parser = new Parser(lexer);
 
-            parser.Parse();
             Console.WriteLine(restriction);
-
-            while (true)
-            {
-                var token = lexer.GetNextToken();
-                if (token is EndToken) break;
-                Console.WriteLine(token);
-            }
-
+            parser.Parse();
             Console.WriteLine(restriction);
 
             io.PrintListing();
