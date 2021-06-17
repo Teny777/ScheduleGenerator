@@ -16,7 +16,6 @@ namespace Generator.Core.Restriction
             CompilerResults result;
             try
             {
-
                 var po = new Dictionary<string, string>
                 {
                     { "CompilerVersion", "v4.0"}
@@ -257,7 +256,7 @@ namespace IntroductionRestrictions_v2
 
         private static string MyReplace(string value)
         {
-            string[] vars = Regex.Matches(value, @"\w+\d+") // тут от a до z - лучше 6 стандартных символов перечислить
+            string[] vars = Regex.Matches(value, @"\w+\d+")
                 .Cast<Match>()
                 .Select(x => x.Value)
                 .Distinct()

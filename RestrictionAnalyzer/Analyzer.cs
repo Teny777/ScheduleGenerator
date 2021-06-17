@@ -1,11 +1,12 @@
 ﻿using RestrictionAnalyzer.Modules;
 using System;
+using System.Collections.Generic;
 
 namespace RestrictionAnalyzer
 {
     public static class Analyzer
     {
-        public static void Analyze(string restriction)
+        public static (List<string> errors, List<string> log) Analyze(string restriction)
         {
             if (restriction is null)
             {
@@ -21,11 +22,11 @@ namespace RestrictionAnalyzer
             var lexer = new Lexer(io);
             var parser = new Parser(lexer);
 
-            Console.WriteLine(restriction);
+            //Console.WriteLine(restriction);
             parser.Parse();
-            Console.WriteLine(restriction);
-
-            io.PrintListing();
+            //Console.WriteLine(restriction);
+            var result = (io.GetErrors(), io.GetLog());
+            return result;
         }
     }
 }

@@ -127,7 +127,7 @@ namespace RestrictionAnalyzer.Modules
                 return token;
             }
 
-            _io.SetError(new Error(charNumber, 6)); // Error: запрещенный символ
+            _io.SetError(new Error(charNumber, 1)); // Error: запрещенный символ
             _io.GetNextChar();
             return null;
         }
@@ -155,13 +155,13 @@ namespace RestrictionAnalyzer.Modules
             if (_io.GetNextChar() == null)
             {
                 // всё закончилось так и не начавшись
-                _io.SetError(new Error(charNumber, 50)); // Error: ошибка в константе: ожидался символ конца строки
+                _io.SetError(new Error(charNumber, 2)); // Error: ошибка в константе: ожидался символ конца строки
                 return null;
             }
             var str = _io.ReadWhile(ch => ch != '"');
             if (_io.CurrentChar is null)
             {
-                _io.SetError(new Error(charNumber, 50)); // Error: ошибка в константе: ожидался символ конца строки
+                _io.SetError(new Error(charNumber, 2)); // Error: ошибка в константе: ожидался символ конца строки
                 return null;
             }
 
@@ -184,7 +184,7 @@ namespace RestrictionAnalyzer.Modules
             else
             {
                 //error слишком большая константа
-                _io.SetError(new Error(charNumber, 207));
+                _io.SetError(new Error(charNumber, 3));
                 return null;
             }
         }
@@ -193,6 +193,12 @@ namespace RestrictionAnalyzer.Modules
         {
             var charNumber = _io.CharNumber;
             var str = _io.ReadWhile(ch => char.IsLetterOrDigit(ch));
+
+            if (str == "not in")
+            {
+                var @operator = new OperatorToken(OperatorType.kwNotIn, charNumber);
+                return @operator;
+            }
 
             if (_operators.TryGetValue(str, out OperatorType type))
             {
@@ -204,6 +210,16 @@ namespace RestrictionAnalyzer.Modules
                 var identifier = new IdentifierToken(str, charNumber);
                 return identifier;
             }
+        }
+
+        public void SetError(int code, Token token)
+        {
+            _io.SetError(new Error(token.CharNumber, code));
+        }
+
+        public void Log(string log)
+        {
+            _io.Log(log);
         }
 
         private readonly Dictionary<string, OperatorType> _operators = new Dictionary<string, OperatorType>

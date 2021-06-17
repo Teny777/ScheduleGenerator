@@ -1,14 +1,17 @@
-﻿using RestrictionAnalyzer.Tools;
-using System;
+﻿using RestrictionAnalyzer.Semant;
+using RestrictionAnalyzer.Tools;
+using System.Linq;
 
 namespace RestrictionAnalyzer.Modules
 {
     internal class Parser
     {
         private readonly Lexer _lexer;
-
+        private readonly Scope _scope;
         public Parser(Lexer lexer)
         {
+            _scope = new Scope();
+
             _lexer = lexer;
             _lexer.GetNextToken();
         }
@@ -16,7 +19,15 @@ namespace RestrictionAnalyzer.Modules
         internal void Parse()
         {
             Требования();
-            Accept(OperatorType.opImply);
+            try
+            {
+                Accept(OperatorType.opImply);
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                return;
+            }
             Условия();
         }
 
@@ -24,26 +35,27 @@ namespace RestrictionAnalyzer.Modules
         {
             if (_lexer.CurrentToken is OperatorToken token && token.OperatorType == op)
             {
-                Console.WriteLine($"accept opera: {token}");
+                _lexer.Log($"Accept Operator: {token}");
                 _lexer.GetNextToken();
             }
             else
             {
-                Console.WriteLine("error");
-                //throw new ParserException(op, _lexer.CurrentToken);
+                throw new ParserException(op, _lexer.CurrentToken);
             }
         }
 
-        private void Accept(TokenType type)
+        private string Accept(TokenType type)
         {
-            if ( _lexer.CurrentToken.TokenType == type)
+            if (_lexer.CurrentToken.TokenType == type)
             {
-                Console.WriteLine($"accept {type} : {_lexer.CurrentToken}");
+                _lexer.Log($"Accept {type}: {_lexer.CurrentToken}");
+                var token = _lexer.CurrentToken;
                 _lexer.GetNextToken();
+                return token.ToString();
             }
             else
             {
-                Console.WriteLine("error");
+                throw new ParserException(type, _lexer.CurrentToken);
             }
         }
 
@@ -62,12 +74,28 @@ namespace RestrictionAnalyzer.Modules
             return _lexer.CurrentToken is ValueToken token && token.ValueType == type;
         }
 
+        private void SkipTo(params OperatorType[] skipto)
+        {
+            while (true)
+            {
+                if (_lexer.CurrentToken is EndToken) break;
+                foreach (var skip in skipto)
+                {
+                    if (IsStarts(skip))
+                    {
+                        return;
+                    }
+                }
+                _lexer.GetNextToken();
+            }
+        }
+
         private void Требования()
         {
-            ОпределениеПредикатов();
+            ОпределениеПредикатов(new[] { OperatorType.opImply, OperatorType.kwAnd });
             if (!IsStarts(OperatorType.opImply))
             {
-                ДополнительныеУсловия();
+                ДополнительныеУсловия(new[] { OperatorType.opImply });
             }
         }
 
@@ -76,24 +104,21 @@ namespace RestrictionAnalyzer.Modules
         {
             if (IsStarts(OperatorType.kwR))
             {
-                ОпределениеПредикатов();
-                ДополнительныеУсловия();
+                ОпределениеПредикатов(new[] { OperatorType.kwAnd });
             }
-            else
-            {
-                ДополнительныеУсловия();
-            }
+            ДополнительныеУсловия(new OperatorType[0]);
         }
 
-        private void ОпределениеПредикатов()
+        private void ОпределениеПредикатов(OperatorType[] skipTo)
         {
-            Предикат();
+            var predskip = new[] { OperatorType.kwAnd, OperatorType.kwR }.Concat(skipTo).ToArray();
+            Предикат(predskip);
             while (IsStarts(OperatorType.kwAnd))
             {
                 Accept(OperatorType.kwAnd);
                 if (IsStarts(OperatorType.kwR))
                 {
-                    Предикат();
+                    Предикат(predskip);
                 }
                 else
                 {
@@ -102,75 +127,216 @@ namespace RestrictionAnalyzer.Modules
             }
         }
 
-        private void Предикат()
+        private void Предикат(OperatorType[] skipTo)
         {
-            Accept(OperatorType.kwR);
-            Accept(OperatorType.opLBracket);
-            Переменная();
-            for (int i = 0; i < 5; i++)
+            var lbskip = new[] { OperatorType.opLBracket }.Concat(skipTo).ToArray();
+            var varskip = new[] { OperatorType.opComma, OperatorType.opRBracket }.Concat(skipTo).ToArray();
+
+            try
             {
-                Accept(OperatorType.opComma);
-                Переменная();
+                Accept(OperatorType.kwR);
             }
-            Accept(OperatorType.opRBracket);
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                SkipTo(lbskip);
+            }
+
+            try
+            {
+                Accept(OperatorType.opLBracket);
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                SkipTo(varskip);
+            }
+
+            var token = _lexer.CurrentToken;
+            var name = Переменная(varskip);
+
+            AddIdentToScopeFromNumber(1, name, token);
+
+            for (int i = 2; i <= 6; i++)
+            {
+                try
+                {
+                    Accept(OperatorType.opComma);
+                }
+                catch (ParserException ex)
+                {
+                    _lexer.SetError(ex.Code, ex.Token);
+                }
+                token = _lexer.CurrentToken;
+                name = Переменная(varskip);
+                AddIdentToScopeFromNumber(i, name, token);
+            }
+            try
+            {
+                Accept(OperatorType.opRBracket);
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                SkipTo(skipTo);
+            }
         }
 
-        private void Переменная()
+        private void AddIdentToScopeFromNumber(int number, string name, Token token)
         {
-            Accept(TokenType.Identifier);
+            var identifier = _scope.Search(name);
+            if (identifier == null)
+            {
+                var type = number switch
+                {
+                    1 => Type.String,
+                    2 => Type.String,
+                    3 => Type.String,
+                    4 => Type.String,
+                    5 => Type.Integer,
+                    6 => Type.Integer,
+                    _ => throw new System.Exception("переменных в предикате всего 6"),
+                };
+
+                _scope.Add(new Identifier(name, type));
+            }
+            else
+            {
+                _lexer.SetError(201, token);
+            }
         }
 
-        private void ДополнительныеУсловия()
+        private string Переменная(OperatorType[] skipTo)
         {
-            Условие();
+            try
+            {
+                return Accept(TokenType.Identifier);
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                SkipTo(skipTo);
+                return null;
+            }
+        }
+
+        private void ДополнительныеУсловия(OperatorType[] skipTo)
+        {
+            var skip = new[] { OperatorType.kwAnd }.Concat(skipTo).ToArray();
+
+            Условие(skip);
             while (IsStarts(OperatorType.kwAnd))
             {
                 Accept(OperatorType.kwAnd);
-                Условие();
+                Условие(skip);
             }
         }
 
-        private void Условие()
+        private void Условие(OperatorType[] skipTo)
         {
             if (IsStarts(OperatorType.opLBracket))
             {
                 Accept(OperatorType.opLBracket);
-                СложноеУсловие();
-                Accept(OperatorType.opRBracket);
+                СложноеУсловие(new[] { OperatorType.opRBracket }.Concat(skipTo).ToArray());
+
+                try
+                {
+                    Accept(OperatorType.opRBracket);
+                }
+                catch (ParserException ex)
+                {
+                    _lexer.SetError(ex.Code, ex.Token);
+                    SkipTo(skipTo);
+                }
+
             }
             else
             {
-                ПростоеУсловие();
+                try
+                {
+                    ПростоеУсловие(skipTo);
+                }
+                catch (ParserException ex)
+                {
+                    _lexer.SetError(ex.Code, ex.Token);
+                    SkipTo(skipTo);
+                }
             }
         }
 
-        private void СложноеУсловие()
+        private void СложноеУсловие(OperatorType[] skipTo)
         {
-            Условие();
+            Условие(new[] { OperatorType.kwOr }.Concat(skipTo).ToArray());
+            
             while (IsStarts(OperatorType.kwOr))
             {
                 Accept(OperatorType.kwOr);
-                Условие();
+                Условие(new[] { OperatorType.kwOr }.Concat(skipTo).ToArray());
             }
         }
 
-        private void ПростоеУсловие()
+        private void ПростоеУсловие(OperatorType[] skipTo)
         {
-            Выражение();
+            Type mainType = null;
+            try
+            {
+                mainType = Выражение(new[] { OperatorType.kwIn, OperatorType.kwNotIn }.Concat(_comparisons).Concat(skipTo).ToArray());
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+            }
+
             if (IsStarts(OperatorType.kwIn))
             {
                 Accept(OperatorType.kwIn);
-                Перечисление();
+                var token = _lexer.CurrentToken;
+                var type = Перечисление(skipTo);
+                if (!IsComparable(type, ref mainType))
+                {
+                    _lexer.SetError(205, token);
+                }
             }
             else if (IsStarts(OperatorType.kwNotIn))
             {
                 Accept(OperatorType.kwNotIn);
-                Перечисление();
+                var token = _lexer.CurrentToken;
+                var type = Перечисление(skipTo);
+                if (!IsComparable(type, ref mainType))
+                {
+                    _lexer.SetError(205, token);
+                }
+            }
+            else if (_comparisons.Any(IsStarts))
+            {
+                var token = _lexer.CurrentToken;
+                var operatorType = ОперацияСравнения();
+                Type type = null;
+                try
+                {
+                    type = Выражение(skipTo);
+                }
+                catch (ParserException ex)
+                {
+                    _lexer.SetError(ex.Code, ex.Token);
+                }
+
+                if (!IsComparable(type, ref mainType))
+                {
+                    _lexer.SetError(207, token);
+                }
+
+                if (type == Type.String)
+                {
+                    if (operatorType != OperatorType.opEqual && operatorType != OperatorType.opNotEqual)
+                    {
+                        _lexer.SetError(206, token);
+                    }
+                }
             }
             else
             {
-                ОперацияСравнения();
-                Выражение();
+                throw new ParserException(125, _lexer.CurrentToken); // Ожидалось сравнение или in not in
             }
         }
 
@@ -185,63 +351,153 @@ namespace RestrictionAnalyzer.Modules
             OperatorType.opNotEqual
         };
 
-        private void ОперацияСравнения()
+        private OperatorType? ОперацияСравнения()
         {
             foreach (var op in _comparisons)
             {
                 if (IsStarts(op))
                 {
                     Accept(op);
-                    return;
+                    return op;
                 }
             }
-
-            // error
+            return null;
         }
 
-        private void Перечисление()
+        private Type Перечисление(OperatorType[] skipTo)
         {
             Accept(OperatorType.opSquareLBracket);
-            Значение();
+            Type mainType = null;
+            try
+            {
+                mainType = Значение();
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                SkipTo(OperatorType.opComma, OperatorType.opSquareRBracket);
+            }
+
             while (IsStarts(OperatorType.opComma))
             {
                 Accept(OperatorType.opComma);
-                Значение();
+                try
+                {
+                    var token = _lexer.CurrentToken;
+                    var type = Значение();
+                    if (!IsComparable(type, ref mainType))
+                    {
+                        _lexer.SetError(204, token);
+                    }
+                }
+                catch (ParserException ex)
+                {
+                    _lexer.SetError(ex.Code, ex.Token);
+                    SkipTo(OperatorType.opComma, OperatorType.opSquareRBracket);
+                }
             }
-            Accept(OperatorType.opSquareRBracket);
+
+            try
+            {
+                Accept(OperatorType.opSquareRBracket);
+            }
+            catch (ParserException ex)
+            {
+                _lexer.SetError(ex.Code, ex.Token);
+                SkipTo(skipTo);
+            }
+
+            return mainType;
         }
 
-        private void Значение()
+        private bool IsComparable(Type type, ref Type mainType)
+        {
+            if (mainType == null) mainType = type;
+            if (type == null || mainType == null) return true;
+            return type == mainType;
+        }
+
+        private Type Значение()
         {
             if (IsStarts(TokenType.Identifier))
             {
-                Accept(TokenType.Identifier);
+                var token = _lexer.CurrentToken;
+                var name = Accept(TokenType.Identifier);
+                var identifier = _scope.Search(name);
+                if (identifier is null)
+                {
+                    _lexer.SetError(202, token);
+                    _scope.Add(new Identifier(name, null));
+                    return null;
+                }
+                else
+                {
+                    return identifier.Type;
+                }
             }
             else if (IsStarts(TokenType.Value))
             {
+                var token = (ValueToken)_lexer.CurrentToken;
                 Accept(TokenType.Value);
+
+                return token.ValueType switch
+                {
+                    ValueType.Integer => Type.Integer,
+                    ValueType.String => Type.String,
+                    _ => throw new System.NotImplementedException(),
+                };
+            }
+            else
+            {
+                throw new ParserException(124, _lexer.CurrentToken); // ожидалось значение или идентификатор
             }
         }
 
 
         //<выражение> ::= <знак> <значение> { <знак> <значение> } | <значение> { <знак> <значение> } | <строковая константа>
-        private void Выражение()
+        private Type Выражение(OperatorType[] skipTo)
         {
-            if (IsStarts(Tools.ValueType.String))
+            Type resultType = null;
+            if (IsStarts(ValueType.String))
             {
                 Accept(TokenType.Value);
+                return Type.String;
             }
             else
             {
+                bool good = false;
+                bool firstSign = false;
                 if (IsStarts(OperatorType.opSubt))
                 {
                     Accept(OperatorType.opSubt);
+                    firstSign = true;
                 }
 
-                Значение();
+                var isString = false;
+                try
+                {
+                    var token = _lexer.CurrentToken;
+                    resultType = Значение();
+                    isString = resultType == Type.String;
+                    if (isString && firstSign)
+                    {
+                        _lexer.SetError(203, token);
+                    }
+                    good = true;
+                }
+                catch (ParserException ex)
+                {
+                    _lexer.SetError(ex.Code, ex.Token);
+                    SkipTo(new[] { OperatorType.opAdd, OperatorType.opSubt }.Concat(skipTo).ToArray());
+                }
 
                 while (IsStarts(OperatorType.opAdd) || IsStarts(OperatorType.opSubt))
-                { 
+                {
+                    if (isString)
+                    {
+                        _lexer.SetError(203, _lexer.CurrentToken);
+                    }
+
                     if (IsStarts(OperatorType.opAdd))
                     {
                         Accept(OperatorType.opAdd);
@@ -250,8 +506,29 @@ namespace RestrictionAnalyzer.Modules
                     {
                         Accept(OperatorType.opSubt);
                     }
-                    Значение();
+
+                    try
+                    {
+                        var token = _lexer.CurrentToken;
+                        var type = Значение();
+                        if (type == Type.String)
+                        {
+                            _lexer.SetError(203, token);
+                        }
+                    }
+                    catch (ParserException ex)
+                    {
+                        _lexer.SetError(ex.Code, ex.Token);
+                        SkipTo(new[] { OperatorType.opAdd, OperatorType.opSubt }.Concat(skipTo).ToArray());
+                    }
                 }
+
+                if (!good)
+                {
+                    throw new ParserException(123, _lexer.CurrentToken); // ожидалось выражение;
+                }
+
+                return resultType;
             }
         }
     }
