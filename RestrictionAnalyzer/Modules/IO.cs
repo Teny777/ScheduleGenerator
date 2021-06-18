@@ -1,6 +1,6 @@
 ﻿using RestrictionAnalyzer.Tools;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RestrictionAnalyzer.Modules
 {
@@ -36,15 +36,7 @@ namespace RestrictionAnalyzer.Modules
 
         public List<string> GetErrors()
         {
-            var result = new List<string>(_errors.Count);
-            foreach (var error in _errors)
-            {
-                var offset = new string(' ', error.CharNumber - 2);
-                var position = $"^Позиция: {error.CharNumber}  ";
-                var code = $"Код ошибки: {error.Code}  ";
-                var description = $"Описание ошибки: {Error.Errors[error.Code]}";
-                result.Add($"{offset}{position}{code}{description}");
-            }
+            var result = _errors.Select(x => x.ToString()).ToList();
             return result;
         }
 

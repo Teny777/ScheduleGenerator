@@ -1,6 +1,7 @@
 ﻿using Generator.Core.Restriction;
 using Generator.Model;
 using Generator.Singleton;
+using RestrictionAnalyzer;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -705,10 +706,10 @@ namespace Generator.Tools
             Data.Instance.Restrictions = new ObservableCollection<Restriction>();
             var expressions = new List<(int, string, int, string, int, bool)>()
             {
-                (1, "R(t1, s1, k1, c1, x1, d1) && x1 == 1 -> d1 != 1", 5, "По ПН нет 1 урока", 15, false),
-                (2, "R(t1, s1, k1, c1, x1, d1) && t1 == \"Иванов В.В.\" -> d1 != 5", 10, "Иванов В.В. в пятницу - малая нагрузка", 20, false),
-                (3, "R(t1, s1, k1, c1, x1, d1) && R(t2, s2, k2, c2, x2, d2) && t1 == t2 && x1 + 2 == x2 && d1 == d2 -> R(t3, s3, k3, c3, x3, d3) && t2 == t3 && x1 + 1 == x3 && d2 == d3 && d1 == d3", 7, "окон нет", 30, false),
-                (4, "R(t1, s1, k1, c1, x1, d1) && t1 == \"Тоттава Н.И.\" -> d1 != 1", 15, "Тоттава Н.И. в понедельник - выходной", 50, true),
+                (1, "R(t1, s1, k1, c1, x1, d1) И x1 = 1 -> d1 != 1", 5, "По ПН нет 1 урока", 15, false),
+                //(2, "R(t1, s1, k1, c1, x1, d1) && t1 == \"Иванов В.В.\" -> d1 != 5", 10, "Иванов В.В. в пятницу - малая нагрузка", 20, false),
+                //(3, "R(t1, s1, k1, c1, x1, d1) && R(t2, s2, k2, c2, x2, d2) && t1 == t2 && x1 + 2 == x2 && d1 == d2 -> R(t3, s3, k3, c3, x3, d3) && t2 == t3 && x1 + 1 == x3 && d2 == d3 && d1 == d3", 7, "окон нет", 30, false),
+                //(4, "R(t1, s1, k1, c1, x1, d1) && t1 == \"Тоттава Н.И.\" -> d1 != 1", 15, "Тоттава Н.И. в понедельник - выходной", 50, true),
                 
                 //(4, "R(t1, s1, k1, c1, x1, d1) -> d1 != 6", 0, "отдыхаем в субботу", 30, false),
                 //(5, "R(t1, s1, k1, c1, x1, d1) && x1 in [1, 2] -> c1 in [\"6А\"]", 30, "среди первых двух занятий должен быть 6а", 70, false),
@@ -717,20 +718,24 @@ namespace Generator.Tools
 
             foreach (var expression in expressions)
             {
-                var text = Compilier.CreateFunction($"{expression.Item3} {expression.Item2}", expression.Item5);
-                var compiler = Compilier.Compile(new string[1] { text });
-                var method = Compilier.CreateMethod(compiler);
-
-                Data.Instance.Restrictions.Add(new Restriction()
+                var (errors, log, expr) = Analyzer.Analyze(expression.Item2);
+                if (errors.Count == 0)
                 {
-                    Number = expression.Item1,
-                    Comment = expression.Item4,
-                    Method = method,
-                    Expression = expression.Item2,
-                    WeightPozitive = expression.Item3,
-                    WeightNegative = expression.Item5,
-                    IsRequirement = expression.Item6,
-                });
+                    var text = Compilier.CreateFunction($"{expression.Item3} {expr}", expression.Item5);
+                    var compiler = Compilier.Compile(new string[1] { text });
+                    var method = Compilier.CreateMethod(compiler);
+
+                    Data.Instance.Restrictions.Add(new Restriction()
+                    {
+                        Number = expression.Item1,
+                        Comment = expression.Item4,
+                        Method = method,
+                        Expression = expression.Item2,
+                        WeightPozitive = expression.Item3,
+                        WeightNegative = expression.Item5,
+                        IsRequirement = expression.Item6,
+                    });
+                }
             }
         }
     }

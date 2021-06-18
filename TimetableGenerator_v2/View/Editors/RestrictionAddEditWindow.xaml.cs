@@ -2,6 +2,7 @@
 using Generator.Tools;
 using System;
 using System.CodeDom.Compiler;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,7 +11,7 @@ namespace Generator.View.Editors
     /// <summary>
     /// Логика взаимодействия для RestrictionWindow.xaml
     /// </summary>
-    public partial class RestrictionAddEditWindow : Window
+    public partial class RestrictionAddEditWindow : Window, INotifyPropertyChanged
     {
         public RestrictionAddEditWindow(EditorType editorType, Restriction old = null)
         {
@@ -18,6 +19,7 @@ namespace Generator.View.Editors
             DataContext = this;
             CancelCommand = new RelayCommand(Cancel);
             AccessCommand = new RelayCommand(Access);
+            ExpressionErrors = string.Empty;
 
             switch (editorType)
             {
@@ -46,9 +48,12 @@ namespace Generator.View.Editors
         private readonly int _ok;
         private readonly int _fail;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ICommand AccessCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
         public string Expression { get; set; }
+        public string ExpressionErrors { get; set; }
         public int WeightPozitive { get; set; }
         public int WeightNegative { get; set; }
         public string Comment { get; set; }
@@ -63,22 +68,28 @@ namespace Generator.View.Editors
 
         private void Access()
         {
-            RestrictionAnalyzer.Analyzer.Analyze(Expression);
+            var (errors, log, expr) = RestrictionAnalyzer.Analyzer.Analyze(Expression);
+
+            if (errors.Count > 0)
+            {
+                ExpressionErrors = string.Join("\r\n", errors);
+                return;
+            }
 
             CompilerResults compiler;
             try
             {
-                var text = Compilier.CreateFunction($"{WeightPozitive} {Expression}", WeightNegative);
+                var text = Compilier.CreateFunction($"{WeightPozitive} {expr}", WeightNegative);
                 compiler = Compilier.Compile(new string[1] { text });
             }
             catch
             {
-                MessageBox.Show("Некорректные данные (синтаксическая ошибка)");
+                System.Windows.MessageBox.Show("Некорректные данные (синтаксическая ошибка)");
                 return;
             }
             if (compiler is null)
             {
-                MessageBox.Show("Некорректные данные (семантическая ошибка)");
+                System.Windows.MessageBox.Show("Некорректные данные (семантическая ошибка)");
                 return;
             }
 

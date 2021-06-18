@@ -1,23 +1,25 @@
 ﻿using RestrictionAnalyzer.Semant;
 using RestrictionAnalyzer.Tools;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestrictionAnalyzer.Modules
 {
     internal class Parser
     {
+        private readonly List<Token> _expressionBuilder;
         private readonly Lexer _lexer;
-        private readonly Scope _scope;
+        private Scope _scope;
         public Parser(Lexer lexer)
         {
-            _scope = new Scope();
-
+            _expressionBuilder = new List<Token>();
             _lexer = lexer;
             _lexer.GetNextToken();
         }
 
         internal void Parse()
         {
+            _scope = new Scope();
             Требования();
             try
             {
@@ -26,15 +28,30 @@ namespace RestrictionAnalyzer.Modules
             catch (ParserException ex)
             {
                 _lexer.SetError(ex.Code, ex.Token);
-                return;
             }
+            var scope = new Scope
+            {
+                PreviousScope = _scope
+            };
+            _scope = scope;
             Условия();
+        }
+
+        internal string GetExpression()
+        {
+            var result = string.Join("", _expressionBuilder.Select(x =>
+            {
+                if (x is OperatorToken ot) return _operators[ot.OperatorType];
+                return x.ToString();
+            }));
+            return result;
         }
 
         private void Accept(OperatorType op)
         {
             if (_lexer.CurrentToken is OperatorToken token && token.OperatorType == op)
             {
+                _expressionBuilder.Add(token);
                 _lexer.Log($"Accept Operator: {token}");
                 _lexer.GetNextToken();
             }
@@ -48,6 +65,7 @@ namespace RestrictionAnalyzer.Modules
         {
             if (_lexer.CurrentToken.TokenType == type)
             {
+                _expressionBuilder.Add(_lexer.CurrentToken);
                 _lexer.Log($"Accept {type}: {_lexer.CurrentToken}");
                 var token = _lexer.CurrentToken;
                 _lexer.GetNextToken();
@@ -267,7 +285,7 @@ namespace RestrictionAnalyzer.Modules
         private void СложноеУсловие(OperatorType[] skipTo)
         {
             Условие(new[] { OperatorType.kwOr }.Concat(skipTo).ToArray());
-            
+
             while (IsStarts(OperatorType.kwOr))
             {
                 Accept(OperatorType.kwOr);
@@ -531,5 +549,28 @@ namespace RestrictionAnalyzer.Modules
                 return resultType;
             }
         }
+
+        private static readonly Dictionary<OperatorType, string> _operators = new Dictionary<OperatorType, string>
+        {
+            [OperatorType.opAdd] = "+",
+            [OperatorType.opSubt] = "-",
+            [OperatorType.opEqual] = "==",
+            [OperatorType.opLBracket] = "(",
+            [OperatorType.opRBracket] = ")",
+            [OperatorType.opSquareLBracket] = "[",
+            [OperatorType.opSquareRBracket] = "]",
+            [OperatorType.opComma] = ",",
+            [OperatorType.opLarger] = ">",
+            [OperatorType.opLargerEq] = ">=",
+            [OperatorType.opSmaller] = "<",
+            [OperatorType.opSmallerEq] = "<=",
+            [OperatorType.opNotEqual] = "!=",
+            [OperatorType.opImply] = "->",
+            [OperatorType.kwNotIn] = "not in",
+            [OperatorType.kwIn] = "in",
+            [OperatorType.kwR] = "R",
+            [OperatorType.kwAnd] = "&&",
+            [OperatorType.kwOr] = "||",
+        };
     }
 }

@@ -10,12 +10,16 @@ namespace RestrictionAnalyzer.Tools
             Code = code;
         }
 
-        public int CharNumber { get; private set; }
-        public int Code { get; private set; }
+        public int CharNumber { get; }
+        public int Code { get; }
 
         public override string ToString()
         {
-            return $"char: {CharNumber}, error code: {Code}";
+            var offset = new string(' ', CharNumber - 2);
+            var position = $"^Позиция: {CharNumber}  ";
+            var code = $"Код ошибки: {Code}  ";
+            var description = $"Описание ошибки: {Errors[Code]}";
+            return $"{offset}{position}{code}{description}";
         }
 
         internal static readonly Dictionary<int, string> Errors = new Dictionary<int, string>
@@ -27,7 +31,6 @@ namespace RestrictionAnalyzer.Tools
 
             // синтаксические ошибки
             [100] = "ожидался оператор",
-
             [101] = "ожидался идентификатор",
             [102] = "ожидалось значение целого типа",
             [103] = "ожидалось значение строкового типа",
@@ -38,7 +41,6 @@ namespace RestrictionAnalyzer.Tools
             [108] = "ожидался оператор ,",
             [109] = "ожидался оператор >",
             [110] = "ожидался оператор >=",
-
             [111] = "ожидался оператор <",
             [112] = "ожидался оператор <=",
             [113] = "ожидался оператор =",
@@ -49,7 +51,6 @@ namespace RestrictionAnalyzer.Tools
             [118] = "ожидался оператор ->",
             [119] = "ожидался оператор ИЛИ",
             [120] = "ожидался оператор R",
-
             [121] = "ожидался оператор in",
             [122] = "ожидался оператор not in",
             [123] = "ожидалось выражение",
@@ -59,7 +60,7 @@ namespace RestrictionAnalyzer.Tools
             // семантические ошибки
             [201] = "идентификатор с таким именем уже объявлен",
             [202] = "идентификатор не объявлен",
-            [203] = "ожидался целый тип",
+            [203] = "ожидался целый тип операндов",
             [204] = "тип элементов списка должен совпадать",
             [205] = "тип выражения и тип элементов списка должен совпадать",
             [206] = "ожидался целый тип операндов",

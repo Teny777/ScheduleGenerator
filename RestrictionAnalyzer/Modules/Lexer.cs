@@ -222,7 +222,7 @@ namespace RestrictionAnalyzer.Modules
             _io.Log(log);
         }
 
-        private readonly Dictionary<string, OperatorType> _operators = new Dictionary<string, OperatorType>
+        private static readonly Dictionary<string, OperatorType> _operators = new Dictionary<string, OperatorType>
         {
             ["+"] = OperatorType.opAdd,
             ["-"] = OperatorType.opSubt,
