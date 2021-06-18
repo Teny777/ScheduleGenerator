@@ -4,6 +4,7 @@ using Generator.Singleton;
 using RestrictionAnalyzer;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Generator.Tools
 {
@@ -707,13 +708,12 @@ namespace Generator.Tools
             var expressions = new List<(int, string, int, string, int, bool)>()
             {
                 (1, "R(t1, s1, k1, c1, x1, d1) И x1 = 1 -> d1 != 1", 5, "По ПН нет 1 урока", 15, false),
-                //(2, "R(t1, s1, k1, c1, x1, d1) && t1 == \"Иванов В.В.\" -> d1 != 5", 10, "Иванов В.В. в пятницу - малая нагрузка", 20, false),
-                //(3, "R(t1, s1, k1, c1, x1, d1) && R(t2, s2, k2, c2, x2, d2) && t1 == t2 && x1 + 2 == x2 && d1 == d2 -> R(t3, s3, k3, c3, x3, d3) && t2 == t3 && x1 + 1 == x3 && d2 == d3 && d1 == d3", 7, "окон нет", 30, false),
-                //(4, "R(t1, s1, k1, c1, x1, d1) && t1 == \"Тоттава Н.И.\" -> d1 != 1", 15, "Тоттава Н.И. в понедельник - выходной", 50, true),
-                
-                //(4, "R(t1, s1, k1, c1, x1, d1) -> d1 != 6", 0, "отдыхаем в субботу", 30, false),
-                //(5, "R(t1, s1, k1, c1, x1, d1) && x1 in [1, 2] -> c1 in [\"6А\"]", 30, "среди первых двух занятий должен быть 6а", 70, false),
-                //(6, "R(t1, s1, k1, c1, x1, d1) && R(t2, s2, k2, c2, x2, d2) && t1 == t2 && x1 + 3 == x2 && d1 == d2 -> R(t3, s3, k3, c3, x3, d3) && R(t3, s3, k3, c3, x3, d3) && t2 == t3 && x1 + 1 == x3 && d2 == d3 && t2 == t4 && x1 + 2 == x4 && d2 == d4", 5, "окон 2 нет", 15, false),
+                (2, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Иванов В.В.\" -> d1 != 5", 10, "Иванов В.В. в пятницу - малая нагрузка", 20, false),
+                (3, "R(t1, s1, k1, c1, x1, d1) И R(t2, s2, k2, c2, x2, d2) И t1 = t2 И x1 + 2 = x2 И d1 = d2 -> R(t3, s3, k3, c3, x3, d3) И t2 = t3 И x1 + 1 = x3 И d2 = d3 И d1 = d3", 7, "окон нет", 30, false),
+                (4, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Тоттава Н.И.\" -> d1 != 1", 15, "Тоттава Н.И. в понедельник - выходной", 50, true),
+                (5, "R(t1, s1, k1, c1, x1, d1) -> d1 != 6", 0, "отдыхаем в субботу", 30, false),
+                (6, "R(t1, s1, k1, c1, x1, d1) И x1 in [1, 2] -> c1 in [\"6А\"]", 30, "среди первых двух занятий должен быть 6а", 70, false),
+                (7, "R(t1, s1, k1, c1, x1, d1) И R(t2, s2, k2, c2, x2, d2) И t1 = t2 И x1 + 3 = x2 И d1 = d2 -> R(t3, s3, k3, c3, x3, d3) И R(t4, s4, k4, c4, x4, d4) И t2 = t3 И x1 + 1 = x3 И d2 = d3 И t2 = t4 И x1 + 2 = x4 И d2 = d4", 5, "окон 2 нет", 15, false),
             };
 
             foreach (var expression in expressions)
@@ -722,8 +722,10 @@ namespace Generator.Tools
                 if (errors.Count == 0)
                 {
                     var text = Compilier.CreateFunction($"{expression.Item3} {expr}", expression.Item5);
+                    
                     var compiler = Compilier.Compile(new string[1] { text });
                     var method = Compilier.CreateMethod(compiler);
+
 
                     Data.Instance.Restrictions.Add(new Restriction()
                     {

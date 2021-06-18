@@ -76,9 +76,10 @@ namespace Generator.View.Editors
             {
                 var newRestrict = (Restriction)adder.Tag;
                 int number = 0;
+
                 for (int i = 1; i <= Restrictions.Count + 1; i++)
                 {
-                    if (!Restrictions.Any(x => x.Number == i))
+                    if (Restrictions.FirstOrDefault(x => x.Number == i) == null)
                     {
                         number = i;
                         break;
@@ -117,6 +118,7 @@ namespace Generator.View.Editors
             if (editor.DialogResult == true)
             {
                 var newRestrict = (Restriction)editor.Tag;
+                newRestrict.Number = SelectedRestriction.Number;
                 int index = Restrictions.IndexOf(SelectedRestriction);
                 Restrictions[index] = newRestrict;
             }

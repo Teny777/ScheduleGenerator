@@ -20,7 +20,6 @@ namespace Generator.View.Editors
             CancelCommand = new RelayCommand(Cancel);
             AccessCommand = new RelayCommand(Access);
             ExpressionErrors = string.Empty;
-
             switch (editorType)
             {
                 case EditorType.Add:
@@ -43,6 +42,8 @@ namespace Generator.View.Editors
                     break;
                 default: throw new Exception();
             }
+
+            expr.SelectionChanged += (s, e) => CurrentPosition = expr.SelectionStart;
         }
 
         private readonly int _ok;
@@ -57,6 +58,8 @@ namespace Generator.View.Editors
         public int WeightPozitive { get; set; }
         public int WeightNegative { get; set; }
         public string Comment { get; set; }
+
+        public int CurrentPosition { get; set; }
 
         public bool IsRequirement { get; set; }
 
@@ -84,12 +87,12 @@ namespace Generator.View.Editors
             }
             catch
             {
-                System.Windows.MessageBox.Show("Некорректные данные (синтаксическая ошибка)");
+                MessageBox.Show("Некорректные данные (синтаксическая ошибка)");
                 return;
             }
             if (compiler is null)
             {
-                System.Windows.MessageBox.Show("Некорректные данные (семантическая ошибка)");
+                MessageBox.Show("Некорректные данные (семантическая ошибка)");
                 return;
             }
 

@@ -69,7 +69,7 @@ namespace RestrictionAnalyzer.Tools
             return ValueType switch
             {
                 ValueType.Integer => ((int)Value).ToString(),
-                ValueType.String => (string)Value,
+                ValueType.String => $"\"{(string)Value}\"",
                 _ => throw new NotImplementedException(),
             };
         }

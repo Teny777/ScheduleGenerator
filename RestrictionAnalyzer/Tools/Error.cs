@@ -15,8 +15,8 @@ namespace RestrictionAnalyzer.Tools
 
         public override string ToString()
         {
-            var offset = new string(' ', CharNumber - 2);
-            var position = $"^Позиция: {CharNumber}  ";
+            var offset = "";//new string(' ', CharNumber - 2);
+            var position = $"^ Позиция: {CharNumber}  ";
             var code = $"Код ошибки: {Code}  ";
             var description = $"Описание ошибки: {Errors[Code]}";
             return $"{offset}{position}{code}{description}";

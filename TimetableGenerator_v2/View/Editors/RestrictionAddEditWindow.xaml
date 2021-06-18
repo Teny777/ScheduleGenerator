@@ -27,9 +27,20 @@
             <TextBox TextWrapping="Wrap"
                      Height="30"
                      FontFamily="Consolas"
-                     Text="{Binding Expression}" />
+                     x:Name="expr"
+                     Text="{Binding Expression}">
+            </TextBox>
         </GroupBox>
 
+        <StackPanel Height="20"
+                    Width="90"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <TextBlock Text="позиция:  " />
+            <TextBlock Text="{Binding CurrentPosition}"/>
+        </StackPanel>
+        
         <GroupBox Grid.Row="1"
                   Header="Ошибки"
                   BorderThickness="0"
