@@ -52,7 +52,6 @@ namespace RestrictionAnalyzer.Modules
             if (_lexer.CurrentToken is OperatorToken token && token.OperatorType == op)
             {
                 _expressionBuilder.Add(token);
-                _lexer.Log($"Accept Operator: {token}");
                 _lexer.GetNextToken();
             }
             else
@@ -66,7 +65,6 @@ namespace RestrictionAnalyzer.Modules
             if (_lexer.CurrentToken.TokenType == type)
             {
                 _expressionBuilder.Add(_lexer.CurrentToken);
-                _lexer.Log($"Accept {type}: {_lexer.CurrentToken}");
                 var token = _lexer.CurrentToken;
                 _lexer.GetNextToken();
                 return token.ToString();

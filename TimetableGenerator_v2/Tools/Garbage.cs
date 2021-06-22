@@ -718,7 +718,7 @@ namespace Generator.Tools
 
             foreach (var expression in expressions)
             {
-                var (errors, log, expr) = Analyzer.Analyze(expression.Item2);
+                var (errors, expr) = Analyzer.Analyze(expression.Item2);
                 if (errors.Count == 0)
                 {
                     var text = Compilier.CreateFunction($"{expression.Item3} {expr}", expression.Item5);

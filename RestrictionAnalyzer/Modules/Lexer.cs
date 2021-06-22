@@ -41,7 +41,7 @@ namespace RestrictionAnalyzer.Modules
             var ch = (char)ch_;
 
             // идентификатор или ключевое слово
-            if (char.IsLetter(ch) || ch == '_')
+            if (char.IsLetter(ch))
             {
                 var token = ScanIdentOrKeyword();
                 return token;
@@ -193,11 +193,18 @@ namespace RestrictionAnalyzer.Modules
         {
             var charNumber = _io.CharNumber;
             var str = _io.ReadWhile(ch => char.IsLetterOrDigit(ch));
-
-            if (str == "not in")
+            
+            if (str == "not")
             {
-                var @operator = new OperatorToken(OperatorType.kwNotIn, charNumber);
-                return @operator;
+                var ch1 = _io.ShowNextNthChar(1);
+                var ch2 = _io.ShowNextNthChar(2);
+                var ch3 = _io.ShowNextNthChar(3);
+
+                if ($"{ch1}{ch2}{ch3}" == " in" && !char.IsLetterOrDigit(_io.ShowNextNthChar(4) == null ? '.' : ((char)_io.ShowNextNthChar(4))))
+                {
+                    var @operator = new OperatorToken(OperatorType.kwNotIn, charNumber);
+                    return @operator;
+                }
             }
 
             if (_operators.TryGetValue(str, out OperatorType type))
@@ -215,11 +222,6 @@ namespace RestrictionAnalyzer.Modules
         public void SetError(int code, Token token)
         {
             _io.SetError(new Error(token.CharNumber, code));
-        }
-
-        public void Log(string log)
-        {
-            _io.Log(log);
         }
 
         private static readonly Dictionary<string, OperatorType> _operators = new Dictionary<string, OperatorType>

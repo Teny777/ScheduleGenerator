@@ -71,7 +71,7 @@ namespace Generator.View.Editors
 
         private void Access()
         {
-            var (errors, log, expr) = RestrictionAnalyzer.Analyzer.Analyze(Expression);
+            var (errors, expr) = RestrictionAnalyzer.Analyzer.Analyze(Expression);
 
             if (errors.Count > 0)
             {
