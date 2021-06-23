@@ -170,8 +170,10 @@ namespace RestrictionAnalyzer.Modules
 
             var token = _lexer.CurrentToken;
             var name = Переменная(varskip);
-
-            AddIdentToScopeFromNumber(1, name, token);
+            if (name != null)
+            {
+                AddIdentToScopeFromNumber(1, name, token);
+            }
 
             for (int i = 2; i <= 6; i++)
             {
@@ -185,7 +187,10 @@ namespace RestrictionAnalyzer.Modules
                 }
                 token = _lexer.CurrentToken;
                 name = Переменная(varskip);
-                AddIdentToScopeFromNumber(i, name, token);
+                if (name != null)
+                {
+                    AddIdentToScopeFromNumber(i, name, token);
+                }
             }
             try
             {
