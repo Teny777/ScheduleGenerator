@@ -58,7 +58,7 @@ namespace Generator.View
             FileMenuSaveAsCommand = new RelayCommand(FileWorker.SaveGeneratorFileAs);
             FileMenuExportToExcelCommand = new RelayCommand(() => _shedule.ExportToExcel(), () => _shedule != null && GenerationStatus != TimetableIsCreating);
 
-            SettingsGenerationCommand = new RelayCommand(() => new RestrictionsWindow { Owner = this }.Show(), () => GenerationStatus != TimetableIsCreating);
+            SettingsGenerationCommand = new RelayCommand(() => new RestrictionsWindow { Owner = this }.ShowDialog(), () => GenerationStatus != TimetableIsCreating);
             CreateTimetableCommand = new RelayCommand(async () => await CreateTimetableAsync(), () => Data.Instance.Lessons != null && GenerationStatus != TimetableIsCreating);
             ShowTeachersTimetableCommand = new RelayCommand(() => new SheduleWindow(_teacherShedule) { Owner = this }.Show(), () => _teacherShedule != null && GenerationStatus != TimetableIsCreating);
             ShowClassesTimetableCommand = new RelayCommand(() => new SheduleWindow(_shedule) { Owner = this }.Show(), () => _shedule != null && GenerationStatus != TimetableIsCreating);
