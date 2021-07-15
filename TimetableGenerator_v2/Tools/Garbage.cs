@@ -45,38 +45,38 @@ namespace Generator.Tools
             {
                 // 5 класс
                 { 1, new Teacher(1, "Иванов В.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]} ) },// русский литература
-                { 2, new Teacher(2, "Петров К.С.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5]}) }, // Английский язык
-                { 3, new Teacher(3, "Климов М.Т.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0], Data.Instance.Subjects[1], Data.Instance.Subjects[2]}) }, // математика алгебра геометрия
-                { 4, new Teacher(4, "Гаврилова О.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[6], Data.Instance.Subjects[7]}) },// История обществознание
-                { 5, new Teacher(5, "Тунчак С.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[8]})}, // География
-                { 6, new Teacher(6, "Лотуш Е.М.", new ObservableCollection<Subject>{ Data.Instance.Subjects[9]}) }, // Биология
-                { 7, new Teacher(7, "Кринчук М.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[10]}) }, // Музыка
-                { 8, new Teacher(8, "Кхалова С.С.", new ObservableCollection<Subject>{ Data.Instance.Subjects[11]}) }, // ИЗО
-                { 9, new Teacher(9, "Тоттава Н.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[12]}) }, // Технология
-                { 10, new Teacher(10, "Мордлина Г.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13]}) },// физкультура
+                { 2, new Teacher(2, "Петров М.М.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5]}) }, // Английский язык
+                { 3, new Teacher(3, "Сидоров Д.Д.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0], Data.Instance.Subjects[1], Data.Instance.Subjects[2]}) }, // математика алгебра геометрия
+                { 4, new Teacher(4, "Иванова О.О.", new ObservableCollection<Subject>{ Data.Instance.Subjects[6], Data.Instance.Subjects[7]}) },// История обществознание
+                { 5, new Teacher(5, "Петрова К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[8]})}, // География
+                { 6, new Teacher(6, "Сидорова М.М.", new ObservableCollection<Subject>{ Data.Instance.Subjects[9]}) }, // Биология
+                { 7, new Teacher(7, "Ромашкина В.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[10]}) }, // Музыка
+                { 8, new Teacher(8, "Романова С.С.", new ObservableCollection<Subject>{ Data.Instance.Subjects[11]}) }, // ИЗО
+                { 9, new Teacher(9, "Петрова А.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[12]}) }, // Технология
+                { 10, new Teacher(10, "Кошкина Г.П.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13]}) },// физкультура
                 // 6 класс
-                { 11, new Teacher(11, "Скрипка Р.Н.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]})}, // Русский Литература
-                { 12, new Teacher(12, "Кривоухова С.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0]}) }, // Математика
+                { 11, new Teacher(11, "Птичкина Р.Р.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]})}, // Русский Литература
+                { 12, new Teacher(12, "Воробей А.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0]}) }, // Математика
                 // 7 класс
-                { 13, new Teacher(13, "Орлова И.Н.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]})}, // Русский Литература
-                { 14, new Teacher(14, "Усынбаева В.Е.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5]}) }, // Английский язык
-                { 15, new Teacher(15, "Сычева Е.Г.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0], Data.Instance.Subjects[1], Data.Instance.Subjects[2] }) }, // математика алгебра геометрия
-                { 16, new Teacher(16, "Копылова Т.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14]} ) }, // Физика
-                { 17, new Teacher(17, "Руков К.Г.", new ObservableCollection<Subject>{ Data.Instance.Subjects[6], Data.Instance.Subjects[7]}) }, // История/обществознание 
+                { 13, new Teacher(13, "Соловей Н.Н.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]})}, // Русский Литература
+                { 14, new Teacher(14, "Орлова В.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5]}) }, // Английский язык
+                { 15, new Teacher(15, "Синицына Е.Е.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0], Data.Instance.Subjects[1], Data.Instance.Subjects[2] }) }, // математика алгебра геометрия
+                { 16, new Teacher(16, "Физикова Т.Т.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14]} ) }, // Физика
+                { 17, new Teacher(17, "Историкова К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[6], Data.Instance.Subjects[7]}) }, // История/обществознание 
                 // 8 класс
-                { 18, new Teacher(18, "Кирюшина У.Э.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]})}, // Русский Литература
-                { 19, new Teacher(19, "Романова Е.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0], Data.Instance.Subjects[1], Data.Instance.Subjects[2]})}, // математика алгебра геометрия
-                { 20, new Teacher(20, "Дитрова Н.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[16]})}, // Информатика
-                { 21, new Teacher(21, "Кочубеев О.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[15]})}, // Химия
-                { 22, new Teacher(22, "Конюхов К.Е.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13]})}, // Физкультура
+                { 18, new Teacher(18, "Березова А.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[3], Data.Instance.Subjects[4]})}, // Русский Литература
+                { 19, new Teacher(19, "Осина Е.Е.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0], Data.Instance.Subjects[1], Data.Instance.Subjects[2]})}, // математика алгебра геометрия
+                { 20, new Teacher(20, "Дубова Н.Н.", new ObservableCollection<Subject>{ Data.Instance.Subjects[16]})}, // Информатика
+                { 21, new Teacher(21, "Кедрова О.О.", new ObservableCollection<Subject>{ Data.Instance.Subjects[15]})}, // Химия
+                { 22, new Teacher(22, "Елькин К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13]})}, // Физкультура
                 // 9 класс
-                { 23, new Teacher(23, "Нулотова Е.В.", new ObservableCollection<Subject>{Data.Instance.Subjects[3], Data.Instance.Subjects[4] })}, // Русский Литература
-                { 24, new Teacher(24, "Гурсина Р.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0]}) }, // Математика
-                { 25, new Teacher(25, "Препода У.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5]}) }, // Английский язык
-                { 26, new Teacher(26, "Щукина М.С.", new ObservableCollection<Subject>{ Data.Instance.Subjects[6], Data.Instance.Subjects[7]}) }, // История/обществознание 
-                { 27, new Teacher(27, "Пискунова Л.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[8]})}, // География
-                { 28, new Teacher(28, "Ипатова Г.У.", new ObservableCollection<Subject>{ Data.Instance.Subjects[9] }) }, // Биология
-                { 29, new Teacher(29, "Плетунов К.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13] })}, // Физкультура
+                { 23, new Teacher(23, "Русских Е.Е.", new ObservableCollection<Subject>{Data.Instance.Subjects[3], Data.Instance.Subjects[4] })}, // Русский Литература
+                { 24, new Teacher(24, "Математических В.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[0]}) }, // Математика
+                { 25, new Teacher(25, "Английских К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5]}) }, // Английский язык
+                { 26, new Teacher(26, "Исторических М.М.", new ObservableCollection<Subject>{ Data.Instance.Subjects[6], Data.Instance.Subjects[7]}) }, // История/обществознание 
+                { 27, new Teacher(27, "Географических Л.Л.", new ObservableCollection<Subject>{ Data.Instance.Subjects[8]})}, // География
+                { 28, new Teacher(28, "Биологических Г.Г.", new ObservableCollection<Subject>{ Data.Instance.Subjects[9] }) }, // Биология
+                { 29, new Teacher(29, "Физкультурных К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13] })}, // Физкультура
             };
             #endregion
 
@@ -700,6 +700,7 @@ namespace Generator.Tools
             lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[15], subjects[13]), 3));
 
             #endregion
+            var s = 1;
         }
 
         private static void FillRestrictions()
@@ -710,7 +711,7 @@ namespace Generator.Tools
                 (1, "R(t1, s1, k1, c1, x1, d1) И x1 = 1 -> d1 != 1", 5, "По ПН нет 1 урока", 15, false),
                 (2, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Иванов В.В.\" -> d1 != 5", 10, "Иванов В.В. в пятницу - малая нагрузка", 20, false),
                 (3, "R(t1, s1, k1, c1, x1, d1) И R(t2, s2, k2, c2, x2, d2) И t1 = t2 И x1 + 2 = x2 И d1 = d2 -> R(t3, s3, k3, c3, x3, d3) И t2 = t3 И x1 + 1 = x3 И d2 = d3 И d1 = d3", 7, "окон нет", 30, false),
-                (4, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Тоттава Н.И.\" -> d1 != 1", 15, "Тоттава Н.И. в понедельник - выходной", 50, true),
+                (4, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Петрова А.А.\" -> d1 != 1", 15, "Петрова А.А. в понедельник - выходной", 50, true),
                 (5, "R(t1, s1, k1, c1, x1, d1) -> d1 != 6", 0, "отдыхаем в субботу", 30, false),
                 (6, "R(t1, s1, k1, c1, x1, d1) И x1 in [1, 2] -> c1 in [\"6А\"]", 30, "среди первых двух занятий должен быть 6а", 70, false),
                 (7, "R(t1, s1, k1, c1, x1, d1) И R(t2, s2, k2, c2, x2, d2) И t1 = t2 И x1 + 3 = x2 И d1 = d2 -> R(t3, s3, k3, c3, x3, d3) И R(t4, s4, k4, c4, x4, d4) И t2 = t3 И x1 + 1 = x3 И d2 = d3 И t2 = t4 И x1 + 2 = x4 И d2 = d4", 5, "окон 2 нет", 15, false),
