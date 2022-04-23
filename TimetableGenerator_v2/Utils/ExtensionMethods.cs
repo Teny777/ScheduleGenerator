@@ -109,22 +109,47 @@ namespace Generator.Utils
                 for (int i = 1; i <= 36; i++)
                 {
                     classesTimeTable.TryGetValue(i, out List<Lesson> curLessons);
-                    if(curLessons is null)
+                    int new_i = ChangeOrder(i);
+                    if (curLessons is null)
                     {
-                        tmpList[i] = "-----------";
+                        tmpList[new_i] = "-----------";
                         continue;
                     }
 
-                    tmpList[i] = string.Empty;
-                    tmpList[i] += curLessons[0].ToString() + "\n";
+                    tmpList[new_i] = string.Empty;
+                    tmpList[new_i] += curLessons[0].ToString() + "\n";
                     if (curLessons.Count == 2)
-                        tmpList[i] += curLessons[1].ToString();
+                        tmpList[new_i] += curLessons[1].ToString();
 
                 }
                 dt.Rows.Add(tmpList);
             }
             var correctTable = dt.GenerateTransposedTable();
             return correctTable;
+        }
+
+        private static int ChangeOrder(int i)
+        {
+
+            switch (i)
+            {
+                case 6:
+                    return 31;
+                case 12:
+                    return 32;
+                case 18:
+                    return 33;
+
+
+                case 31:
+                    return 6;
+                case 32:
+                    return 12;
+                case 33:
+                    return 18;
+                default:
+                    return i;
+            }
         }
 
         public static DataTable CreateTeacherTimeTable(this Individual individual)
@@ -174,7 +199,8 @@ namespace Generator.Utils
                 for (int i = 1; i <= 36; i++)
                 {
                     teacherTimeTable.TryGetValue(i, out Lesson curLes);
-                    table[i - 1, j] = curLes?.Info ?? "-----------";
+                    int new_i = ChangeOrder(i);
+                    table[new_i - 1, j] = curLes?.Info ?? "-----------";
                 }
                 j++;
             }
