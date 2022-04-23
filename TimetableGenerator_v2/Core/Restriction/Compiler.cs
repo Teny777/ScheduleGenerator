@@ -162,11 +162,12 @@ namespace IntroductionRestrictions_v2
             var items4 = (List<string>)obj[3];
             var items5 = (List<int>)obj[4];
             var items6 = (List<int>)obj[5];
+            var items7 = (List<int>)obj[6];
 
             var rows = new List<Row2>();
             for (int i = 0; i < items1.Count; i++)
             {
-                rows.Add(new Row2(items1[i], items2[i], items3[i], items4[i], items5[i], items6[i]));
+                rows.Add(new Row2(items1[i], items2[i], items3[i], items4[i], items5[i], items6[i], items7[i]));
             }" + "\n");
 
             for (int i = 0; i < lambdasPrev.Length; i++)
@@ -232,7 +233,7 @@ namespace IntroductionRestrictions_v2
 
     public class Row2
     {
-        public Row2(string t, string s, int k, string c, int x, int d)
+        public Row2(string t, string s, int k, string c, int x, int d, int b)
         {
             this.t = t;
             this.s = s;
@@ -240,6 +241,7 @@ namespace IntroductionRestrictions_v2
             this.c = c;
             this.x = x;
             this.d = d;
+            this.b = b;
         }
         public string t { get; set; }
         public string s { get; set; }
@@ -247,6 +249,7 @@ namespace IntroductionRestrictions_v2
         public string c { get; set; }
         public int x { get; set; }
         public int d { get; set; }
+        public int b { get; set; }
     }
 }");
             #endregion fillFunc;
@@ -299,6 +302,7 @@ namespace IntroductionRestrictions_v2
                 rows.Select(x => x.c).ToList(),
                 rows.Select(x => x.x).ToList(),
                 rows.Select(x => x.d).ToList(),
+                rows.Select(x => x.b).ToList()
             };
 
             var str = (string)method.Invoke(null, new object[] { arrParams });

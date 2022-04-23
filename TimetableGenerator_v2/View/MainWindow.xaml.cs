@@ -161,7 +161,7 @@ namespace Generator.View
             {
                 for (int i = 0; i < le.Count; i++)
                 {
-                    Data.Instance.Lessons.Add(new Lesson(le.Lesson.Teacher, le.Lesson.Class, le.Lesson.Subject));
+                    Data.Instance.Lessons.Add(new Lesson(le.Lesson.Teacher, le.Lesson.Class, le.Lesson.Subject, le.Lesson.Subgroup));
                 }
             }
             await Task.Run(CalculationThread);

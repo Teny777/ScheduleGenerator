@@ -10,34 +10,48 @@ namespace Generator.Utils
 {
     public static class ExtensionMethods
     {
+
         public static DataTable CreateTimeTable(this Individual individual)
         {
-            var timetable = new Dictionary<int, Dictionary<int, Lesson>>(Data.Instance.Classes.Count);
+            var timetable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
+
             foreach (int key in Data.Instance.Classes.Keys)
             {
-                timetable.Add(key, new Dictionary<int, Lesson>());
+                timetable.Add(key, new Dictionary<int, List<Lesson>>());
             }
             // подготовка таблицы для расписания ^^^
             for (int i = 0; i < Data.Instance.N; i++)
             {
-                timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], Data.Instance.Lessons[i]);
+                //timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], Data.Instance.Lessons[i]);
+
+                if (!timetable[Data.Instance.Lessons[i].Class.Id].ContainsKey(individual.Colors[i])) timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], new List<Lesson>());
+                timetable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
             }
 
             var dt = new DataTable();
             dt.Columns.Add(@"уроки\классы");
-            var tmpList = new string[31];
-            for (int i = 1; i < 31; i++)
+            var tmpList = new string[37];
+            for (int i = 1; i <= 36; i++)
             {
                 dt.Columns.Add(i.ToString());
             }
 
             foreach (var classesTimeTable in timetable.Values)
             {
-                tmpList[0] = classesTimeTable.First().Value.Class.Name;
-                for (int i = 1; i < 31; i++)
+                tmpList[0] = classesTimeTable.First().Value.First().Class.Name;
+                for (int i = 1; i <= 36; i++)
                 {
-                    classesTimeTable.TryGetValue(i, out Lesson curLes);
-                    tmpList[i] = curLes?.ToString() ?? "-----------";
+                    classesTimeTable.TryGetValue(i, out List<Lesson> curLessons);
+                    if(curLessons is null)
+                    {
+                        tmpList[i] = "-----------";
+                        continue;
+                    }
+
+                    tmpList[i] = string.Empty;
+                    foreach (var lesson in curLessons)
+                        tmpList[i] += lesson.ToString() + "\\";
+
                 }
                 dt.Rows.Add(tmpList);
             }
@@ -58,6 +72,7 @@ namespace Generator.Utils
             for (int i = 0; i < Data.Instance.N; i++)
             {
                 timetable[Data.Instance.Lessons[i].Teacher.Id].Add(individual.Colors[i], Data.Instance.Lessons[i]);
+
             }
 
             // первые два столбца таблицы (заголовки столбцов)
@@ -65,9 +80,9 @@ namespace Generator.Utils
             headers[0] = @"День Недели";
             headers[1] = @"уроки\учителя";
 
-            var table = new string[31, 2 + timetable.Values.Count];
+            var table = new string[37, 2 + timetable.Values.Count];
             // первые два столбца таблицы
-            for (int i = 0; i < 31; i++)
+            for (int i = 0; i <= 36; i++)
             {
                 table[i, 0] = (i + 1) switch
                 {
@@ -87,7 +102,7 @@ namespace Generator.Utils
             {
                 headers[j] = teacherTimeTable.First().Value.Teacher.Name; // first ???  first or default may be
                 if (headers[j] == null) continue;
-                for (int i = 1; i < 31; i++)
+                for (int i = 1; i <= 36; i++)
                 {
                     teacherTimeTable.TryGetValue(i, out Lesson curLes);
                     table[i - 1, j] = curLes?.Info ?? "-----------";
@@ -153,6 +168,7 @@ namespace Generator.Utils
                     13 => "Среда",
                     19 => "Четверг",
                     25 => "Пятница",
+                    31 => "Суббота",
                     _ => "",
                 };
 
@@ -172,33 +188,36 @@ namespace Generator.Utils
             var result = new List<Row>();
 
             // таблица для классов
-            var clsTimeTable = new Dictionary<int, Dictionary<int, Lesson>>(Data.Instance.Classes.Count);
+            var clsTimeTable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
             foreach (int key in Data.Instance.Classes.Keys)
-                clsTimeTable.Add(key, new Dictionary<int, Lesson>());
+                clsTimeTable.Add(key, new Dictionary<int, List<Lesson>>());
 
             // подготовка таблицы для расписания ^^^
             for (int i = 0; i < Data.Instance.N; i++)
             {
-                clsTimeTable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], Data.Instance.Lessons[i]);
+                if (!clsTimeTable[Data.Instance.Lessons[i].Class.Id].ContainsKey(individual.Colors[i])) clsTimeTable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], new List<Lesson>());
+                clsTimeTable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
             }
 
             foreach (var classTimetable in clsTimeTable.Values)
             {
-                for (int i = 1; i < 31; i++) // 36
+                for (int i = 1; i < 37; i++) // 36
                 {
                     int x = (i - 1) % 6 + 1;
                     int dayOfWeek = (i - 1) / 6 + 1;
 
-                    if (classTimetable.TryGetValue(i, out Lesson curLesson))
+                    if (classTimetable.TryGetValue(i, out List<Lesson> curLessons))
                     {
-                        var c = curLesson;
-                        var row = new Row(c.Teacher.Name, c.Subject.Name, 0/*кабинетов нет*/, c.Class.Name, x, dayOfWeek);
-
-                        result.Add(row);
+                        foreach (var lesson in curLessons)
+                        {
+                            var c = lesson;
+                            var row = new Row(c.Teacher.Name, c.Subject.Name, 0/*кабинетов нет*/, c.Class.Name, x, dayOfWeek, (int)c.Subgroup);
+                            result.Add(row);
+                        }
+                        
                     }
                 }
             }
-
             return result;
         }
     }

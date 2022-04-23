@@ -77,6 +77,7 @@ namespace Generator.Tools
                 { 27, new Teacher(27, "Географических Л.Л.", new ObservableCollection<Subject>{ Data.Instance.Subjects[8]})}, // География
                 { 28, new Teacher(28, "Биологических Г.Г.", new ObservableCollection<Subject>{ Data.Instance.Subjects[9] }) }, // Биология
                 { 29, new Teacher(29, "Физкультурных К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13] })}, // Физкультура
+                { 30, new Teacher(30, "Информатик К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[16] })}, // Информатика
             };
             #endregion
 
@@ -101,6 +102,8 @@ namespace Generator.Tools
             };
             #endregion
 
+
+
             #region LessonWrite
             var lessons = Data.Instance.Lessons;
             var lesEdit = Data.Instance.LessonEditors;
@@ -110,594 +113,638 @@ namespace Generator.Tools
 
             for (int i = 0; i < 4; i++)  // по 4 урока руского у каждого класса 7 класса
             {
-                lessons.Add(new Lesson(teachers[13], classes[7], subjects[3]));
-                lessons.Add(new Lesson(teachers[13], classes[8], subjects[3]));
-                lessons.Add(new Lesson(teachers[13], classes[9], subjects[3]));
+                lessons.Add(new Lesson(teachers[13], classes[7], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[13], classes[8], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[13], classes[9], subjects[3], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[7], subjects[3]), 4));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[8], subjects[3]), 4));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[9], subjects[3]), 4));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[7], subjects[3], Subgroup.All), 4));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[8], subjects[3], Subgroup.All), 4));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[9], subjects[3], Subgroup.All), 4));
 
             for (int i = 0; i < 2; i++)  // по 2 урока литературы у каждого класса 7 класса
             {
-                lessons.Add(new Lesson(teachers[13], classes[7], subjects[4]));
-                lessons.Add(new Lesson(teachers[13], classes[8], subjects[4]));
-                lessons.Add(new Lesson(teachers[13], classes[9], subjects[4]));
+                lessons.Add(new Lesson(teachers[13], classes[7], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[13], classes[8], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[13], classes[9], subjects[4], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[7], subjects[4]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[8], subjects[4]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[9], subjects[4]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[7], subjects[4], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[8], subjects[4], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[13], classes[9], subjects[4], Subgroup.All), 2));
 
 
             for (int i = 0; i < 6; i++)  // по 6 уроков русского у каждого класса 6 класса
             {
-                lessons.Add(new Lesson(teachers[11], classes[4], subjects[7]));
-                lessons.Add(new Lesson(teachers[11], classes[5], subjects[3]));
-                lessons.Add(new Lesson(teachers[11], classes[6], subjects[3]));
+                lessons.Add(new Lesson(teachers[11], classes[4], subjects[7], Subgroup.All));
+                lessons.Add(new Lesson(teachers[11], classes[5], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[11], classes[6], subjects[3], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[4], subjects[3]), 6));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[5], subjects[3]), 6));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[6], subjects[3]), 6));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[4], subjects[3], Subgroup.All), 6));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[5], subjects[3], Subgroup.All), 6));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[6], subjects[3], Subgroup.All), 6));
 
             for (int i = 0; i < 2; i++)  // по 2 урока литературы у каждого класса 6 класса
             {
-                lessons.Add(new Lesson(teachers[11], classes[5], subjects[4]));
-                lessons.Add(new Lesson(teachers[11], classes[6], subjects[4]));
-                lessons.Add(new Lesson(teachers[11], classes[4], subjects[4]));
+                lessons.Add(new Lesson(teachers[11], classes[5], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[11], classes[6], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[11], classes[4], subjects[4], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[5], subjects[4]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[6], subjects[4]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[4], subjects[4]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[5], subjects[4], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[6], subjects[4], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[4], subjects[4], Subgroup.All), 2));
 
 
             for (int i = 0; i < 6; i++)  // по 6 уроков русского у каждого 5 класса
             {
-                lessons.Add(new Lesson(teachers[1], classes[1], subjects[3]));
-                lessons.Add(new Lesson(teachers[1], classes[2], subjects[3]));
-                lessons.Add(new Lesson(teachers[1], classes[3], subjects[3]));
+                lessons.Add(new Lesson(teachers[1], classes[1], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[1], classes[2], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[1], classes[3], subjects[3], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[1], subjects[3]), 6));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[2], subjects[3]), 6));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[3], subjects[3]), 6));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[1], subjects[3], Subgroup.All), 6));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[2], subjects[3], Subgroup.All), 6));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[3], subjects[3], Subgroup.All), 6));
 
             for (int i = 0; i < 2; i++)  // по 2 уроков литературы у каждого 5 класса
             {
-                lessons.Add(new Lesson(teachers[1], classes[1], subjects[4]));
-                lessons.Add(new Lesson(teachers[1], classes[2], subjects[4]));
-                lessons.Add(new Lesson(teachers[1], classes[3], subjects[4]));
+                lessons.Add(new Lesson(teachers[1], classes[1], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[1], classes[2], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[1], classes[3], subjects[4], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[1], subjects[4]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[2], subjects[4]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[3], subjects[4]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[1], subjects[4], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[2], subjects[4], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[3], subjects[4], Subgroup.All), 2));
 
             for (int i = 0; i < 5; i++)  // по 3 урока русского у каждого класса 8 класса
             {
-                lessons.Add(new Lesson(teachers[18], classes[10], subjects[3]));
-                lessons.Add(new Lesson(teachers[18], classes[11], subjects[3]));
-                lessons.Add(new Lesson(teachers[18], classes[12], subjects[3]));
+                lessons.Add(new Lesson(teachers[18], classes[10], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[18], classes[11], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[18], classes[12], subjects[3], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[23], classes[13], subjects[3]));
-                lessons.Add(new Lesson(teachers[23], classes[14], subjects[3]));
-                lessons.Add(new Lesson(teachers[23], classes[15], subjects[3]));
+                lessons.Add(new Lesson(teachers[23], classes[13], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[23], classes[14], subjects[3], Subgroup.All));
+                lessons.Add(new Lesson(teachers[23], classes[15], subjects[3], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[10], subjects[3]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[11], subjects[3]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[12], subjects[3]), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[10], subjects[3], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[11], subjects[3], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[12], subjects[3], Subgroup.All), 5));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[13], subjects[3]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[14], subjects[3]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[15], subjects[3]), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[13], subjects[3], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[14], subjects[3], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[15], subjects[3], Subgroup.All), 5));
 
             for (int i = 0; i < 5; i++)  // по 2 урока литературы у каждого класса 8 класса
             {
-                lessons.Add(new Lesson(teachers[18], classes[10], subjects[4]));
-                lessons.Add(new Lesson(teachers[18], classes[11], subjects[4]));
-                lessons.Add(new Lesson(teachers[18], classes[12], subjects[4]));
+                lessons.Add(new Lesson(teachers[18], classes[10], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[18], classes[11], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[18], classes[12], subjects[4], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[23], classes[13], subjects[4]));
-                lessons.Add(new Lesson(teachers[23], classes[14], subjects[4]));
-                lessons.Add(new Lesson(teachers[23], classes[15], subjects[4]));
+                lessons.Add(new Lesson(teachers[23], classes[13], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[23], classes[14], subjects[4], Subgroup.All));
+                lessons.Add(new Lesson(teachers[23], classes[15], subjects[4], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[10], subjects[4]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[11], subjects[4]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[12], subjects[4]), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[10], subjects[4], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[11], subjects[4], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[18], classes[12], subjects[4], Subgroup.All), 5));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[13], subjects[4]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[14], subjects[4]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[15], subjects[4]), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[13], subjects[4], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[14], subjects[4], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[23], classes[15], subjects[4], Subgroup.All), 5));
 
             for (int i = 0; i < 3; i++)  // три урока Англ
             {
-                lessons.Add(new Lesson(teachers[2], classes[1], subjects[5]));
-                lessons.Add(new Lesson(teachers[2], classes[2], subjects[5]));
-                lessons.Add(new Lesson(teachers[2], classes[3], subjects[5]));
+                //5 класс
+                lessons.Add(new Lesson(teachers[2], classes[1], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[14], classes[1], subjects[5], Subgroup.Second));
+
+                lessons.Add(new Lesson(teachers[2], classes[2], subjects[5], Subgroup.All));
+                lessons.Add(new Lesson(teachers[2], classes[3], subjects[5], Subgroup.All));
+
+
                 // 6 класс
-                lessons.Add(new Lesson(teachers[2], classes[4], subjects[5]));
-                lessons.Add(new Lesson(teachers[2], classes[5], subjects[5]));
-                lessons.Add(new Lesson(teachers[2], classes[6], subjects[5]));
+                lessons.Add(new Lesson(teachers[2], classes[4], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[14], classes[4], subjects[5], Subgroup.Second));
+
+
+                lessons.Add(new Lesson(teachers[2], classes[5], subjects[5], Subgroup.All));
+
+                lessons.Add(new Lesson(teachers[25], classes[6], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[2], classes[6], subjects[5], Subgroup.Second));
                 // 7 класс
-                lessons.Add(new Lesson(teachers[14], classes[7], subjects[5]));
-                lessons.Add(new Lesson(teachers[14], classes[8], subjects[5]));
-                lessons.Add(new Lesson(teachers[14], classes[9], subjects[5]));
+                lessons.Add(new Lesson(teachers[2], classes[7], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[25], classes[7], subjects[5], Subgroup.Second));
+                lessons.Add(new Lesson(teachers[25], classes[7], subjects[5], Subgroup.All));
+
+                lessons.Add(new Lesson(teachers[25], classes[8], subjects[5], Subgroup.All));
+                lessons.Add(new Lesson(teachers[14], classes[9], subjects[5], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[14], classes[10], subjects[5]));
-                lessons.Add(new Lesson(teachers[14], classes[11], subjects[5]));
-                lessons.Add(new Lesson(teachers[14], classes[12], subjects[5]));
+                lessons.Add(new Lesson(teachers[14], classes[10], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[25], classes[10], subjects[5], Subgroup.Second));
+
+
+                lessons.Add(new Lesson(teachers[2], classes[11], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[25], classes[11], subjects[5], Subgroup.Second));
+
+
+                lessons.Add(new Lesson(teachers[14], classes[12], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[2], classes[12], subjects[5], Subgroup.Second));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[25], classes[13], subjects[5]));
-                lessons.Add(new Lesson(teachers[25], classes[14], subjects[5]));
-                lessons.Add(new Lesson(teachers[25], classes[15], subjects[5]));
+                lessons.Add(new Lesson(teachers[25], classes[13], subjects[5], Subgroup.First));
+                lessons.Add(new Lesson(teachers[2], classes[13], subjects[5], Subgroup.Second));
+
+
+                lessons.Add(new Lesson(teachers[25], classes[14], subjects[5], Subgroup.All));
+                lessons.Add(new Lesson(teachers[25], classes[15], subjects[5], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[1], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[2], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[3], subjects[5]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[1], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[1], subjects[5], Subgroup.Second), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[2], subjects[5], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[3], subjects[5], Subgroup.All), 3));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[4], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[5], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[6], subjects[5]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[4], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[4], subjects[5], Subgroup.Second), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[5], subjects[5], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[6], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[6], subjects[5], Subgroup.Second), 3));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[7], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[8], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[9], subjects[5]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[7], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[7], subjects[5], Subgroup.Second), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[7], subjects[5], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[8], subjects[5], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[9], subjects[5], Subgroup.All), 3));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[10], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[11], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[12], subjects[5]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[10], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[10], subjects[5], Subgroup.Second), 3));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[11], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[11], subjects[5], Subgroup.Second), 3));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[14], classes[12], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[12], subjects[5], Subgroup.Second), 3));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[13], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[14], subjects[5]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[15], subjects[5]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[13], subjects[5], Subgroup.First), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[13], subjects[5], Subgroup.Second), 3));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[14], subjects[5], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[25], classes[15], subjects[5], Subgroup.All), 3));
 
 
             for (int i = 0; i < 5; i++)  // по 5 уроков математики в 5-6 классах
             {
-                lessons.Add(new Lesson(teachers[3], classes[1], subjects[0]));
-                lessons.Add(new Lesson(teachers[3], classes[2], subjects[0]));
-                lessons.Add(new Lesson(teachers[3], classes[3], subjects[0]));
+                lessons.Add(new Lesson(teachers[3], classes[1], subjects[0], Subgroup.All));
+                lessons.Add(new Lesson(teachers[3], classes[2], subjects[0], Subgroup.All));
+                lessons.Add(new Lesson(teachers[3], classes[3], subjects[0], Subgroup.All));
                 // 6 класс
-                lessons.Add(new Lesson(teachers[12], classes[4], subjects[0]));
-                lessons.Add(new Lesson(teachers[12], classes[5], subjects[0]));
-                lessons.Add(new Lesson(teachers[12], classes[6], subjects[0]));
+                lessons.Add(new Lesson(teachers[12], classes[4], subjects[0], Subgroup.All));
+                lessons.Add(new Lesson(teachers[12], classes[5], subjects[0], Subgroup.All));
+                lessons.Add(new Lesson(teachers[12], classes[6], subjects[0], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[1], subjects[0]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[2], subjects[0]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[3], subjects[0]), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[1], subjects[0], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[2], subjects[0], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[3], subjects[0], Subgroup.All), 5));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[4], subjects[0]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[5], subjects[0]), 5));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[6], subjects[0]), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[4], subjects[0], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[5], subjects[0], Subgroup.All), 5));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[6], subjects[0], Subgroup.All), 5));
 
             for (int i = 0; i < 3; i++)
             { // 3 урока алгебры
                 // 7 класс
-                lessons.Add(new Lesson(teachers[15], classes[7], subjects[1]));
-                lessons.Add(new Lesson(teachers[15], classes[8], subjects[1]));
-                lessons.Add(new Lesson(teachers[15], classes[9], subjects[1]));
+                lessons.Add(new Lesson(teachers[15], classes[7], subjects[1], Subgroup.All));
+                lessons.Add(new Lesson(teachers[15], classes[8], subjects[1], Subgroup.All));
+                lessons.Add(new Lesson(teachers[15], classes[9], subjects[1], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[19], classes[10], subjects[1]));
-                lessons.Add(new Lesson(teachers[19], classes[11], subjects[1]));
-                lessons.Add(new Lesson(teachers[19], classes[12], subjects[1]));
+                lessons.Add(new Lesson(teachers[19], classes[10], subjects[1], Subgroup.All));
+                lessons.Add(new Lesson(teachers[19], classes[11], subjects[1], Subgroup.All));
+                lessons.Add(new Lesson(teachers[19], classes[12], subjects[1], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[24], classes[13], subjects[1]));
-                lessons.Add(new Lesson(teachers[24], classes[14], subjects[1]));
-                lessons.Add(new Lesson(teachers[24], classes[15], subjects[1]));
+                lessons.Add(new Lesson(teachers[24], classes[13], subjects[1], Subgroup.All));
+                lessons.Add(new Lesson(teachers[24], classes[14], subjects[1], Subgroup.All));
+                lessons.Add(new Lesson(teachers[24], classes[15], subjects[1], Subgroup.All));
             }
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[7], subjects[1]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[8], subjects[1]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[9], subjects[1]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[7], subjects[1], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[8], subjects[1], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[9], subjects[1], Subgroup.All), 3));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[10], subjects[1]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[11], subjects[1]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[12], subjects[1]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[10], subjects[1], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[11], subjects[1], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[12], subjects[1], Subgroup.All), 3));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[13], subjects[1]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[14], subjects[1]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[15], subjects[1]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[13], subjects[1], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[14], subjects[1], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[15], subjects[1], Subgroup.All), 3));
 
             for (int i = 0; i < 2; i++)
             {  // 2 урока геометрии
                 // 7 класс
-                lessons.Add(new Lesson(teachers[15], classes[7], subjects[2]));
-                lessons.Add(new Lesson(teachers[15], classes[8], subjects[2]));
-                lessons.Add(new Lesson(teachers[15], classes[9], subjects[2]));
+                lessons.Add(new Lesson(teachers[15], classes[7], subjects[2], Subgroup.All));
+                lessons.Add(new Lesson(teachers[15], classes[8], subjects[2], Subgroup.All));
+                lessons.Add(new Lesson(teachers[15], classes[9], subjects[2], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[19], classes[10], subjects[2]));
-                lessons.Add(new Lesson(teachers[19], classes[11], subjects[2]));
-                lessons.Add(new Lesson(teachers[19], classes[12], subjects[2]));
+                lessons.Add(new Lesson(teachers[19], classes[10], subjects[2], Subgroup.All));
+                lessons.Add(new Lesson(teachers[19], classes[11], subjects[2], Subgroup.All));
+                lessons.Add(new Lesson(teachers[19], classes[12], subjects[2], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[24], classes[13], subjects[2]));
-                lessons.Add(new Lesson(teachers[24], classes[14], subjects[2]));
-                lessons.Add(new Lesson(teachers[24], classes[15], subjects[2]));
+                lessons.Add(new Lesson(teachers[24], classes[13], subjects[2], Subgroup.All));
+                lessons.Add(new Lesson(teachers[24], classes[14], subjects[2], Subgroup.All));
+                lessons.Add(new Lesson(teachers[24], classes[15], subjects[2], Subgroup.All));
             }
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[7], subjects[2]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[8], subjects[2]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[9], subjects[2]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[7], subjects[2], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[8], subjects[2], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[15], classes[9], subjects[2], Subgroup.All), 2));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[10], subjects[2]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[11], subjects[2]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[12], subjects[2]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[10], subjects[2], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[11], subjects[2], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[19], classes[12], subjects[2], Subgroup.All), 2));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[13], subjects[2]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[14], subjects[2]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[15], subjects[2]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[13], subjects[2], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[14], subjects[2], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[24], classes[15], subjects[2], Subgroup.All), 2));
 
 
             // один урок информатики в 8 классе
-            lessons.Add(new Lesson(teachers[20], classes[10], subjects[16]));
-            lessons.Add(new Lesson(teachers[20], classes[11], subjects[16]));
-            lessons.Add(new Lesson(teachers[20], classes[12], subjects[16]));
+            lessons.Add(new Lesson(teachers[20], classes[10], subjects[16], Subgroup.First));
+            lessons.Add(new Lesson(teachers[30], classes[10], subjects[16], Subgroup.Second));
 
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[10], subjects[16]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[11], subjects[16]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[12], subjects[16]), 1));
+            lessons.Add(new Lesson(teachers[20], classes[11], subjects[16], Subgroup.First));
+            lessons.Add(new Lesson(teachers[30], classes[11], subjects[16], Subgroup.Second));
+
+            lessons.Add(new Lesson(teachers[30], classes[12], subjects[16], Subgroup.First));
+            lessons.Add(new Lesson(teachers[20], classes[12], subjects[16], Subgroup.Second));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[10], subjects[16], Subgroup.First), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[30], classes[10], subjects[16], Subgroup.Second), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[11], subjects[16], Subgroup.First), 1));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[30], classes[11], subjects[16], Subgroup.Second), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[30], classes[12], subjects[16], Subgroup.First), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[12], subjects[16], Subgroup.Second), 1));
             // два урока в 9 классе
             for (int i = 0; i < 2; i++)
             {
-                lessons.Add(new Lesson(teachers[20], classes[13], subjects[16]));
-                lessons.Add(new Lesson(teachers[20], classes[14], subjects[16]));
-                lessons.Add(new Lesson(teachers[20], classes[15], subjects[16]));
+                lessons.Add(new Lesson(teachers[20], classes[13], subjects[16], Subgroup.All));
+                lessons.Add(new Lesson(teachers[20], classes[14], subjects[16], Subgroup.All));
+                lessons.Add(new Lesson(teachers[20], classes[15], subjects[16], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[13], subjects[16]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[14], subjects[16]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[15], subjects[16]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[13], subjects[16], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[14], subjects[16], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[20], classes[15], subjects[16], Subgroup.All), 2));
 
             for (int i = 0; i < 2; i++)  // 2 урока истории
             {
-                lessons.Add(new Lesson(teachers[4], classes[1], subjects[6]));
-                lessons.Add(new Lesson(teachers[4], classes[2], subjects[6]));
-                lessons.Add(new Lesson(teachers[4], classes[3], subjects[6]));
+                lessons.Add(new Lesson(teachers[4], classes[1], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[4], classes[2], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[4], classes[3], subjects[6], Subgroup.All));
                 // 6 класс
-                lessons.Add(new Lesson(teachers[4], classes[4], subjects[6]));
-                lessons.Add(new Lesson(teachers[4], classes[5], subjects[6]));
-                lessons.Add(new Lesson(teachers[4], classes[6], subjects[6]));
+                lessons.Add(new Lesson(teachers[4], classes[4], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[4], classes[5], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[4], classes[6], subjects[6], Subgroup.All));
                 // 7 класс
-                lessons.Add(new Lesson(teachers[17], classes[7], subjects[6]));
-                lessons.Add(new Lesson(teachers[17], classes[8], subjects[6]));
-                lessons.Add(new Lesson(teachers[17], classes[9], subjects[6]));
+                lessons.Add(new Lesson(teachers[17], classes[7], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[17], classes[8], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[17], classes[9], subjects[6], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[17], classes[10], subjects[6]));
-                lessons.Add(new Lesson(teachers[17], classes[11], subjects[6]));
-                lessons.Add(new Lesson(teachers[17], classes[12], subjects[6]));
+                lessons.Add(new Lesson(teachers[17], classes[10], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[17], classes[11], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[17], classes[12], subjects[6], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[26], classes[13], subjects[6]));
-                lessons.Add(new Lesson(teachers[26], classes[14], subjects[6]));
-                lessons.Add(new Lesson(teachers[26], classes[15], subjects[6]));
+                lessons.Add(new Lesson(teachers[26], classes[13], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[26], classes[14], subjects[6], Subgroup.All));
+                lessons.Add(new Lesson(teachers[26], classes[15], subjects[6], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[1], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[2], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[3], subjects[6]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[1], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[2], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[3], subjects[6], Subgroup.All), 2));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[4], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[5], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[6], subjects[6]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[4], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[5], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[6], subjects[6], Subgroup.All), 2));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[7], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[8], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[9], subjects[6]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[7], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[8], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[9], subjects[6], Subgroup.All), 2));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[10], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[11], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[12], subjects[6]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[10], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[11], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[12], subjects[6], Subgroup.All), 2));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[13], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[14], subjects[6]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[15], subjects[6]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[13], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[14], subjects[6], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[15], subjects[6], Subgroup.All), 2));
 
             // 1 урок обществознания 
-            lessons.Add(new Lesson(teachers[4], classes[1], subjects[7]));
-            lessons.Add(new Lesson(teachers[4], classes[2], subjects[7]));
-            lessons.Add(new Lesson(teachers[4], classes[3], subjects[7]));
+            lessons.Add(new Lesson(teachers[4], classes[1], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[4], classes[2], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[4], classes[3], subjects[7], Subgroup.All));
             // 6 класс
-            lessons.Add(new Lesson(teachers[4], classes[4], subjects[7]));
-            lessons.Add(new Lesson(teachers[4], classes[5], subjects[7]));
-            lessons.Add(new Lesson(teachers[4], classes[6], subjects[7]));
+            lessons.Add(new Lesson(teachers[4], classes[4], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[4], classes[5], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[4], classes[6], subjects[7], Subgroup.All));
             // 7 класс
-            lessons.Add(new Lesson(teachers[17], classes[7], subjects[7]));
-            lessons.Add(new Lesson(teachers[17], classes[8], subjects[7]));
-            lessons.Add(new Lesson(teachers[17], classes[9], subjects[7]));
+            lessons.Add(new Lesson(teachers[17], classes[7], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[17], classes[8], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[17], classes[9], subjects[7], Subgroup.All));
             // 8 класс
-            lessons.Add(new Lesson(teachers[17], classes[10], subjects[7]));
-            lessons.Add(new Lesson(teachers[17], classes[11], subjects[7]));
-            lessons.Add(new Lesson(teachers[17], classes[12], subjects[7]));
+            lessons.Add(new Lesson(teachers[17], classes[10], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[17], classes[11], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[17], classes[12], subjects[7], Subgroup.All));
             // 9 класс
-            lessons.Add(new Lesson(teachers[26], classes[13], subjects[7]));
-            lessons.Add(new Lesson(teachers[26], classes[14], subjects[7]));
-            lessons.Add(new Lesson(teachers[26], classes[15], subjects[7]));
+            lessons.Add(new Lesson(teachers[26], classes[13], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[26], classes[14], subjects[7], Subgroup.All));
+            lessons.Add(new Lesson(teachers[26], classes[15], subjects[7], Subgroup.All));
 
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[1], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[2], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[3], subjects[7]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[1], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[2], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[3], subjects[7], Subgroup.All), 1));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[4], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[5], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[6], subjects[7]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[4], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[5], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[6], subjects[7], Subgroup.All), 1));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[7], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[8], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[9], subjects[7]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[7], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[8], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[9], subjects[7], Subgroup.All), 1));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[10], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[11], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[12], subjects[7]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[10], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[11], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[17], classes[12], subjects[7], Subgroup.All), 1));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[13], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[14], subjects[7]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[15], subjects[7]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[13], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[14], subjects[7], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[26], classes[15], subjects[7], Subgroup.All), 1));
 
             // один урок географии
-            lessons.Add(new Lesson(teachers[5], classes[1], subjects[8]));
-            lessons.Add(new Lesson(teachers[5], classes[2], subjects[8]));
-            lessons.Add(new Lesson(teachers[5], classes[3], subjects[8]));
+            lessons.Add(new Lesson(teachers[5], classes[1], subjects[8], Subgroup.All));
+            lessons.Add(new Lesson(teachers[5], classes[2], subjects[8], Subgroup.All));
+            lessons.Add(new Lesson(teachers[5], classes[3], subjects[8], Subgroup.All));
 
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[1], subjects[8]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[2], subjects[8]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[3], subjects[8]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[1], subjects[8], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[2], subjects[8], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[3], subjects[8], Subgroup.All), 1));
             // 6 класс
-            lessons.Add(new Lesson(teachers[5], classes[4], subjects[8]));
-            lessons.Add(new Lesson(teachers[5], classes[5], subjects[8]));
-            lessons.Add(new Lesson(teachers[5], classes[6], subjects[8]));
+            lessons.Add(new Lesson(teachers[5], classes[4], subjects[8], Subgroup.All));
+            lessons.Add(new Lesson(teachers[5], classes[5], subjects[8], Subgroup.All));
+            lessons.Add(new Lesson(teachers[5], classes[6], subjects[8], Subgroup.All));
 
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[4], subjects[8]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[5], subjects[8]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[6], subjects[8]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[4], subjects[8], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[5], subjects[8], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[6], subjects[8], Subgroup.All), 1));
             for (int i = 0; i < 2; i++)  // 2 урока география 7 класс
             {
-                lessons.Add(new Lesson(teachers[5], classes[7], subjects[8]));
-                lessons.Add(new Lesson(teachers[5], classes[8], subjects[8]));
-                lessons.Add(new Lesson(teachers[5], classes[9], subjects[8]));
+                lessons.Add(new Lesson(teachers[5], classes[7], subjects[8], Subgroup.All));
+                lessons.Add(new Lesson(teachers[5], classes[8], subjects[8], Subgroup.All));
+                lessons.Add(new Lesson(teachers[5], classes[9], subjects[8], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[27], classes[10], subjects[8]));
-                lessons.Add(new Lesson(teachers[27], classes[11], subjects[8]));
-                lessons.Add(new Lesson(teachers[27], classes[12], subjects[8]));
+                lessons.Add(new Lesson(teachers[27], classes[10], subjects[8], Subgroup.All));
+                lessons.Add(new Lesson(teachers[27], classes[11], subjects[8], Subgroup.All));
+                lessons.Add(new Lesson(teachers[27], classes[12], subjects[8], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[27], classes[13], subjects[8]));
-                lessons.Add(new Lesson(teachers[27], classes[14], subjects[8]));
-                lessons.Add(new Lesson(teachers[27], classes[15], subjects[8]));
+                lessons.Add(new Lesson(teachers[27], classes[13], subjects[8], Subgroup.All));
+                lessons.Add(new Lesson(teachers[27], classes[14], subjects[8], Subgroup.All));
+                lessons.Add(new Lesson(teachers[27], classes[15], subjects[8], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[7], subjects[8]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[8], subjects[8]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[9], subjects[8]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[7], subjects[8], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[8], subjects[8], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[9], subjects[8], Subgroup.All), 2));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[10], subjects[8]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[11], subjects[8]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[12], subjects[8]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[10], subjects[8], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[11], subjects[8], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[12], subjects[8], Subgroup.All), 2));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[13], subjects[8]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[14], subjects[8]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[15], subjects[8]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[13], subjects[8], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[14], subjects[8], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[27], classes[15], subjects[8], Subgroup.All), 2));
 
             // 2 урока физики
             for (int i = 0; i < 2; i++)
             {
                 // 7 класс
-                lessons.Add(new Lesson(teachers[16], classes[7], subjects[14]));
-                lessons.Add(new Lesson(teachers[16], classes[8], subjects[14]));
-                lessons.Add(new Lesson(teachers[16], classes[9], subjects[14]));
+                lessons.Add(new Lesson(teachers[16], classes[7], subjects[14], Subgroup.All));
+                lessons.Add(new Lesson(teachers[16], classes[8], subjects[14], Subgroup.All));
+                lessons.Add(new Lesson(teachers[16], classes[9], subjects[14], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[16], classes[10], subjects[14]));
-                lessons.Add(new Lesson(teachers[16], classes[11], subjects[14]));
-                lessons.Add(new Lesson(teachers[16], classes[12], subjects[14]));
+                lessons.Add(new Lesson(teachers[16], classes[10], subjects[14], Subgroup.All));
+                lessons.Add(new Lesson(teachers[16], classes[11], subjects[14], Subgroup.All));
+                lessons.Add(new Lesson(teachers[16], classes[12], subjects[14], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[16], classes[13], subjects[14]));
-                lessons.Add(new Lesson(teachers[16], classes[14], subjects[14]));
-                lessons.Add(new Lesson(teachers[16], classes[15], subjects[14]));
+                lessons.Add(new Lesson(teachers[16], classes[13], subjects[14], Subgroup.All));
+                lessons.Add(new Lesson(teachers[16], classes[14], subjects[14], Subgroup.All));
+                lessons.Add(new Lesson(teachers[16], classes[15], subjects[14], Subgroup.All));
             }
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[7], subjects[14]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[8], subjects[14]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[9], subjects[14]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[7], subjects[14], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[8], subjects[14], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[9], subjects[14], Subgroup.All), 2));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[10], subjects[14]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[11], subjects[14]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[12], subjects[14]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[10], subjects[14], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[11], subjects[14], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[12], subjects[14], Subgroup.All), 2));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[13], subjects[14]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[14], subjects[14]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[15], subjects[14]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[13], subjects[14], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[14], subjects[14], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[15], subjects[14], Subgroup.All), 2));
 
             // 2 урока химии 
             for (int i = 0; i < 2; i++)
             {
                 // 8 класс
-                lessons.Add(new Lesson(teachers[21], classes[10], subjects[15]));
-                lessons.Add(new Lesson(teachers[21], classes[11], subjects[15]));
-                lessons.Add(new Lesson(teachers[21], classes[12], subjects[15]));
+                lessons.Add(new Lesson(teachers[21], classes[10], subjects[15], Subgroup.All));
+                lessons.Add(new Lesson(teachers[21], classes[11], subjects[15], Subgroup.All));
+                lessons.Add(new Lesson(teachers[21], classes[12], subjects[15], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[21], classes[13], subjects[15]));
-                lessons.Add(new Lesson(teachers[21], classes[14], subjects[15]));
-                lessons.Add(new Lesson(teachers[21], classes[15], subjects[15]));
+                lessons.Add(new Lesson(teachers[21], classes[13], subjects[15], Subgroup.All));
+                lessons.Add(new Lesson(teachers[21], classes[14], subjects[15], Subgroup.All));
+                lessons.Add(new Lesson(teachers[21], classes[15], subjects[15], Subgroup.All));
             }
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[10], subjects[15]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[11], subjects[15]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[12], subjects[15]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[10], subjects[15], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[11], subjects[15], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[12], subjects[15], Subgroup.All), 2));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[13], subjects[15]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[14], subjects[15]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[15], subjects[15]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[13], subjects[15], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[14], subjects[15], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[21], classes[15], subjects[15], Subgroup.All), 2));
 
             // один урок Биологии
-            lessons.Add(new Lesson(teachers[6], classes[1], subjects[9]));
-            lessons.Add(new Lesson(teachers[6], classes[2], subjects[9]));
-            lessons.Add(new Lesson(teachers[6], classes[3], subjects[9]));
+            lessons.Add(new Lesson(teachers[6], classes[1], subjects[9], Subgroup.All));
+            lessons.Add(new Lesson(teachers[6], classes[2], subjects[9], Subgroup.All));
+            lessons.Add(new Lesson(teachers[6], classes[3], subjects[9], Subgroup.All));
             // 6 класс
-            lessons.Add(new Lesson(teachers[6], classes[4], subjects[9]));
-            lessons.Add(new Lesson(teachers[6], classes[5], subjects[9]));
-            lessons.Add(new Lesson(teachers[6], classes[6], subjects[9]));
+            lessons.Add(new Lesson(teachers[6], classes[4], subjects[9], Subgroup.All));
+            lessons.Add(new Lesson(teachers[6], classes[5], subjects[9], Subgroup.All));
+            lessons.Add(new Lesson(teachers[6], classes[6], subjects[9], Subgroup.All));
             // один урок Биологии
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[1], subjects[9]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[2], subjects[9]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[3], subjects[9]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[1], subjects[9], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[2], subjects[9], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[3], subjects[9], Subgroup.All), 1));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[4], subjects[9]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[5], subjects[9]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[6], subjects[9]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[4], subjects[9], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[5], subjects[9], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[6], subjects[9], Subgroup.All), 1));
 
             // 2 урока биологии 7 класс
             for (int i = 0; i < 2; i++)
             {
-                lessons.Add(new Lesson(teachers[6], classes[7], subjects[9]));
-                lessons.Add(new Lesson(teachers[6], classes[8], subjects[9]));
-                lessons.Add(new Lesson(teachers[6], classes[9], subjects[9]));
+                lessons.Add(new Lesson(teachers[6], classes[7], subjects[9], Subgroup.All));
+                lessons.Add(new Lesson(teachers[6], classes[8], subjects[9], Subgroup.All));
+                lessons.Add(new Lesson(teachers[6], classes[9], subjects[9], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[28], classes[10], subjects[9]));
-                lessons.Add(new Lesson(teachers[28], classes[11], subjects[9]));
-                lessons.Add(new Lesson(teachers[28], classes[12], subjects[9]));
+                lessons.Add(new Lesson(teachers[28], classes[10], subjects[9], Subgroup.All));
+                lessons.Add(new Lesson(teachers[28], classes[11], subjects[9], Subgroup.All));
+                lessons.Add(new Lesson(teachers[28], classes[12], subjects[9], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[28], classes[13], subjects[9]));
-                lessons.Add(new Lesson(teachers[28], classes[14], subjects[9]));
-                lessons.Add(new Lesson(teachers[28], classes[15], subjects[9]));
+                lessons.Add(new Lesson(teachers[28], classes[13], subjects[9], Subgroup.All));
+                lessons.Add(new Lesson(teachers[28], classes[14], subjects[9], Subgroup.All));
+                lessons.Add(new Lesson(teachers[28], classes[15], subjects[9], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[7], subjects[9]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[8], subjects[9]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[9], subjects[9]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[7], subjects[9], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[8], subjects[9], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[9], subjects[9], Subgroup.All), 2));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[10], subjects[9]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[11], subjects[9]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[12], subjects[9]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[10], subjects[9], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[11], subjects[9], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[12], subjects[9], Subgroup.All), 2));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[13], subjects[9]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[14], subjects[9]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[15], subjects[9]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[13], subjects[9], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[14], subjects[9], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[28], classes[15], subjects[9], Subgroup.All), 2));
 
             // один урок Музыки
-            lessons.Add(new Lesson(teachers[7], classes[1], subjects[10]));
-            lessons.Add(new Lesson(teachers[7], classes[2], subjects[10]));
-            lessons.Add(new Lesson(teachers[7], classes[3], subjects[10]));
+            lessons.Add(new Lesson(teachers[7], classes[1], subjects[10], Subgroup.All));
+            lessons.Add(new Lesson(teachers[7], classes[2], subjects[10], Subgroup.All));
+            lessons.Add(new Lesson(teachers[7], classes[3], subjects[10], Subgroup.All));
             // 6 класс
-            lessons.Add(new Lesson(teachers[7], classes[4], subjects[10]));
-            lessons.Add(new Lesson(teachers[7], classes[5], subjects[10]));
-            lessons.Add(new Lesson(teachers[7], classes[6], subjects[10]));
+            lessons.Add(new Lesson(teachers[7], classes[4], subjects[10], Subgroup.All));
+            lessons.Add(new Lesson(teachers[7], classes[5], subjects[10], Subgroup.All));
+            lessons.Add(new Lesson(teachers[7], classes[6], subjects[10], Subgroup.All));
             // 7 класс
-            lessons.Add(new Lesson(teachers[7], classes[7], subjects[10]));
-            lessons.Add(new Lesson(teachers[7], classes[8], subjects[10]));
-            lessons.Add(new Lesson(teachers[7], classes[9], subjects[10]));
+            lessons.Add(new Lesson(teachers[7], classes[7], subjects[10], Subgroup.All));
+            lessons.Add(new Lesson(teachers[7], classes[8], subjects[10], Subgroup.All));
+            lessons.Add(new Lesson(teachers[7], classes[9], subjects[10], Subgroup.All));
 
             // один урок Музыки
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[1], subjects[10]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[2], subjects[10]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[3], subjects[10]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[1], subjects[10], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[2], subjects[10], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[3], subjects[10], Subgroup.All), 1));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[4], subjects[10]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[5], subjects[10]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[6], subjects[10]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[4], subjects[10], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[5], subjects[10], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[6], subjects[10], Subgroup.All), 1));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[7], subjects[10]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[8], subjects[10]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[9], subjects[10]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[7], subjects[10], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[8], subjects[10], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[9], subjects[10], Subgroup.All), 1));
 
 
             // один урок ИЗО
-            lessons.Add(new Lesson(teachers[8], classes[1], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[2], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[3], subjects[11]));
+            lessons.Add(new Lesson(teachers[8], classes[1], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[2], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[3], subjects[11], Subgroup.All));
             // 6 класс
-            lessons.Add(new Lesson(teachers[8], classes[4], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[5], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[6], subjects[11]));
+            lessons.Add(new Lesson(teachers[8], classes[4], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[5], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[6], subjects[11], Subgroup.All));
             // 7 класс
-            lessons.Add(new Lesson(teachers[8], classes[7], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[8], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[9], subjects[11]));
+            lessons.Add(new Lesson(teachers[8], classes[7], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[8], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[9], subjects[11], Subgroup.All));
             // 8 класс
-            lessons.Add(new Lesson(teachers[8], classes[10], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[11], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[12], subjects[11]));
+            lessons.Add(new Lesson(teachers[8], classes[10], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[11], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[12], subjects[11], Subgroup.All));
             // 9 класс
-            lessons.Add(new Lesson(teachers[8], classes[13], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[14], subjects[11]));
-            lessons.Add(new Lesson(teachers[8], classes[15], subjects[11]));
+            lessons.Add(new Lesson(teachers[8], classes[13], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[14], subjects[11], Subgroup.All));
+            lessons.Add(new Lesson(teachers[8], classes[15], subjects[11], Subgroup.All));
 
             // один урок ИЗО
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[1], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[2], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[3], subjects[11]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[1], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[2], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[3], subjects[11], Subgroup.All), 1));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[4], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[5], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[6], subjects[11]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[4], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[5], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[6], subjects[11], Subgroup.All), 1));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[7], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[8], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[9], subjects[11]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[7], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[8], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[9], subjects[11], Subgroup.All), 1));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[10], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[11], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[12], subjects[11]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[10], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[11], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[12], subjects[11], Subgroup.All), 1));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[13], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[14], subjects[11]), 1));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[15], subjects[11]), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[13], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[14], subjects[11], Subgroup.All), 1));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[15], subjects[11], Subgroup.All), 1));
 
             for (int i = 0; i < 2; i++)  // два урока технологии
             {
-                lessons.Add(new Lesson(teachers[9], classes[1], subjects[12]));
-                lessons.Add(new Lesson(teachers[9], classes[2], subjects[12]));
-                lessons.Add(new Lesson(teachers[9], classes[3], subjects[12]));
+                lessons.Add(new Lesson(teachers[9], classes[1], subjects[12], Subgroup.All));
+                lessons.Add(new Lesson(teachers[9], classes[2], subjects[12], Subgroup.All));
+                lessons.Add(new Lesson(teachers[9], classes[3], subjects[12], Subgroup.All));
                 // 6 класс
-                lessons.Add(new Lesson(teachers[9], classes[4], subjects[12]));
-                lessons.Add(new Lesson(teachers[9], classes[5], subjects[12]));
-                lessons.Add(new Lesson(teachers[9], classes[6], subjects[12]));
+                lessons.Add(new Lesson(teachers[9], classes[4], subjects[12], Subgroup.All));
+                lessons.Add(new Lesson(teachers[9], classes[5], subjects[12], Subgroup.All));
+                lessons.Add(new Lesson(teachers[9], classes[6], subjects[12], Subgroup.All));
                 // 7 класс
-                lessons.Add(new Lesson(teachers[9], classes[7], subjects[12]));
-                lessons.Add(new Lesson(teachers[9], classes[8], subjects[12]));
-                lessons.Add(new Lesson(teachers[9], classes[9], subjects[12]));
+                lessons.Add(new Lesson(teachers[9], classes[7], subjects[12], Subgroup.All));
+                lessons.Add(new Lesson(teachers[9], classes[8], subjects[12], Subgroup.All));
+                lessons.Add(new Lesson(teachers[9], classes[9], subjects[12], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[1], subjects[12]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[2], subjects[12]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[3], subjects[12]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[1], subjects[12], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[2], subjects[12], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[3], subjects[12], Subgroup.All), 2));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[4], subjects[12]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[5], subjects[12]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[6], subjects[12]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[4], subjects[12], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[5], subjects[12], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[6], subjects[12], Subgroup.All), 2));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[7], subjects[12]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[8], subjects[12]), 2));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[9], subjects[12]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[7], subjects[12], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[8], subjects[12], Subgroup.All), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[9], subjects[12], Subgroup.All), 2));
 
             for (int i = 0; i < 3; i++)  // три урока физкультуры
             {
-                lessons.Add(new Lesson(teachers[10], classes[1], subjects[13]));
-                lessons.Add(new Lesson(teachers[10], classes[2], subjects[13]));
-                lessons.Add(new Lesson(teachers[10], classes[3], subjects[13]));
+                lessons.Add(new Lesson(teachers[10], classes[1], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[10], classes[2], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[10], classes[3], subjects[13], Subgroup.All));
                 // 6 класс
-                lessons.Add(new Lesson(teachers[10], classes[4], subjects[13]));
-                lessons.Add(new Lesson(teachers[10], classes[5], subjects[13]));
-                lessons.Add(new Lesson(teachers[10], classes[6], subjects[13]));
+                lessons.Add(new Lesson(teachers[10], classes[4], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[10], classes[5], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[10], classes[6], subjects[13], Subgroup.All));
                 // 7 класс
-                lessons.Add(new Lesson(teachers[22], classes[7], subjects[13]));
-                lessons.Add(new Lesson(teachers[22], classes[8], subjects[13]));
-                lessons.Add(new Lesson(teachers[22], classes[9], subjects[13]));
+                lessons.Add(new Lesson(teachers[22], classes[7], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[22], classes[8], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[22], classes[9], subjects[13], Subgroup.All));
                 // 8 класс
-                lessons.Add(new Lesson(teachers[22], classes[10], subjects[13]));
-                lessons.Add(new Lesson(teachers[22], classes[11], subjects[13]));
-                lessons.Add(new Lesson(teachers[22], classes[12], subjects[13]));
+                lessons.Add(new Lesson(teachers[22], classes[10], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[22], classes[11], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[22], classes[12], subjects[13], Subgroup.All));
                 // 9 класс
-                lessons.Add(new Lesson(teachers[29], classes[13], subjects[13]));
-                lessons.Add(new Lesson(teachers[29], classes[14], subjects[13]));
-                lessons.Add(new Lesson(teachers[29], classes[15], subjects[13]));
+                lessons.Add(new Lesson(teachers[29], classes[13], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[29], classes[14], subjects[13], Subgroup.All));
+                lessons.Add(new Lesson(teachers[29], classes[15], subjects[13], Subgroup.All));
             }
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[1], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[2], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[3], subjects[13]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[1], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[2], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[3], subjects[13], Subgroup.All), 3));
             // 6 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[4], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[5], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[6], subjects[13]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[4], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[5], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[6], subjects[13], Subgroup.All), 3));
             // 7 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[7], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[8], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[9], subjects[13]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[7], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[8], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[9], subjects[13], Subgroup.All), 3));
             // 8 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[10], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[11], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[12], subjects[13]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[10], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[11], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[22], classes[12], subjects[13], Subgroup.All), 3));
             // 9 класс
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[13], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[14], subjects[13]), 3));
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[15], subjects[13]), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[13], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[14], subjects[13], Subgroup.All), 3));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[29], classes[15], subjects[13], Subgroup.All), 3));
 
             #endregion
             var s = 1;
@@ -707,38 +754,33 @@ namespace Generator.Tools
         {
             Data.Instance.Restrictions = new ObservableCollection<Restriction>();
             var expressions = new List<(int, string, int, string, int, bool)>()
-            {
-                (1, "R(t1, s1, k1, c1, x1, d1) И x1 = 1 -> d1 != 1", 5, "По ПН нет 1 урока", 15, false),
-                (2, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Иванов В.В.\" -> d1 != 5", 10, "Иванов В.В. в пятницу - малая нагрузка", 20, false),
-                (3, "R(t1, s1, k1, c1, x1, d1) И R(t2, s2, k2, c2, x2, d2) И t1 = t2 И x1 + 2 = x2 И d1 = d2 -> R(t3, s3, k3, c3, x3, d3) И t2 = t3 И x1 + 1 = x3 И d2 = d3 И d1 = d3", 7, "окон нет", 30, false),
-                (4, "R(t1, s1, k1, c1, x1, d1) И t1 = \"Петрова А.А.\" -> d1 != 1", 15, "Петрова А.А. в понедельник - выходной", 50, true),
-                (5, "R(t1, s1, k1, c1, x1, d1) -> d1 != 6", 0, "отдыхаем в субботу", 30, false),
-                (6, "R(t1, s1, k1, c1, x1, d1) И x1 in [1, 2] -> c1 in [\"6А\"]", 30, "среди первых двух занятий должен быть 6а", 70, false),
-                (7, "R(t1, s1, k1, c1, x1, d1) И R(t2, s2, k2, c2, x2, d2) И t1 = t2 И x1 + 3 = x2 И d1 = d2 -> R(t3, s3, k3, c3, x3, d3) И R(t4, s4, k4, c4, x4, d4) И t2 = t3 И x1 + 1 = x3 И d2 = d3 И t2 = t4 И x1 + 2 = x4 И d2 = d4", 5, "окон 2 нет", 15, false),
+            {              
+                (1, "R(t1, s1, k1, c1, x1, d1, b1) И b1 != 2 -> R(t2, s2, k2, c2, x2, d2, b2) И b2 != b1 И b2 != 2 И t1 != t2 И c1 = c2 И s1 = s2 И d1 = d2 И x1 = x2", 100, "Равные пары", 70, false),
+                (2, "R(t1, s1, k1, c1, x1, d1, b1) И R(t2, s2, k2, c2, x2, d2, b2) И c1 = c2 И d1 = d2 И x1 = x2 + 2 -> R(t3, s3, k3, c3, x3, d3, b3) И c3 = c1 И d3 = d1 И x3 = x2 + 1", 30, "Нет 1 окна", 60, false),
+                (3, "R(t1, s1, k1, c1, x1, d1, b1) И R(t2, s2, k2, c2, x2, d2, b2) И c1 = c2 И d1 = d2 И x1 = x2 + 3 -> R(t3, s3, k3, c3, x3, d3, b3) И R(t4, s4, k4, c4, x4, d4, b4) И c3 = c1 И d3 = d1 И x3 = x2 + 1 И c4 = c1 И d4 = d1 И x4 = x2 + 2", 30, "Нет 2 окн", 60, false)
             };
 
             foreach (var expression in expressions)
             {
                 var (errors, expr) = Analyzer.Analyze(expression.Item2);
-                if (errors.Count == 0)
+                if (errors.Count != 0) continue;
+
+                var text = Compilier.CreateFunction($"{expression.Item3} {expr}", expression.Item5);
+
+                var compiler = Compilier.Compile(new string[1] { text });
+                var method = Compilier.CreateMethod(compiler);
+
+
+                Data.Instance.Restrictions.Add(new Restriction()
                 {
-                    var text = Compilier.CreateFunction($"{expression.Item3} {expr}", expression.Item5);
-                    
-                    var compiler = Compilier.Compile(new string[1] { text });
-                    var method = Compilier.CreateMethod(compiler);
-
-
-                    Data.Instance.Restrictions.Add(new Restriction()
-                    {
-                        Number = expression.Item1,
-                        Comment = expression.Item4,
-                        Method = method,
-                        Expression = expression.Item2,
-                        WeightPozitive = expression.Item3,
-                        WeightNegative = expression.Item5,
-                        IsRequirement = expression.Item6,
-                    });
-                }
+                    Number = expression.Item1,
+                    Comment = expression.Item4,
+                    Method = method,
+                    Expression = expression.Item2,
+                    WeightPozitive = expression.Item3,
+                    WeightNegative = expression.Item5,
+                    IsRequirement = expression.Item6,
+                });
             }
         }
     }

@@ -80,12 +80,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Subgroup.cs" />
     <Compile Include="Singleton\Data.cs" />
     <Compile Include="Tools\ExcelWorker.cs" />
     <Compile Include="Tools\FileWorker.cs" />
     <Compile Include="Tools\Garbage.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Utils\ExtensionMethods.cs" />
+    <Compile Include="Utils\Pair.cs" />
     <Compile Include="Utils\Rand.cs" />
     <Compile Include="View\Editors\ClassesWindow.xaml.cs">
       <DependentUpon>ClassesWindow.xaml</DependentUpon>

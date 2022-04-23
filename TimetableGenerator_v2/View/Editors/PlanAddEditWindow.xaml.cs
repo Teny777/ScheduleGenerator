@@ -46,6 +46,7 @@ namespace Generator.View.Editors
                 SelectedTeacher = _lessonEditor.Lesson.Teacher;
                 SelectedSubject = _lessonEditor.Lesson.Subject;
                 SelectedClass = _lessonEditor.Lesson.Class;
+                SelectedSubgroup = _lessonEditor.Lesson.Subgroup;
                 Count = _lessonEditor.Count;
             }
         }
@@ -54,9 +55,14 @@ namespace Generator.View.Editors
         public ObservableCollection<Subject> Subjects => SelectedTeacher?.Subjects;
         public ObservableCollection<Class> Classes => new ObservableCollection<Class>(Data.Instance.Classes.Values);
 
+        public ObservableCollection<Subgroup> Subgroups => new ObservableCollection<Subgroup>(Data.Instance.Subgroups);
+
+        //public ObservableCollection<Subgroup> Subgroups => new ObservableCollection<Subgroup>(Data.Instance.);
+
         public Teacher SelectedTeacher { get; set; }
         public Subject SelectedSubject { get; set; }
         public Class SelectedClass { get; set; }
+        public Subgroup SelectedSubgroup { get; set; }
 
         public int Count { get; set; } = 1;
 
@@ -72,7 +78,7 @@ namespace Generator.View.Editors
                 throw new Exception("нельзя использовать при изменении.");
             }
             
-            return new LessonEditor(new Lesson(SelectedTeacher, SelectedClass, SelectedSubject), Count);
+            return new LessonEditor(new Lesson(SelectedTeacher, SelectedClass, SelectedSubject, SelectedSubgroup), Count);
         }
 
         private void SubmitPlan()
@@ -82,6 +88,7 @@ namespace Generator.View.Editors
                 _lessonEditor.Lesson.Teacher = SelectedTeacher;
                 _lessonEditor.Lesson.Subject = SelectedSubject;
                 _lessonEditor.Lesson.Class = SelectedClass;
+                _lessonEditor.Lesson.Subgroup = SelectedSubgroup;
                 _lessonEditor.Count = Count;
             }
 

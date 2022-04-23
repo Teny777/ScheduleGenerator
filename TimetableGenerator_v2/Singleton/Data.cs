@@ -31,11 +31,13 @@ namespace Generator.Singleton
 
         public ObservableCollection<Restriction> Restrictions { get; set; } = new ObservableCollection<Restriction>();
 
-        public ObservableCollection<Subject> Subjects { get; set; }
-        public ObservableCollection<LessonEditor> LessonEditors { get; set; }
-        public List<Lesson> Lessons { get; set; }
-        public Dictionary<int, Class> Classes { get; set; }
-        public Dictionary<int, Teacher> Teachers { get; set; }
+        public ObservableCollection<Subject> Subjects { get; set; } = new ObservableCollection<Subject>();
+        public ObservableCollection<LessonEditor> LessonEditors { get; set; } = new ObservableCollection<LessonEditor>();
+        public List<Lesson> Lessons { get; set; } = new List<Lesson>();
+        public Dictionary<int, Class> Classes { get; set; } = new Dictionary<int, Class>();
+        public Dictionary<int, Teacher> Teachers { get; set; } = new Dictionary<int, Teacher>();
+
+        public List<Subgroup> Subgroups = new List<Subgroup>() { Subgroup.First, Subgroup.Second, Subgroup.All };
         
         public int N => Lessons.Count;
 
@@ -76,12 +78,17 @@ namespace Generator.Singleton
             {
                 for (int j = i + 1; j < N; j++)
                 {
-                    if (Lessons[i].Teacher == Lessons[j].Teacher || Lessons[i].Class == Lessons[j].Class)
+                    if (Lessons[i].Teacher == Lessons[j].Teacher || Lessons[i].Class == Lessons[j].Class && (Lessons[i].Subject != Lessons[j].Subject || !CheckDifferentSubgroups(Lessons[i].Subgroup, Lessons[j].Subgroup)))
                     {
                         Mas[i, j] = Mas[j, i] = true;
                     }
                 }
             }
+        }
+
+        private bool CheckDifferentSubgroups(Subgroup a, Subgroup b)
+        {
+            return a == Subgroup.First && b == Subgroup.Second || a == Subgroup.Second && b == Subgroup.First;
         }
     }
 }

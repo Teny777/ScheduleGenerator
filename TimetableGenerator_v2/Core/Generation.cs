@@ -18,7 +18,9 @@ namespace Generator.Core
 
         public Individual GetMax()
         {
-            return _individs.Max();
+            Individual individ = _individs.Max();
+            individ.LocalOptimization();
+            return individ;
         }
 
         public Generation()
@@ -62,6 +64,7 @@ namespace Generator.Core
 
             _individs.RemoveRange(lastCount, _individs.Count - lastCount);
 
+
             _individs.AddRange(childs);
             _individs.AddRange(random);
             CalcStats();
@@ -102,7 +105,9 @@ namespace Generator.Core
 
         public DataTable BestSolution()
         {
-            return _individs.Max().CreateTimeTable();
+            Individual individ = _individs.Max();
+            individ.LocalOptimization();
+            return individ.CreateTimeTable();
         }
 
         public DataTable TeacherTable()

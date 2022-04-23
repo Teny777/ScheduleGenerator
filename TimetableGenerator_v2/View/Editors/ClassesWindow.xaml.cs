@@ -51,7 +51,7 @@ namespace Generator.View.Editors
             var class_ = new Class
             {
                 Name = "00А",
-                Id = Data.Instance.Classes.Last().Key + 1
+                Id = Data.Instance.Classes.Count != 0 ? Data.Instance.Classes.Last().Key + 1 : 1
             };
 
             Data.Instance.Classes.Add(class_.Id, class_);
@@ -62,6 +62,13 @@ namespace Generator.View.Editors
 
         private void Remove()
         {
+            if (Data.Instance.LessonEditors.Any(x => x.Lesson.Class == SelectedClass))
+            {
+                System.Windows.MessageBox.Show($"Класс {SelectedClass.Name} Задействован в учебном плане. Удаление невозможно.");
+                return;
+            }
+
+            Data.Instance.Classes.Remove(SelectedClass.Id);
             Classes.Remove(SelectedClass);
         }
     }
