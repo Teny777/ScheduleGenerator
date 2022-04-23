@@ -15,6 +15,8 @@ namespace Generator.Model
         public string Name { get; set; }
         public bool IsTechnical { get; set; }
 
+
+
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
     }

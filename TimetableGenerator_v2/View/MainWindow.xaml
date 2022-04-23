@@ -79,7 +79,7 @@
                                             Binding="{Binding Lesson.Subject.Name}"/>
                         <DataGridTextColumn Header="Подгруппа"
                                             Width="2*"
-                                            Binding="{Binding Lesson.Subgroup}"/>
+                                            Binding="{Binding Lesson.Subgroup.Name}"/>
                         <DataGridTextColumn Header="Часы"
                                             Width="*"
                                             Binding="{Binding Count}"/>

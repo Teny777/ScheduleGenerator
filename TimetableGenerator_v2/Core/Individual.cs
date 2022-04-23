@@ -152,93 +152,90 @@ namespace Generator.Core
             return Rating.CompareTo(other.Rating);
         }
 
-        public void LocalOptimization()
-        {
-            //var timetable = new Dictionary<int, List<Tuple<bool, Lesson>>>();
+        //public void LocalOptimization()
+        //{
+        //    //var timetable = new Dictionary<int, List<Tuple<bool, Lesson>>>();
 
 
-            int size_colors = 50;
-            var timetable = new List<Pair<bool, Lesson>>[size_colors];
+        //    int size_colors = 50;
+        //    var timetable = new List<Pair<bool, Lesson>>[size_colors];
 
-            for (int i = 0; i < size_colors; ++i)
-                timetable[i] = new List<Pair<bool, Lesson>>();
+        //    for (int i = 0; i < size_colors; ++i)
+        //        timetable[i] = new List<Pair<bool, Lesson>>();
 
-            for (int i = 0; i < Data.Instance.N; ++i)
-                timetable[Colors[i]].Add(new Pair<bool, Lesson>(true, Data.Instance.Lessons[i]));   
+        //    for (int i = 0; i < Data.Instance.N; ++i)
+        //        timetable[Colors[i]].Add(new Pair<bool, Lesson>(true, Data.Instance.Lessons[i]));   
             
             
-            for (int i = 1; i < size_colors; ++i)
-            {
-                for (int j = 0; j < timetable[i].Count; ++j)
-                {
-                    if (timetable[i][j].Second.Subgroup == Subgroup.All) continue;
+        //    for (int i = 1; i < size_colors; ++i)
+        //    {
+        //        for (int j = 0; j < timetable[i].Count; ++j)
+        //        {
+        //            if (timetable[i][j].Second.Subgroup.Group == Subgroups.All) continue;
 
-                    bool compatibility = false;
-                    for (int z = 0; z < timetable[i].Count; ++z)
-                    {
-                        if (j == z) continue;
-                        if (timetable[i][j].Second.Class == timetable[i][z].Second.Class && timetable[i][j].Second.Subject == timetable[i][z].Second.Subject && CheckDifferentSubgroups(timetable[i][j].Second.Subgroup, timetable[i][z].Second.Subgroup))
-                        {
-                            compatibility = true;
-                            break;
-                        }
+        //            bool compatibility = false;
+        //            for (int z = 0; z < timetable[i].Count; ++z)
+        //            {
+        //                if (j == z) continue;
+        //                if (timetable[i][j].Second.Class == timetable[i][z].Second.Class && timetable[i][j].Second.Subject == timetable[i][z].Second.Subject && Subgroup.CheckDifferentSubgroups(timetable[i][j].Second.Subgroup, timetable[i][z].Second.Subgroup))
+        //                {
+        //                    compatibility = true;
+        //                    break;
+        //                }
                                 
-                    }
-                    timetable[i][j].First = compatibility;
+        //            }
+        //            timetable[i][j].First = compatibility;
 
-                }
-            }
+        //        }
+        //    }
 
-            for (int i = 1; i < size_colors; ++i)
-            {
-                for (int j = 0; j < timetable[i].Count; ++j)
-                {
-                    if (timetable[i][j].First) continue;
+        //    for (int i = 1; i < size_colors; ++i)
+        //    {
+        //        for (int j = 0; j < timetable[i].Count; ++j)
+        //        {
+        //            if (timetable[i][j].First) continue;
 
-                    bool pair = false;
+        //            bool pair = false;
 
-                    for (int z = 1; z < size_colors && !pair; ++z)
-                    {
-                        if (i == z) continue;
-                        for (int w = 0; w < timetable[z].Count; ++w)
-                        {
-                            if (timetable[i][j].Second.Class == timetable[z][w].Second.Class && timetable[i][j].Second.Subject == timetable[z][w].Second.Subject && CheckDifferentSubgroups(timetable[i][j].Second.Subgroup, timetable[z][w].Second.Subgroup) && !timetable[z][w].First)
-                            {
-                                Teacher teacher = timetable[z][w].Second.Teacher;
-                                Pair<bool, Lesson> lesson = timetable[z][w];
-                                bool contains = false;
+        //            for (int z = 1; z < size_colors && !pair; ++z)
+        //            {
+        //                if (i == z) continue;
+        //                for (int w = 0; w < timetable[z].Count; ++w)
+        //                {
+        //                    if (timetable[i][j].Second.Class == timetable[z][w].Second.Class && timetable[i][j].Second.Subject == timetable[z][w].Second.Subject && Subgroup.CheckDifferentSubgroups(timetable[i][j].Second.Subgroup, timetable[z][w].Second.Subgroup) && !timetable[z][w].First)
+        //                    {
+        //                        Teacher teacher = timetable[z][w].Second.Teacher;
+        //                        Pair<bool, Lesson> lesson = timetable[z][w];
+        //                        bool contains = false;
 
 
-                                for (int q = 0; q < timetable[i].Count; ++q)
-                                {
-                                    if(timetable[i][q].Second.Teacher == teacher)
-                                    {
-                                        contains = true;
-                                        break;
-                                    }
-                                }
+        //                        for (int q = 0; q < timetable[i].Count; ++q)
+        //                        {
+        //                            if(timetable[i][q].Second.Teacher == teacher)
+        //                            {
+        //                                contains = true;
+        //                                break;
+        //                            }
+        //                        }
 
-                                if (contains) continue;
-                                pair = true;
+        //                        if (contains) continue;
+        //                        pair = true;
 
-                                lesson.First = timetable[i][j].First = true;
-                                timetable[z].Remove(lesson);
+        //                        lesson.First = timetable[i][j].First = true;
+        //                        timetable[z].Remove(lesson);
                                 
-                                timetable[i].Add(lesson);
-                                Colors[lesson.Second.Id] = Colors[timetable[i][j].Second.Id];
-                                break;
+        //                        timetable[i].Add(lesson);
+        //                        Colors[lesson.Second.Id] = Colors[timetable[i][j].Second.Id];
+        //                        break;
                                 
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
-        private bool CheckDifferentSubgroups(Subgroup a, Subgroup b)
-        {
-            return a == Subgroup.First && b == Subgroup.Second || a == Subgroup.Second && b == Subgroup.First;
-        }
+
 
 
     }

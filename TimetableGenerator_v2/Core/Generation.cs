@@ -19,8 +19,7 @@ namespace Generator.Core
         public Individual GetMax()
         {
             Individual individ = _individs.Max();
-            individ.LocalOptimization();
-            return individ;
+            return _individs.Max().LocalOptimization();
         }
 
         public Generation()
@@ -67,6 +66,7 @@ namespace Generator.Core
 
             _individs.AddRange(childs);
             _individs.AddRange(random);
+            //GetLocalOptimization(_individs);
             CalcStats();
         }
 
@@ -76,7 +76,14 @@ namespace Generator.Core
             for (int i = 0; i < Data.Instance.IndividualCount; i++)
                 _individs.Add(new Individual());
             Parallel.ForEach(_individs, (curIndivid) => curIndivid.BuildAndColorize());
+            //GetLocalOptimization(_individs);
             CalcStats();
+        }
+
+        private void GetLocalOptimization(List<Individual> individuals)
+        {
+            for (int i = 0; i < individuals.Count; ++i)
+                individuals[i].LocalOptimization();
         }
 
         private void CalcStats()
@@ -105,14 +112,12 @@ namespace Generator.Core
 
         public DataTable BestSolution()
         {
-            Individual individ = _individs.Max();
-            individ.LocalOptimization();
-            return individ.CreateTimeTable();
+            return _individs.Max().LocalOptimization().CreateTimeTable();
         }
 
         public DataTable TeacherTable()
         {
-            return _individs.Max().CreateTeacherTimeTable();
+            return _individs.Max().LocalOptimization().CreateTeacherTimeTable();
         }
     }
 }

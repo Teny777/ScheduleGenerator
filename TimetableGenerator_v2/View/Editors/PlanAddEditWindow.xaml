@@ -30,7 +30,8 @@
             </GroupBox>
             <GroupBox Header="Подгруппа">
                 <ComboBox ItemsSource="{Binding Subgroups}"
-                          SelectedItem="{Binding SelectedSubgroup}"/>
+                          SelectedItem="{Binding SelectedSubgroup}"
+                          DisplayMemberPath="Name"/>
             </GroupBox>
             <GroupBox Header="Количество часов в неделю">
                 <xctk:IntegerUpDown DefaultValue="1"

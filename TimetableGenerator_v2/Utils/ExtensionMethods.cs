@@ -5,11 +5,78 @@ using Generator.Singleton;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System;
 
 namespace Generator.Utils
 {
     public static class ExtensionMethods
     {
+        public static Individual LocalOptimization (this Individual individual)
+        {
+            var timetable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
+            foreach (int key in Data.Instance.Classes.Keys)
+                timetable.Add(key, new Dictionary<int, List<Lesson>>());
+
+            foreach (int key in Data.Instance.Classes.Keys)
+                for (int j = 1; j < 50; ++j)
+                    timetable[key][j] = new List<Lesson>();
+
+            for (int i = 0; i < Data.Instance.N; i++)
+                timetable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
+            
+            foreach (int class_id in Data.Instance.Classes.Keys)
+            {
+                for (int color = 1; color <= timetable[class_id].Count; ++color)
+                {
+                    if (timetable[class_id][color].Count != 1 || timetable[class_id][color][0].Subgroup.Group == Subgroups.All) continue;
+
+                    for (int next_color = color + 1; next_color <= timetable[class_id].Count; ++next_color)
+                    {
+                        if (timetable[class_id][next_color].Count != 1 || timetable[class_id][next_color][0].Subgroup.Group == Subgroups.All || !Lesson.CheckLessonFromOneClass(timetable[class_id][color][0], timetable[class_id][next_color][0]))
+                            continue;
+                        if (CheckTecherInLessons(timetable, class_id, next_color, timetable[class_id][color][0].Teacher) && CheckCanMove(timetable, class_id, color))
+                        {
+                            individual.Colors[timetable[class_id][color][0].Id] = individual.Colors[timetable[class_id][next_color][0].Id];
+                            Lesson lesson = timetable[class_id][color][0];
+                            timetable[class_id][color].Remove(lesson);
+                            timetable[class_id][next_color].Add(lesson);
+                            break;
+                        }
+
+                        if (CheckTecherInLessons(timetable, class_id, color, timetable[class_id][next_color][0].Teacher) && CheckCanMove(timetable, class_id, next_color))
+                        {
+                            individual.Colors[timetable[class_id][next_color][0].Id] = individual.Colors[timetable[class_id][color][0].Id];
+                            Lesson lesson = timetable[class_id][next_color][0];
+                            timetable[class_id][next_color].Remove(lesson);
+                            timetable[class_id][color].Add(lesson);
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+            return individual;
+        }
+
+        private static bool CheckTecherInLessons(Dictionary<int, Dictionary<int, List<Lesson>>> timetable, int class_id, int color, Teacher teacher)
+        {
+            foreach (int i in Data.Instance.Classes.Keys)
+            {
+                if (i == class_id) continue;
+                for (int j = 0; j < timetable[i][color].Count; ++j)
+                    if (timetable[i][color][j].Teacher == teacher) return false;
+            }
+            return true;
+        }
+
+        private static bool CheckCanMove(Dictionary<int, Dictionary<int, List<Lesson>>> timetable, int class_id, int color)
+        {
+            if ((color - 1) % 6 + 1 == 1 || (color - 1) % 6 + 1 == 6) return true;
+            if (Math.Abs(((color - 1) % 6 + 1) - ((color - 2) % 6 + 1)) != 1 || timetable[class_id][color - 1].Count == 0) return true;
+            if (Math.Abs(((color - 1) % 6 + 1) - ((color) % 6 + 1)) != 1 || timetable[class_id][color + 1].Count == 0) return true;
+            return false;
+        }
 
         public static DataTable CreateTimeTable(this Individual individual)
         {
@@ -49,8 +116,9 @@ namespace Generator.Utils
                     }
 
                     tmpList[i] = string.Empty;
-                    foreach (var lesson in curLessons)
-                        tmpList[i] += lesson.ToString() + "\\";
+                    tmpList[i] += curLessons[0].ToString() + "\n";
+                    if (curLessons.Count == 2)
+                        tmpList[i] += curLessons[1].ToString();
 
                 }
                 dt.Rows.Add(tmpList);
@@ -91,6 +159,7 @@ namespace Generator.Utils
                     13 => "Среда",
                     19 => "Четверг",
                     25 => "Пятница",
+                    31 => "Суббота",
                     _ => "",
                 };
                 table[i, 1] = (i % 6 + 1).ToString();
@@ -211,7 +280,7 @@ namespace Generator.Utils
                         foreach (var lesson in curLessons)
                         {
                             var c = lesson;
-                            var row = new Row(c.Teacher.Name, c.Subject.Name, 0/*кабинетов нет*/, c.Class.Name, x, dayOfWeek, (int)c.Subgroup);
+                            var row = new Row(c.Teacher.Name, c.Subject.Name, 0/*кабинетов нет*/, c.Class.Name, x, dayOfWeek, (int)c.Subgroup.Group);
                             result.Add(row);
                         }
                         
@@ -220,5 +289,7 @@ namespace Generator.Utils
             }
             return result;
         }
+
+
     }
 }
