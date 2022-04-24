@@ -78,6 +78,18 @@ namespace Generator.Tools
                 { 28, new Teacher(28, "Биологических Г.Г.", new ObservableCollection<Subject>{ Data.Instance.Subjects[9] }) }, // Биология
                 { 29, new Teacher(29, "Физкультурных К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[13] })}, // Физкультура
                 { 30, new Teacher(30, "Информатик К.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[16] })}, // Информатика
+
+                { 31, new Teacher(31, "Курилова А.К.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14] })}, // Физика
+                { 32, new Teacher(32, "Ральникова И.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14] })}, // Физика
+                { 33, new Teacher(33, "Вергунова Р.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14] })}, // Физика
+                { 34, new Teacher(34, "Бондаренко М.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14] })}, // Физика
+                { 35, new Teacher(35, "Шевцова А.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14] })}, // Физика
+                { 36, new Teacher(36, "Кустов М.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[14] })}, // Физика
+
+                { 37, new Teacher(37, "Костоусова А.В.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5] })}, // Английский язык
+                { 38, new Teacher(38, "Ладыгина М.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5] })}, // Английский язык
+                { 39, new Teacher(39, "Кокош А.И.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5] })}, // Английский язык
+                { 40, new Teacher(40, "Кокова Е.А.", new ObservableCollection<Subject>{ Data.Instance.Subjects[5] })}, // Английский язык
             };
             #endregion
 
@@ -111,6 +123,39 @@ namespace Generator.Tools
             var classes = Data.Instance.Classes;
             var subjects = Data.Instance.Subjects;
             var subgroups = Data.Instance.Subgroups;
+
+            for (int i = 0; i < 2; ++i) // по 2 урока английского для 5 и 6 классов
+            {
+                lessons.Add(new Lesson(teachers[37], classes[2], subjects[5], subgroups[0]));
+                lessons.Add(new Lesson(teachers[38], classes[2], subjects[5], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[39], classes[3], subjects[5], subgroups[0]));
+                lessons.Add(new Lesson(teachers[40], classes[3], subjects[5], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[37], classes[4], subjects[5], subgroups[0]));
+                lessons.Add(new Lesson(teachers[38], classes[4], subjects[5], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[39], classes[5], subjects[5], subgroups[0]));
+                lessons.Add(new Lesson(teachers[40], classes[5], subjects[5], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[37], classes[6], subjects[5], subgroups[0]));
+                lessons.Add(new Lesson(teachers[38], classes[6], subjects[5], subgroups[1]));
+            }
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[37], classes[2], subjects[5], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[38], classes[2], subjects[5], subgroups[1]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[39], classes[3], subjects[5], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[40], classes[3], subjects[5], subgroups[1]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[37], classes[4], subjects[5], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[38], classes[4], subjects[5], subgroups[1]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[39], classes[5], subjects[5], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[40], classes[5], subjects[5], subgroups[1]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[37], classes[6], subjects[5], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[38], classes[6], subjects[5], subgroups[1]), 2));
 
             for (int i = 0; i < 4; i++)  // по 4 урока руского у каждого класса 7 класса
             {
@@ -523,27 +568,86 @@ namespace Generator.Tools
                 lessons.Add(new Lesson(teachers[16], classes[7], subjects[14], subgroups[2]));
                 lessons.Add(new Lesson(teachers[16], classes[8], subjects[14], subgroups[2]));
                 lessons.Add(new Lesson(teachers[16], classes[9], subjects[14], subgroups[2]));
+
+                lessons.Add(new Lesson(teachers[31], classes[7], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[32], classes[7], subjects[14], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[33], classes[8], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[34], classes[8], subjects[14], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[35], classes[9], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[36], classes[9], subjects[14], subgroups[1]));
+
                 // 8 класс
                 lessons.Add(new Lesson(teachers[16], classes[10], subjects[14], subgroups[2]));
                 lessons.Add(new Lesson(teachers[16], classes[11], subjects[14], subgroups[2]));
                 lessons.Add(new Lesson(teachers[16], classes[12], subjects[14], subgroups[2]));
+
+                lessons.Add(new Lesson(teachers[31], classes[10], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[32], classes[10], subjects[14], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[33], classes[11], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[34], classes[11], subjects[14], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[35], classes[12], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[36], classes[12], subjects[14], subgroups[1]));
+
                 // 9 класс
                 lessons.Add(new Lesson(teachers[16], classes[13], subjects[14], subgroups[2]));
                 lessons.Add(new Lesson(teachers[16], classes[14], subjects[14], subgroups[2]));
                 lessons.Add(new Lesson(teachers[16], classes[15], subjects[14], subgroups[2]));
+
+
+                lessons.Add(new Lesson(teachers[31], classes[13], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[32], classes[13], subjects[14], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[33], classes[14], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[34], classes[14], subjects[14], subgroups[1]));
+
+                lessons.Add(new Lesson(teachers[35], classes[15], subjects[14], subgroups[0]));
+                lessons.Add(new Lesson(teachers[36], classes[15], subjects[14], subgroups[1]));
             }
+
+
             // 7 класс
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[7], subjects[14], subgroups[2]), 2));
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[8], subjects[14], subgroups[2]), 2));
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[9], subjects[14], subgroups[2]), 2));
+
+
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[31], classes[7], subjects[14], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[32], classes[7], subjects[14], subgroups[1]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[33], classes[8], subjects[14], subgroups[0]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[34], classes[8], subjects[14], subgroups[1]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[35], classes[9], subjects[14], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[36], classes[9], subjects[14], subgroups[1]), 2));
+
             // 8 класс
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[10], subjects[14], subgroups[2]), 2));
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[11], subjects[14], subgroups[2]), 2));
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[12], subjects[14], subgroups[2]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[31], classes[10], subjects[14], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[32], classes[10], subjects[14], subgroups[1]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[33], classes[11], subjects[14], subgroups[0]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[34], classes[11], subjects[14], subgroups[1]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[35], classes[12], subjects[14], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[36], classes[12], subjects[14], subgroups[1]), 2));
             // 9 класс
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[13], subjects[14], subgroups[2]), 2));
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[14], subjects[14], subgroups[2]), 2));
             lesEdit.Add(new LessonEditor(new Lesson(teachers[16], classes[15], subjects[14], subgroups[2]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[31], classes[13], subjects[14], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[32], classes[13], subjects[14], subgroups[1]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[33], classes[14], subjects[14], subgroups[0]), 2));
+
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[34], classes[14], subjects[14], subgroups[1]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[35], classes[15], subjects[14], subgroups[0]), 2));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[36], classes[15], subjects[14], subgroups[1]), 2));
 
             // 2 урока химии 
             for (int i = 0; i < 2; i++)
