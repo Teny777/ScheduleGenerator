@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Generator.View.Editors
@@ -26,6 +27,7 @@ namespace Generator.View.Editors
         }
 
         public ObservableCollection<Teacher> Teachers { get; private set; }
+        public ObservableCollection<Classroom> Classrooms => new ObservableCollection<Classroom>(Data.Instance.Classrooms);
 
         public Teacher SelectedTeacher { get; set; }
 
@@ -55,6 +57,15 @@ namespace Generator.View.Editors
             }
             Data.Instance.Teachers.Remove(SelectedTeacher.Id);
             Teachers.Remove(SelectedTeacher);
+        }
+
+        private void ComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+
+            ComboBox comboBox = (ComboBox)sender;
+            if (SelectedTeacher is null || comboBox.SelectedItem is null) return;
+            SelectedTeacher.PriorityClassroom = (Classroom)comboBox.SelectedItem;
+
         }
     }
 }

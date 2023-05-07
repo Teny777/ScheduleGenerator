@@ -175,7 +175,7 @@ namespace RestrictionAnalyzer.Modules
                 AddIdentToScopeFromNumber(1, name, token);
             }
 
-            for (int i = 2; i <= 7; i++)
+            for (int i = 2; i <= 6; i++)
             {
                 try
                 {
@@ -212,11 +212,10 @@ namespace RestrictionAnalyzer.Modules
                 {
                     1 => Type.String,
                     2 => Type.String,
-                    3 => Type.Integer,
+                    3 => Type.String,
                     4 => Type.String,
                     5 => Type.Integer,
                     6 => Type.Integer,
-                    7 => Type.Integer,
                     _ => throw new System.Exception("переменных в предикате всего 6"),
                 };
 

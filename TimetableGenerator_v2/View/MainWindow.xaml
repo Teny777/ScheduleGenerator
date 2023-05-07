@@ -35,6 +35,8 @@
                           Command="{Binding ClassesMenuCommand}"/>
                 <MenuItem Header="Учителя"
                           Command="{Binding TeachersMenuCommand}"/>
+                <MenuItem Header="Кабинеты"
+                          Command="{Binding ClassroomsMenuCommand}"/>
             </MenuItem>
             
             <MenuItem Header="Расписание">
@@ -77,9 +79,6 @@
                         <DataGridTextColumn Header="Предмет"
                                             Width="2*"
                                             Binding="{Binding Lesson.Subject.Name}"/>
-                        <DataGridTextColumn Header="Подгруппа"
-                                            Width="2*"
-                                            Binding="{Binding Lesson.Subgroup.Name}"/>
                         <DataGridTextColumn Header="Часы"
                                             Width="*"
                                             Binding="{Binding Count}"/>

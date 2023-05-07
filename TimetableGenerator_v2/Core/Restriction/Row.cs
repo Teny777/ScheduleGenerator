@@ -3,7 +3,7 @@ namespace Generator.Core.Restriction
 {
     public class Row
     {
-        public Row(string t, string s, int k, string c, int x, int d, int b)
+        public Row(string t, string s, string k, string c, int x, int d)
         {
             this.t = t;
             this.s = s;
@@ -11,7 +11,6 @@ namespace Generator.Core.Restriction
             this.c = c;
             this.x = x;
             this.d = d;
-            this.b = b;
         }
 
         /*
@@ -22,7 +21,6 @@ namespace Generator.Core.Restriction
             c∈C – класс (группа), string? 5а 5б 5в
             x∈X – позиция расписания (время проведения), 1,2..7..
             d∈D - день недели 1-ПН 2-ВТ ... 7-ВС
-            b∈B - подгруппа
         */
         /// <summary>
         /// t - преподаватель
@@ -37,7 +35,7 @@ namespace Generator.Core.Restriction
         /// <summary>
         /// k - кабинет
         /// </summary>
-        public int k { get; set; }
+        public string k { get; set; }
 
         /// <summary>
         /// c - класс
@@ -54,7 +52,5 @@ namespace Generator.Core.Restriction
         /// </summary>
         public int d { get; set; }
 
-        // b - номер подгруппы
-        public int b { get; set; }
     }
 }

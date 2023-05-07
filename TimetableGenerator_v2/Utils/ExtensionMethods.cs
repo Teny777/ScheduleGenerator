@@ -6,151 +6,232 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System;
+using Xceed.Wpf.Toolkit;
+using System.Windows.Media;
+
+
 
 namespace Generator.Utils
 {
-    public static class ExtensionMethods
+
+    public class Time
     {
-        public static Individual LocalOptimization (this Individual individual)
+        public Time(string start, string end)
         {
-            var timetable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
-            foreach (int key in Data.Instance.Classes.Keys)
-                timetable.Add(key, new Dictionary<int, List<Lesson>>());
-
-            foreach (int key in Data.Instance.Classes.Keys)
-                for (int j = 1; j < 50; ++j)
-                    timetable[key][j] = new List<Lesson>();
-
-            for (int i = 0; i < Data.Instance.N; i++)
-                timetable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
-            
-            foreach (int class_id in Data.Instance.Classes.Keys)
+            Start = start;
+            End = end;
+        }
+        public Time(int color)
+        {
+            Time time =  GetTime(color);
+            Start = time.Start;
+            End = time.End;
+        }
+        public static Time GetTime(int color)
+        {
+            switch ((color - 1) % 6 + 1)
             {
-                for (int color = 1; color <= timetable[class_id].Count; ++color)
-                {
-                    if (timetable[class_id][color].Count != 1 || timetable[class_id][color][0].Subgroup.Group == Subgroups.All) continue;
-
-                    for (int next_color = color + 1; next_color <= timetable[class_id].Count; ++next_color)
-                    {
-                        if (timetable[class_id][next_color].Count != 1 || timetable[class_id][next_color][0].Subgroup.Group == Subgroups.All || !Lesson.CheckLessonFromOneClass(timetable[class_id][color][0], timetable[class_id][next_color][0]))
-                            continue;
-                        if (CheckTecherInLessons(timetable, class_id, next_color, timetable[class_id][color][0].Teacher) && CheckCanMove(timetable, class_id, color))
-                        {
-                            individual.Colors[timetable[class_id][color][0].Id] = individual.Colors[timetable[class_id][next_color][0].Id];
-                            Lesson lesson = timetable[class_id][color][0];
-                            timetable[class_id][color].Remove(lesson);
-                            timetable[class_id][next_color].Add(lesson);
-                            break;
-                        }
-
-                        if (CheckTecherInLessons(timetable, class_id, color, timetable[class_id][next_color][0].Teacher) && CheckCanMove(timetable, class_id, next_color))
-                        {
-                            individual.Colors[timetable[class_id][next_color][0].Id] = individual.Colors[timetable[class_id][color][0].Id];
-                            Lesson lesson = timetable[class_id][next_color][0];
-                            timetable[class_id][next_color].Remove(lesson);
-                            timetable[class_id][color].Add(lesson);
-                            break;
-                        }
-
-                    }
-                }
+                case 1:
+                    return new Time("8.00", "9.00");
+                case 2:
+                    return new Time("9.00", "10.00");
+                case 3:
+                    return new Time("10.00", "11.00");
+                case 4:
+                    return new Time("11.00", "12.00");
+                case 5:
+                    return new Time("12.00", "13.00");
+                case 6:
+                    return new Time("13.00", "14.00");
+                default:
+                    return null;
             }
-
-            return individual;
         }
+        public string Start { get; set; }   
+        public string End { get; set; } 
 
-        private static bool CheckTecherInLessons(Dictionary<int, Dictionary<int, List<Lesson>>> timetable, int class_id, int color, Teacher teacher)
+
+    }
+    public class GroupInfo
+    {
+        public GroupInfo()
         {
-            foreach (int i in Data.Instance.Classes.Keys)
+            Colors = new List<int>();
+        }
+        public string Classroom { get; set; } 
+        public List<int> Colors { get; set; }
+
+
+        public List<string> GetSchedule()
+        {
+            Colors.Sort();
+            var result = new List<string>();
+            for (int i = 0; i < 6; ++i) result.Add(string.Empty);
+            for (int i = 0; i < Colors.Count; ++i)
             {
-                if (i == class_id) continue;
-                for (int j = 0; j < timetable[i][color].Count; ++j)
-                    if (timetable[i][color][j].Teacher == teacher) return false;
+                int startIdx = i;
+                var start = new Time(Colors[i]);
+                while (i + 1 < Colors.Count && Colors[i + 1] - 1 == Colors[i] && (Colors[i + 1] - 1) % 6 != 0) i++;
+                var end = new Time(Colors[i]);
+                result[(Colors[i] - 1) / 6] += $"{start.Start}-{end.End} ({i - startIdx + 1})\n";
             }
-            return true;
+            return result;
         }
+    }
 
-        private static bool CheckCanMove(Dictionary<int, Dictionary<int, List<Lesson>>> timetable, int class_id, int color)
-        {
-            if ((color - 1) % 6 + 1 == 1 || (color - 1) % 6 + 1 == 6) return true;
-            if (Math.Abs(((color - 1) % 6 + 1) - ((color - 2) % 6 + 1)) != 1 || timetable[class_id][color - 1].Count == 0) return true;
-            if (Math.Abs(((color - 1) % 6 + 1) - ((color) % 6 + 1)) != 1 || timetable[class_id][color + 1].Count == 0) return true;
-            return false;
-        }
+    public static class ExtensionMethods
+    {  
 
         public static DataTable CreateTimeTable(this Individual individual)
         {
-            var timetable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
+            var outputTable = new DataTable();
+            var timetable = new Dictionary<int, Dictionary<int, Dictionary<int, GroupInfo>>>();
+            var subjects = new Dictionary<int, Subject>();
 
-            foreach (int key in Data.Instance.Classes.Keys)
+            foreach (var subject in Data.Instance.Subjects)
             {
-                timetable.Add(key, new Dictionary<int, List<Lesson>>());
+                timetable.Add(subject.Id, new Dictionary<int, Dictionary<int, GroupInfo>>());
+                subjects.Add(subject.Id, subject); 
             }
-            // подготовка таблицы для расписания ^^^
+  
             for (int i = 0; i < Data.Instance.N; i++)
             {
-                //timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], Data.Instance.Lessons[i]);
-
-                if (!timetable[Data.Instance.Lessons[i].Class.Id].ContainsKey(individual.Colors[i])) timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], new List<Lesson>());
-                timetable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
+                
+                if (!timetable[Data.Instance.Lessons[i].Subject.Id].ContainsKey(Data.Instance.Lessons[i].Teacher.Id)) timetable[Data.Instance.Lessons[i].Subject.Id].Add(Data.Instance.Lessons[i].Teacher.Id, new Dictionary<int, GroupInfo>());
+                if (!timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id].ContainsKey(Data.Instance.Lessons[i].Class.Id)) timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id].Add(Data.Instance.Lessons[i].Class.Id, new GroupInfo());
+                timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Colors.Add(individual.Colors[i]);
+                timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Classroom = Data.Instance.Lessons[i].Classroom.Name;
             }
 
-            var dt = new DataTable();
-            dt.Columns.Add(@"уроки\классы");
-            var tmpList = new string[37];
-            for (int i = 1; i <= 36; i++)
-            {
-                dt.Columns.Add(i.ToString());
-            }
 
-            foreach (var classesTimeTable in timetable.Values)
+            outputTable.Columns.Add(@"№");
+            outputTable.Columns.Add(@"Наименование детских объединений");
+            outputTable.Columns.Add(@"ФИО педагога");
+            outputTable.Columns.Add(@"Группа");
+            outputTable.Columns.Add(@"Общая нагрузка");
+            outputTable.Columns.Add(@"Текущая нагрузка");
+            outputTable.Columns.Add(@"Понедельник");
+            outputTable.Columns.Add(@"Вторник");
+            outputTable.Columns.Add(@"Среда");
+            outputTable.Columns.Add(@"Четверг");
+            outputTable.Columns.Add(@"Пятница");
+            outputTable.Columns.Add(@"Суббота");
+            outputTable.Columns.Add(@"Воскресенье");
+            outputTable.Columns.Add(@"Кабинет");
+            int currentNumber = 1;
+
+            foreach(var subject in timetable)
             {
-                tmpList[0] = classesTimeTable.First().Value.First().Class.Name;
-                for (int i = 1; i <= 36; i++)
+                     
+                foreach (var teacher in subject.Value)
                 {
-                    classesTimeTable.TryGetValue(i, out List<Lesson> curLessons);
-                    int new_i = ChangeOrder(i);
-                    if (curLessons is null)
+                    DataRow newRow = outputTable.NewRow();
+                    newRow[0] = currentNumber++.ToString();
+                    newRow[1] = subjects[subject.Key].Name;
+                    newRow[2] = Data.Instance.Teachers[teacher.Key].Name;
+                    int totalLoad = 0;
+
+                    foreach (var curClass in teacher.Value)
                     {
-                        tmpList[new_i] = "-----------";
-                        continue;
+                        totalLoad += curClass.Value.Colors.Count;
                     }
+                    newRow[4] = totalLoad.ToString();
 
-                    tmpList[new_i] = string.Empty;
-                    tmpList[new_i] += curLessons[0].ToString() + "\n";
-                    if (curLessons.Count == 2)
-                        tmpList[new_i] += curLessons[1].ToString();
-
+                    foreach (var curClass in teacher.Value)
+                    {
+                        newRow[3] = Data.Instance.Classes[curClass.Key].Name;
+                        newRow[5] = curClass.Value.Colors.Count.ToString();
+                        newRow[13] = curClass.Value.Classroom;
+                        var getSchedule = curClass.Value.GetSchedule();
+                        for (int i = 0; i < getSchedule.Count; ++i)
+                            newRow[6 + i] = getSchedule[i];
+                        outputTable.Rows.Add(newRow);
+                        newRow = outputTable.NewRow();
+                    }
+                    
                 }
-                dt.Rows.Add(tmpList);
             }
-            var correctTable = dt.GenerateTransposedTable();
-            return correctTable;
+
+
+            return outputTable;
         }
 
-        private static int ChangeOrder(int i)
-        {
 
-            switch (i)
-            {
-                case 6:
-                    return 31;
-                case 12:
-                    return 32;
-                case 18:
-                    return 33;
+        //public static DataTable CreateTimeTable1(this Individual individual)
+        //{
+        //    var timetable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
+
+        //    foreach (int key in Data.Instance.Classes.Keys)
+        //    {
+        //        timetable.Add(key, new Dictionary<int, List<Lesson>>());
+        //    }
+        //    // подготовка таблицы для расписания ^^^
+        //    for (int i = 0; i < Data.Instance.N; i++)
+        //    {
+        //        //timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], Data.Instance.Lessons[i]);
+
+        //        if (!timetable[Data.Instance.Lessons[i].Class.Id].ContainsKey(individual.Colors[i])) timetable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], new List<Lesson>());
+        //        timetable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
+        //    }
+
+        //    var dt = new DataTable();
+        //    dt.Columns.Add(@"уроки\учителя");
+        //    var tmpList = new string[37];
+        //    for (int i = 1; i <= 36; i++)
+        //    {
+        //        dt.Columns.Add(i.ToString());
+        //    }
+
+        //    foreach (var classesTimeTable in timetable.Values)
+        //    {
+        //        if (classesTimeTable.Count == 0) continue;
+        //        tmpList[0] = classesTimeTable.First().Value.First().Class.Name;
+        //        for (int i = 1; i <= 36; i++)
+        //        {
+        //            classesTimeTable.TryGetValue(i, out List<Lesson> curLessons);
+        //            //int new_i = ChangeOrder(i);
+        //            int new_i = i;
+        //            if (curLessons is null)
+        //            {
+        //                tmpList[new_i] = "-----------";
+        //                continue;
+        //            }
+
+        //            tmpList[new_i] = string.Empty;
+        //            tmpList[new_i] += curLessons[0].ToString() + "\n";
+        //            if (curLessons.Count == 2)
+        //                tmpList[new_i] += curLessons[1].ToString();
+
+        //        }
+        //        dt.Rows.Add(tmpList);
+        //    }
+        //    var correctTable = dt.GenerateTransposedTable();
+        //    return correctTable;
+        //}
+
+        //private static int ChangeOrder(int i)
+        //{
+
+        //    switch (i)
+        //    {
+        //        case 6:
+        //            return 31;
+        //        case 12:
+        //            return 32;
+        //        case 18:
+        //            return 33;
 
 
-                case 31:
-                    return 6;
-                case 32:
-                    return 12;
-                case 33:
-                    return 18;
-                default:
-                    return i;
-            }
-        }
+        //        case 31:
+        //            return 6;
+        //        case 32:
+        //            return 12;
+        //        case 33:
+        //            return 18;
+        //        default:
+        //            return i;
+        //    }
+        //}
 
         public static DataTable CreateTeacherTimeTable(this Individual individual)
         {
@@ -194,12 +275,14 @@ namespace Generator.Utils
             int j = 2;
             foreach (var teacherTimeTable in timetable.Values)
             {
+                if (teacherTimeTable.Count == 0) continue;
                 headers[j] = teacherTimeTable.First().Value.Teacher.Name; // first ???  first or default may be
                 if (headers[j] == null) continue;
                 for (int i = 1; i <= 36; i++)
                 {
                     teacherTimeTable.TryGetValue(i, out Lesson curLes);
-                    int new_i = ChangeOrder(i);
+                    //int new_i = ChangeOrder(i);
+                    int new_i = i;
                     table[new_i - 1, j] = curLes?.Info ?? "-----------";
                 }
                 j++;
@@ -278,40 +361,131 @@ namespace Generator.Utils
             return outputTable;
         }
 
+        //public static List<Row> TableToRows1(this Individual individual)
+        //{
+        //    var result = new List<Row>();
+
+        //    // таблица для классов
+        //    var clsTimeTable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
+        //    foreach (int key in Data.Instance.Classes.Keys)
+        //        clsTimeTable.Add(key, new Dictionary<int, List<Lesson>>());
+
+        //    // подготовка таблицы для расписания ^^^
+        //    for (int i = 0; i < Data.Instance.N; i++)
+        //    {
+        //        if (!clsTimeTable[Data.Instance.Lessons[i].Class.Id].ContainsKey(individual.Colors[i])) clsTimeTable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], new List<Lesson>());
+        //        clsTimeTable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
+        //    }
+
+        //    foreach (var classTimetable in clsTimeTable.Values)
+        //    {
+        //        for (int i = 1; i < 37; i++) // 36
+        //        {
+        //            int x = (i - 1) % 6 + 1;
+        //            int dayOfWeek = (i - 1) / 6 + 1;
+
+        //            if (classTimetable.TryGetValue(i, out List<Lesson> curLessons))
+        //            {
+        //                foreach (var lesson in curLessons)
+        //                {
+        //                    var c = lesson;
+        //                    c.Classroom = c.Teacher.Classrooms[0];
+        //                    var row = new Row(c.Teacher.Name, c.Subject.Name, c.Teacher.Classrooms[0].Name, c.Class.Name, x, dayOfWeek);
+        //                    result.Add(row);
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        static List<string> GetClassrooms(List<List<string>> a)
+        {
+            int n = a.Count;
+            List<string> result = new List<string>();
+            Dictionary<string, int> reIdx = new Dictionary<string, int>();
+            int start_cnt = n + 1;
+            for (int i = 0; i < n; ++i)
+            {
+
+                for (int j = 0; j < a[i].Count; ++j)
+                {
+                    if (reIdx.ContainsKey(a[i][j])) continue;
+                    reIdx.Add(a[i][j], start_cnt++);
+
+                }
+            }
+            MinMaxFlow minMaxFlow = new MinMaxFlow(start_cnt + 1, 0, start_cnt);
+            for (int i = 0; i < n; i++)
+                minMaxFlow.AddEdge(0, i + 1, 1, 2);
+
+            for (int i = 0; i < n; ++i)
+            {
+                for (int j = 0; j < a[i].Count - 1; ++j)
+                {
+                    minMaxFlow.AddEdge(i + 1, reIdx[a[i][j]], 1, 2);
+                }
+                minMaxFlow.AddEdge(i + 1, reIdx[a[i][a[i].Count - 1]], 1, 1);
+            }
+            foreach (var u in reIdx)
+                minMaxFlow.AddEdge(u.Value, start_cnt, 1, 2);
+
+            int flow = minMaxFlow.Flow();
+
+            int cur_edge = n * 2;
+            for (int i = 0; i < n; ++i)
+            {
+                bool flag = false;
+                for (int j = 0; j < a[i].Count; ++j)
+                {
+                    if (minMaxFlow.Edges[cur_edge].f != 0)
+                    {
+                        result.Add(a[i][j]);
+                        flag = true;
+                    }
+                    cur_edge += 2;
+                }
+                if (!flag) result.Add("0");
+            }
+
+            return result;
+        }
+
         public static List<Row> TableToRows(this Individual individual)
         {
             var result = new List<Row>();
 
-            // таблица для классов
-            var clsTimeTable = new Dictionary<int, Dictionary<int, List<Lesson>>>(Data.Instance.Classes.Count);
-            foreach (int key in Data.Instance.Classes.Keys)
-                clsTimeTable.Add(key, new Dictionary<int, List<Lesson>>());
+            var timeTalbe = new Dictionary<int, List<Lesson>>();
+            for (int i = 1; i < 50; ++i)
+                timeTalbe.Add(i, new List<Lesson>());
 
-            // подготовка таблицы для расписания ^^^
-            for (int i = 0; i < Data.Instance.N; i++)
-            {
-                if (!clsTimeTable[Data.Instance.Lessons[i].Class.Id].ContainsKey(individual.Colors[i])) clsTimeTable[Data.Instance.Lessons[i].Class.Id].Add(individual.Colors[i], new List<Lesson>());
-                clsTimeTable[Data.Instance.Lessons[i].Class.Id][individual.Colors[i]].Add(Data.Instance.Lessons[i]);
-            }
+            for (int i = 0; i < Data.Instance.N; ++i)
+                timeTalbe[individual.Colors[i]].Add(Data.Instance.Lessons[i]);
+            
+            
 
-            foreach (var classTimetable in clsTimeTable.Values)
+            for (int i = 1; i < 37; i++) // 36
             {
-                for (int i = 1; i < 37; i++) // 36
+                int x = (i - 1) % 6 + 1;
+                int dayOfWeek = (i - 1) / 6 + 1;
+                List<List<string>> classrooms = new List<List<string>>();
+                foreach (var lesson in timeTalbe[i])
                 {
-                    int x = (i - 1) % 6 + 1;
-                    int dayOfWeek = (i - 1) / 6 + 1;
-
-                    if (classTimetable.TryGetValue(i, out List<Lesson> curLessons))
-                    {
-                        foreach (var lesson in curLessons)
-                        {
-                            var c = lesson;
-                            var row = new Row(c.Teacher.Name, c.Subject.Name, 0/*кабинетов нет*/, c.Class.Name, x, dayOfWeek, (int)c.Subgroup.Group);
-                            result.Add(row);
-                        }
-                        
-                    }
+                    classrooms.Add(lesson.Teacher.Classrooms.Select(x => x.Name).ToList());
+                    classrooms.Last().Remove(lesson.Teacher.PriorityClassroom.Name);
+                    classrooms.Last().Add(lesson.Teacher.PriorityClassroom.Name);
                 }
+                List<string> selectedClassroms = GetClassrooms(classrooms);
+
+                for (int j = 0; j < timeTalbe[i].Count; ++j)
+                {
+                    var c = timeTalbe[i][j];
+                    c.Classroom = new Classroom(selectedClassroms[j]);
+                    var row = new Row(c.Teacher.Name, c.Subject.Name, c.Classroom.Name, c.Class.Name, x, dayOfWeek);
+                    result.Add(row);
+                }
+
             }
             return result;
         }

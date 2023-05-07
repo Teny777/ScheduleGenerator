@@ -193,7 +193,7 @@ namespace RestrictionAnalyzer.Modules
         {
             var charNumber = _io.CharNumber;
             var str = _io.ReadWhile(ch => char.IsLetterOrDigit(ch));
-            
+
             if (str == "not")
             {
                 var ch1 = _io.ShowNextNthChar(1);

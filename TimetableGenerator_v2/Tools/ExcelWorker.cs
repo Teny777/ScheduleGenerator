@@ -2,6 +2,7 @@
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Data;
 using System.Diagnostics;
+using System.Windows;
 
 namespace Generator.Tools
 {
@@ -28,6 +29,7 @@ namespace Generator.Tools
                     workSheet.Cells[1, i + 1] = table.Columns[i].ColumnName;
                 }
 
+                var lastNotEmpty = -1;
                 // rows
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
@@ -36,13 +38,34 @@ namespace Generator.Tools
                     {
                         workSheet.Cells[i + 2, j + 1] = table.Rows[i][j];
                     }
+                    
+                    if (table.Rows[i][0].GetType() != typeof(DBNull))
+                    {
+                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 1], workSheet.Cells[i + 1, 1]].Merge();
+                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 2], workSheet.Cells[i + 1, 2]].Merge();
+                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 3], workSheet.Cells[i + 1, 3]].Merge();
+                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 5], workSheet.Cells[i + 1, 5]].Merge();
+                        lastNotEmpty = i;
+                    }
                 }
-                workSheet.Range["A2:A7"].Merge();
-                workSheet.Range["A8:A13"].Merge();
-                workSheet.Range["A14:A19"].Merge();
-                workSheet.Range["A20:A25"].Merge();
-                workSheet.Range["A26:A31"].Merge();
-                workSheet.Range["A2:A31"].Orientation = Excel.XlOrientation.xlUpward;
+                workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 1], workSheet.Cells[table.Rows.Count + 1, 1]].Merge();
+                workSheet.Rows.AutoFit();
+                workSheet.Columns.AutoFit();
+                workSheet.Columns.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                workSheet.Columns.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                workSheet.Columns[1].ColumnWidth = 5;
+                workSheet.Columns[2].ColumnWidth = 20;
+                workSheet.Columns[3].ColumnWidth = 20;
+                workSheet.Columns[4].ColumnWidth = 10;
+                workSheet.Columns[5].ColumnWidth = 10;
+                workSheet.Columns[6].ColumnWidth = 10;
+                for (int i = 7; i < 14; ++i)
+                {
+                    workSheet.Columns[i].ColumnWidth = 15;
+                }
+                workSheet.Cells.WrapText = true;
+                workSheet.Rows[1].Font.Bold = true;
+                workSheet.Range[workSheet.Cells[1, 1], workSheet.Cells[table.Rows.Count + 1, table.Columns.Count]].Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
                 // check file path
                 if (!string.IsNullOrEmpty(excelFilePath))

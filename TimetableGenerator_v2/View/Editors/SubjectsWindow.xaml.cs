@@ -3,6 +3,7 @@ using Generator.Singleton;
 using Generator.Tools;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -45,7 +46,11 @@ namespace Generator.View.Editors
 
         private void Add()
         {
-            var subject = new Subject("Имя предмета");
+            var subject = new Subject
+            {
+                Name = "Имя предмета",
+                Id = Data.Instance.Subjects.Count != 0 ? Data.Instance.Subjects.Last().Id + 1 : 1,
+            };
             Subjects.Add(subject);
             SelectedSubject = subject;
         }

@@ -37,7 +37,8 @@ namespace Generator.Singleton
         public Dictionary<int, Class> Classes { get; set; } = new Dictionary<int, Class>();
         public Dictionary<int, Teacher> Teachers { get; set; } = new Dictionary<int, Teacher>();
 
-        public List<Subgroup> Subgroups = new List<Subgroup>() { new Subgroup(0), new Subgroup(1), new Subgroup(2) };
+
+        public ObservableCollection<Classroom> Classrooms = new ObservableCollection<Classroom>();
         
         public int N => Lessons.Count;
 
@@ -78,7 +79,7 @@ namespace Generator.Singleton
             {
                 for (int j = i + 1; j < N; j++)
                 {
-                    if (Lessons[i].Teacher == Lessons[j].Teacher || Lessons[i].Class == Lessons[j].Class && (Lessons[i].Subject != Lessons[j].Subject || !Subgroup.CheckDifferentSubgroups(Lessons[i].Subgroup, Lessons[j].Subgroup)))
+                    if (Lessons[i].Teacher == Lessons[j].Teacher || Lessons[i].Class == Lessons[j].Class)
                     {
                         Mas[i, j] = Mas[j, i] = true;
                     }

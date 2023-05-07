@@ -31,6 +31,12 @@
                     <DataGridTextColumn Header="Предметы"
                                         Width="3*"
                                         Binding="{Binding SubjectsText}" />
+                    <DataGridTextColumn Header="Приоритетный кабинет"
+                                        Width="3*"
+                                        Binding="{Binding PriorityClassroom.Name}" />
+                    <DataGridTextColumn Header="Доступные кабинеты"
+                                        Width="3*"
+                                        Binding="{Binding ClassroomsText}" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
@@ -48,6 +54,8 @@
                           Header="Изменить">
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
@@ -68,6 +76,29 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2"
+                                  Header="Приоритетный кабинет">
+                            <ComboBox ItemsSource="{Binding SelectedTeacher.Classrooms}"
+                                      SelectedItem="{Binding SelectedTeacher.PriorityClassroom}"
+                                      SelectionChanged="ComboBox_Selected"
+                                      DisplayMemberPath="Name"/>
+                        </GroupBox>
+
+
+                        <GroupBox Grid.Row="3"
+                                  Header="Допустимые Кабинеты">
+                            <ListBox ItemsSource="{Binding SelectedTeacher.AllClassrooms}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <ListBoxItem>
+                                            <CheckBox IsChecked="{Binding IsChecked}"
+                                                      Content="{Binding Classroom.Name}" />
+                                        </ListBoxItem>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            
                         </GroupBox>
                     </Grid>
                 </GroupBox>

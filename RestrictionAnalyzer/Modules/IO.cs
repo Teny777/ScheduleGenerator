@@ -9,6 +9,8 @@ namespace RestrictionAnalyzer.Modules
         private readonly string _restriction;
         private readonly List<Error> _errors;
         private int _position;
+        
+
         public int CharNumber { get; private set; }
 
         public IO(string restriction)

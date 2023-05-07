@@ -10,10 +10,10 @@ namespace Generator.Model
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public override string ToString() => $"{Subject.Name}, {Teacher.Name}, ({Subgroup.Name})";
+        public override string ToString() => $"{Subject.Name}, {Teacher.Name}, Каб: {Classroom.Name}";
 
         [XmlIgnore]
-        public string Info => $"{Class.Name} ({Subgroup.Name}), {Subject.Name}";
+        public string Info => $"{Class.Name}, {Subject.Name}, Каб: {Classroom.Name}";
 
         public int Color { get; set; }
 
@@ -23,21 +23,18 @@ namespace Generator.Model
 
         public Subject Subject { get; set; }
 
-        public Subgroup Subgroup { get; set; }
+        public Classroom Classroom { get; set; }
+
 
         public int Id { get; set; }
 
-        public Lesson(Teacher teacher, Class tclass, Subject subject, Subgroup subgroup)
+        public Lesson(Teacher teacher, Class tclass, Subject subject)
         {
             Teacher = teacher;
             Class = tclass;
             Subject = subject;
-            Subgroup = subgroup;
+            Classroom = new Classroom("0");
         }
 
-        public static bool CheckLessonFromOneClass(Lesson a, Lesson b)
-        {
-            return a.Class == a.Class && a.Subject == a.Subject && Subgroup.CheckDifferentSubgroups(a.Subgroup, b.Subgroup);
-        }
     }
 }

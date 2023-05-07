@@ -47,6 +47,7 @@ namespace Generator.View
             SubjectsMenuCommand = new RelayCommand(() => new SubjectsWindow { Owner = this }.ShowDialog(), () => GenerationStatus != TimetableIsCreating);
             ClassesMenuCommand = new RelayCommand(() => new ClassesWindow { Owner = this }.ShowDialog(), () => GenerationStatus != TimetableIsCreating);
             TeachersMenuCommand = new RelayCommand(() => new TeachersWindow { Owner = this }.ShowDialog(), () => GenerationStatus != TimetableIsCreating);
+            ClassroomsMenuCommand = new RelayCommand(() => new ClassroomsWindow { Owner = this }.ShowDialog(), () => GenerationStatus != TimetableIsCreating);
 
             // работа с файлами
             FileMenuOpenCommand = new RelayCommand(() => 
@@ -97,6 +98,7 @@ namespace Generator.View
         public ICommand SubjectsMenuCommand { get; private set; }
         public ICommand ClassesMenuCommand { get; private set; }
         public ICommand TeachersMenuCommand { get; private set; }
+        public ICommand ClassroomsMenuCommand { get; private set; }
 
         public ICommand FileMenuOpenCommand { get; private set; }
         public ICommand FileMenuSaveCommand { get; private set; }
@@ -161,7 +163,7 @@ namespace Generator.View
             {
                 for (int i = 0; i < le.Count; i++)
                 {
-                    Data.Instance.Lessons.Add(new Lesson(le.Lesson.Teacher, le.Lesson.Class, le.Lesson.Subject, le.Lesson.Subgroup));
+                    Data.Instance.Lessons.Add(new Lesson(le.Lesson.Teacher, le.Lesson.Class, le.Lesson.Subject));
                 }
             }
             await Task.Run(CalculationThread);
@@ -180,10 +182,9 @@ namespace Generator.View
                 Log += $"{gen}{Environment.NewLine}";
                 ProgressValue = _try * 100 / Data.Instance.GenerationCount;
             }
-            _shedule = gen.BestSolution();
-            _teacherShedule = gen.TeacherTable();
-
             var rows = gen.GetMax().TableToRows();
+            _shedule = gen.BestSolution();
+            //_teacherShedule = gen.TeacherTable();
             GenerationStatus = TimetableIsCreated;
             ApplyRestrictions(rows);
             ProgressValue = 100;

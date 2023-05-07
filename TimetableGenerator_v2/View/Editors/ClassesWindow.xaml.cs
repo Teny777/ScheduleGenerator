@@ -24,7 +24,7 @@ namespace Generator.View.Editors
 
             Classes = new ObservableCollection<Class>(Data.Instance.Classes.Values);
         }
-
+            
         public ObservableCollection<Class> Classes { get; private set; } 
 
         public Class SelectedClass { get; set; }
