@@ -3,6 +3,7 @@ using Generator.Singleton;
 using Generator.Tools;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -53,6 +54,11 @@ namespace Generator.View.Editors
 
         private void Remove()
         {
+            if (Data.Instance.Teachers.Any(x => x.Value.Classrooms.Any(classroom => classroom == SelectedClassroom)))
+            {
+                System.Windows.MessageBox.Show($"Кабинет {SelectedClassroom.Name} Выбран для педагога. Удаление невозможно.");
+                return;
+            }
             Classrooms.Remove(SelectedClassroom);
         }
     }

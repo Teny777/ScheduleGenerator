@@ -8,7 +8,8 @@
         Title="Кабинеты"
         Height="380"
         Width="290"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Icon="../../Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

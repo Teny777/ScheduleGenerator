@@ -1,8 +1,10 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Windows.Media;
 
 namespace Generator.Core.Restriction
 {
+    [Serializable]
     public class Restriction
     {
         public int Number { get; set; }
@@ -10,6 +12,8 @@ namespace Generator.Core.Restriction
         public int WeightPozitive { get; set; }
         public int WeightNegative { get; set; }
         public string Comment { get; set; }
+        
+        [field: NonSerialized]
         public MethodInfo Method { get; set; }
 
         public Brush Color 

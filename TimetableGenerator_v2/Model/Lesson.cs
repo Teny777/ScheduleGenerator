@@ -33,7 +33,6 @@ namespace Generator.Model
             Teacher = teacher;
             Class = tclass;
             Subject = subject;
-            Classroom = new Classroom("0");
         }
 
     }

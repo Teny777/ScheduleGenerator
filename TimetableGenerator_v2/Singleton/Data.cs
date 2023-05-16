@@ -30,14 +30,12 @@ namespace Generator.Singleton
         private Data() { }
 
         public ObservableCollection<Restriction> Restrictions { get; set; } = new ObservableCollection<Restriction>();
-
         public ObservableCollection<Subject> Subjects { get; set; } = new ObservableCollection<Subject>();
         public ObservableCollection<LessonEditor> LessonEditors { get; set; } = new ObservableCollection<LessonEditor>();
         public List<Lesson> Lessons { get; set; } = new List<Lesson>();
         public Dictionary<int, Class> Classes { get; set; } = new Dictionary<int, Class>();
         public Dictionary<int, Teacher> Teachers { get; set; } = new Dictionary<int, Teacher>();
-
-
+        
         public ObservableCollection<Classroom> Classrooms = new ObservableCollection<Classroom>();
         
         public int N => Lessons.Count;
@@ -51,8 +49,8 @@ namespace Generator.Singleton
         [field: NonSerialized]
         public int[] Numbers { get; private set; }
 
-        public int GenerationCount { get; set; } = 30;
-        public int IndividualCount { get; set; } = 100;
+        public int GenerationCount { get; set; } = 300;
+        public int IndividualCount { get; set; } = 700;
 
 
         public bool StudentsWindows { get; set; } = true;

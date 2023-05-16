@@ -29,7 +29,7 @@ namespace Generator.Tools
                     workSheet.Cells[1, i + 1] = table.Columns[i].ColumnName;
                 }
 
-                var lastNotEmpty = -1;
+                
                 // rows
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
@@ -38,17 +38,22 @@ namespace Generator.Tools
                     {
                         workSheet.Cells[i + 2, j + 1] = table.Rows[i][j];
                     }
-                    
-                    if (table.Rows[i][0].GetType() != typeof(DBNull))
-                    {
-                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 1], workSheet.Cells[i + 1, 1]].Merge();
-                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 2], workSheet.Cells[i + 1, 2]].Merge();
-                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 3], workSheet.Cells[i + 1, 3]].Merge();
-                        workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 5], workSheet.Cells[i + 1, 5]].Merge();
-                        lastNotEmpty = i;
-                    }
                 }
-                workSheet.Range[workSheet.Cells[lastNotEmpty + 2, 1], workSheet.Cells[table.Rows.Count + 1, 1]].Merge();
+
+                foreach (var column in new [] {0, 1, 2, 4})
+                {
+                    var lastNotEmpty = -1;
+                    for (int i = 0; i < table.Rows.Count; ++i)
+                    {
+                        if (table.Rows[i][column].GetType() != typeof(DBNull))
+                        {
+                            workSheet.Range[workSheet.Cells[lastNotEmpty + 2, column + 1], workSheet.Cells[i + 1, column + 1]].Merge(); ;
+                            lastNotEmpty = i;
+                        }
+                    }
+                    workSheet.Range[workSheet.Cells[lastNotEmpty + 2, column + 1], workSheet.Cells[table.Rows.Count + 1, column + 1]].Merge();
+                }
+                
                 workSheet.Rows.AutoFit();
                 workSheet.Columns.AutoFit();
                 workSheet.Columns.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -90,6 +95,7 @@ namespace Generator.Tools
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Возникла ошибка при выгрузке в Excel");
                 // коммент потому что не надо бы чтобы вылетала программа. а ещё лучше сделать так чтобы пользователь узнал о том, что что-то не так.
                 //throw new Exception("ExportToExcel: \n" + ex.Message);
             }

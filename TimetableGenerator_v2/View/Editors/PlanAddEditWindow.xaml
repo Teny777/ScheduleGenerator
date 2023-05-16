@@ -10,10 +10,11 @@
         Height="291.667"
         Width="304.667"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Icon="../../Icon.ico">
     <Grid>
         <StackPanel>
-            <GroupBox Header="Преподаватель">
+            <GroupBox Header="Педагог">
                 <ComboBox ItemsSource="{Binding Teachers}"
                           SelectedItem="{Binding SelectedTeacher}" 
                           DisplayMemberPath="Name"/>
@@ -23,7 +24,7 @@
                           SelectedItem="{Binding SelectedSubject}"
                           DisplayMemberPath="Name"/>
             </GroupBox>
-            <GroupBox Header="Класс">
+            <GroupBox Header="Группа">
                 <ComboBox ItemsSource="{Binding Classes}"
                           SelectedItem="{Binding SelectedClass}"
                           DisplayMemberPath="Name"/>

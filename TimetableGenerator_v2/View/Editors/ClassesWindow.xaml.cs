@@ -64,7 +64,7 @@ namespace Generator.View.Editors
         {
             if (Data.Instance.LessonEditors.Any(x => x.Lesson.Class == SelectedClass))
             {
-                System.Windows.MessageBox.Show($"Класс {SelectedClass.Name} Задействован в учебном плане. Удаление невозможно.");
+                System.Windows.MessageBox.Show($"Группа {SelectedClass.Name} Задействована в учебном плане. Удаление невозможно.");
                 return;
             }
 

@@ -1,4 +1,5 @@
-﻿using Generator.Singleton;
+﻿using System;
+using Generator.Singleton;
 using Microsoft.Win32;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -73,8 +74,9 @@ namespace Generator.Tools
             try
             {
                 Data.Instance = (Data)_bf.Deserialize(fs);
+                Garbage.FillRestrictions(Data.Instance.Restrictions);
             }
-            catch
+            catch (Exception e)
             {
                 MessageBox.Show("Ошибка открытия файла");
             }

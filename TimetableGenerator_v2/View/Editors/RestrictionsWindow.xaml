@@ -9,7 +9,8 @@
         Title="Ограничения" 
         Height="450" 
         Width="1100"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Icon="../../Icon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -77,59 +78,59 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    <!-- <Button Grid.Row="0" -->
+                    <!--         Content="Добавить через конструктор" -->
+                    <!--         Command="{Binding AddRestrictionConstructorCommand}" /> -->
                     <Button Grid.Row="0"
-                            Content="Добавить через конструктор"
-                            Command="{Binding AddRestrictionConstructorCommand}" />
-                    <Button Grid.Row="1"
                             Content="Добавить"
                             Command="{Binding AddRestrictionCommand}" />
-                    <Button Grid.Row="2"
+                    <Button Grid.Row="1"
                             Content="Изменить"
                             Command="{Binding EditRestrictionCommand}" />
-                    <Button Grid.Row="3"
+                    <Button Grid.Row="2"
                             Content="Удалить"
                             Command="{Binding RemoveRestrictionCommand}" />
                 </Grid>
             </GroupBox>
 
-            <GroupBox Grid.Row="1"
-                      Header="Требования">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <CheckBox Grid.Row="0"
-                              Grid.Column="0"
-                              VerticalAlignment="Center"
-                              IsChecked="{Binding IsMaxTeacherHoursChecked}"/>
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="1"
-                               Text="Максимальная нагрузка учителя в неделю - 36 часов"
-                               TextWrapping="Wrap"
-                               TextAlignment="Left"
-                               Margin="3"/>
-                    
-                    <CheckBox Grid.Row="1"
-                              Grid.Column="0"
-                              VerticalAlignment="Center"
-                              IsChecked="{Binding IsAlternateSubjectsChecked}"/>
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="1"
-                               Text="Чередовать технические и гуманитарные предметы"
-                               TextWrapping="Wrap"
-                               TextAlignment="Left"
-                               Margin="3"/>
-                </Grid>
-            </GroupBox>
+            <!-- <GroupBox Grid.Row="1" -->
+            <!--           Header="Требования"> -->
+            <!--     <Grid> -->
+            <!--         <Grid.RowDefinitions> -->
+            <!--             <RowDefinition Height="auto"/> -->
+            <!--             <RowDefinition Height="auto"/> -->
+            <!--             <RowDefinition Height="*"/> -->
+            <!--         </Grid.RowDefinitions> -->
+            <!--         <Grid.ColumnDefinitions> -->
+            <!--             <ColumnDefinition Width="auto"/> -->
+            <!--             <ColumnDefinition Width="*"/> -->
+            <!--         </Grid.ColumnDefinitions> -->
+            <!-- -->
+            <!--         <CheckBox Grid.Row="0" -->
+            <!--                   Grid.Column="0" -->
+            <!--                   VerticalAlignment="Center" -->
+            <!--                   IsChecked="{Binding IsMaxTeacherHoursChecked}"/> -->
+            <!--         <TextBlock Grid.Row="0" -->
+            <!--                    Grid.Column="1" -->
+            <!--                    Text="Максимальная нагрузка учителя в неделю - 36 часов" -->
+            <!--                    TextWrapping="Wrap" -->
+            <!--                    TextAlignment="Left" -->
+            <!--                    Margin="3"/> -->
+            <!--          -->
+            <!--         <CheckBox Grid.Row="1" -->
+            <!--                   Grid.Column="0" -->
+            <!--                   VerticalAlignment="Center" -->
+            <!--                   IsChecked="{Binding IsAlternateSubjectsChecked}"/> -->
+            <!--         <TextBlock Grid.Row="1" -->
+            <!--                    Grid.Column="1" -->
+            <!--                    Text="Чередовать технические и гуманитарные предметы" -->
+            <!--                    TextWrapping="Wrap" -->
+            <!--                    TextAlignment="Left" -->
+            <!--                    Margin="3"/> -->
+            <!--     </Grid> -->
+            <!-- </GroupBox> -->
             
-            <GroupBox Grid.Row="2"
+            <GroupBox Grid.Row="1"
                       Header="Параметры генерации">
                 <StackPanel>
                     <GroupBox Header="Поколений">

@@ -32,17 +32,17 @@ namespace Generator.Utils
             switch ((color - 1) % 6 + 1)
             {
                 case 1:
-                    return new Time("8.00", "9.00");
+                    return new Time("8.00", "8.50");
                 case 2:
-                    return new Time("9.00", "10.00");
+                    return new Time("8.50", "9.40");
                 case 3:
-                    return new Time("10.00", "11.00");
+                    return new Time("9.40", "10.30");
                 case 4:
-                    return new Time("11.00", "12.00");
+                    return new Time("10.30", "11.20");
                 case 5:
-                    return new Time("12.00", "13.00");
+                    return new Time("11.20", "12.10");
                 case 6:
-                    return new Time("13.00", "14.00");
+                    return new Time("12.10", "13.00");
                 default:
                     return null;
             }
@@ -288,11 +288,11 @@ namespace Generator.Utils
                 j++;
             }
 
-            var dataTable = ArraytoDatatable(table, headers);
+            var dataTable = ArrayToDatatable(table, headers);
             return dataTable;
         }
 
-        public static DataTable ArraytoDatatable(string[,] values, string[] headers)
+        public static DataTable ArrayToDatatable(string[,] values, string[] headers)
         {
             DataTable dt = new DataTable();
             foreach (var header in headers)
@@ -455,41 +455,96 @@ namespace Generator.Utils
         public static List<Row> TableToRows(this Individual individual)
         {
             var result = new List<Row>();
-
-            var timeTalbe = new Dictionary<int, List<Lesson>>();
+            var lessonModelEqualityComparer = new LessonModelEqualityComparer();
+            var intersectionsLessons = new Dictionary<LessonModel, HashSet<LessonModel>>(lessonModelEqualityComparer);
+            
+            var timeTable = new Dictionary<int, List<Lesson>>();
             for (int i = 1; i < 50; ++i)
-                timeTalbe.Add(i, new List<Lesson>());
+                timeTable.Add(i, new List<Lesson>());
 
             for (int i = 0; i < Data.Instance.N; ++i)
-                timeTalbe[individual.Colors[i]].Add(Data.Instance.Lessons[i]);
-            
-            
-
-            for (int i = 1; i < 37; i++) // 36
             {
-                int x = (i - 1) % 6 + 1;
-                int dayOfWeek = (i - 1) / 6 + 1;
-                List<List<string>> classrooms = new List<List<string>>();
-                foreach (var lesson in timeTalbe[i])
+                timeTable[individual.Colors[i]].Add(Data.Instance.Lessons[i]);
+                var subject = Data.Instance.Lessons[i].Subject;
+                var teacher = Data.Instance.Lessons[i].Teacher;
+                var lessonModel = new LessonModel(subject, teacher);
+                
+                if (!intersectionsLessons.ContainsKey(lessonModel))
                 {
-                    classrooms.Add(lesson.Teacher.Classrooms.Select(x => x.Name).ToList());
-                    classrooms.Last().Remove(lesson.Teacher.PriorityClassroom.Name);
-                    classrooms.Last().Add(lesson.Teacher.PriorityClassroom.Name);
+                    intersectionsLessons.Add(lessonModel, new HashSet<LessonModel>(lessonModelEqualityComparer));
                 }
-                List<string> selectedClassroms = GetClassrooms(classrooms);
+            }
 
-                for (int j = 0; j < timeTalbe[i].Count; ++j)
+            for (int i = 1; i < 43; i++) 
+            {
+                for (int j = 0; j < timeTable[i].Count; ++j)
                 {
-                    var c = timeTalbe[i][j];
-                    c.Classroom = new Classroom(selectedClassroms[j]);
+                    for (int z = 0; z < timeTable[i].Count; ++z)
+                    {
+                        if (j == z) continue;
+                        var lessonModel1 = new LessonModel(timeTable[i][j].Subject, timeTable[i][j].Teacher);
+                        var lessonModel2 = new LessonModel(timeTable[i][z].Subject, timeTable[i][z].Teacher);
+                        intersectionsLessons[lessonModel1].Add(lessonModel2);
+                    }
+                }
+            }
+
+            var classrooms = GetClassrooms(intersectionsLessons);
+            
+            for (int i = 1; i < 43; i++) 
+            {
+                var x = (i - 1) % 6 + 1;
+                var dayOfWeek = (i - 1) / 6 + 1;
+                for (int j = 0; j < timeTable[i].Count; ++j)
+                {
+                    var c = timeTable[i][j];
+                    c.Classroom = new Classroom(string.Empty);
+                    if (classrooms.TryGetValue(new LessonModel(c.Subject, c.Teacher), out var value))
+                    {
+                        c.Classroom = value;
+                    }
                     var row = new Row(c.Teacher.Name, c.Subject.Name, c.Classroom.Name, c.Class.Name, x, dayOfWeek);
                     result.Add(row);
                 }
-
             }
+            
             return result;
         }
 
 
+        private static Dictionary<LessonModel, Classroom> GetClassrooms(
+            Dictionary<LessonModel, 
+                HashSet<LessonModel>> intersectionsLessons)
+        {
+            var result = new Dictionary<LessonModel, Classroom>(new LessonModelEqualityComparer());
+            foreach (var intersectionsLesson in intersectionsLessons)
+            {
+                var assigned = new HashSet<Classroom>();
+                foreach (var lesson in intersectionsLesson.Value)
+                {
+                    if (result.TryGetValue(lesson, out var value))
+                    {
+                        assigned.Add(value);
+                    }
+                }
+
+                if (!assigned.Contains(intersectionsLesson.Key.Teacher.PriorityClassroom))
+                {
+                    result[intersectionsLesson.Key] = intersectionsLesson.Key.Teacher.PriorityClassroom;
+                }
+                else
+                {
+                    foreach (var classroom in intersectionsLesson.Key.Teacher.Classrooms)
+                    {
+                        if (!assigned.Contains(classroom))
+                        {
+                            result[intersectionsLesson.Key] = classroom;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

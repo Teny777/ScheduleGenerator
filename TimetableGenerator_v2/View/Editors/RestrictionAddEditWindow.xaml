@@ -8,7 +8,8 @@
         Title="Редактор ограничений"
         Height="400"
         Width="800"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Icon="../../Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

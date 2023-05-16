@@ -8,8 +8,9 @@
         Title="Автоматическая генерация расписания" 
         Height="500" 
         Width="900"
-        WindowStartupLocation="CenterScreen">
-    <Grid>
+        WindowStartupLocation="CenterScreen"
+        Icon="../Icon.ico">
+     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -31,9 +32,9 @@
             <MenuItem Header="Справочник">
                 <MenuItem Header="Предметы" 
                           Command="{Binding SubjectsMenuCommand}"/>
-                <MenuItem Header="Классы" 
+                <MenuItem Header="Группы" 
                           Command="{Binding ClassesMenuCommand}"/>
-                <MenuItem Header="Учителя"
+                <MenuItem Header="Педагоги"
                           Command="{Binding TeachersMenuCommand}"/>
                 <MenuItem Header="Кабинеты"
                           Command="{Binding ClassroomsMenuCommand}"/>
@@ -44,10 +45,8 @@
                           Command="{Binding SettingsGenerationCommand}"/>
                 <MenuItem Header="Создать" 
                           Command="{Binding CreateTimetableCommand}"/>
-                <MenuItem Header="Расписание классов"
+                <MenuItem Header="Показать расписание"
                           Command="{Binding ShowClassesTimetableCommand}"/>
-                <MenuItem Header="Расписание учителей"
-                          Command="{Binding ShowTeachersTimetableCommand}"/>
             </MenuItem>
 
             <MenuItem Header="Показать/скрыть лог" 
@@ -70,10 +69,10 @@
                           IsReadOnly="True"
                           SelectionMode="Single">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Преподаватель"
+                        <DataGridTextColumn Header="Педагог"
                                             Width="2*"
                                             Binding="{Binding Lesson.Teacher.Name}"/>
-                        <DataGridTextColumn Header="Класс"
+                        <DataGridTextColumn Header="Группа"
                                             Width="1.5*"
                                             Binding="{Binding Lesson.Class.Name}"/>
                         <DataGridTextColumn Header="Предмет"

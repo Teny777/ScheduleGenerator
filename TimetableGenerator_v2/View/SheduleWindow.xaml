@@ -8,7 +8,8 @@
         Title="Расписание" 
         Height="700" 
         Width="1100"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Icon="../Icon.ico">
     <Grid>
         <DataGrid ItemsSource="{Binding DataView}"
                   IsReadOnly="True"

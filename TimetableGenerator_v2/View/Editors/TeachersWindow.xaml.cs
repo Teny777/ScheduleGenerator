@@ -52,7 +52,7 @@ namespace Generator.View.Editors
         {
             if (Data.Instance.LessonEditors.Any(x => x.Lesson.Teacher == SelectedTeacher))
             {
-                System.Windows.MessageBox.Show($"Учитель {SelectedTeacher.Name} Задействован в учебном плане. Удаление невозможно.");
+                System.Windows.MessageBox.Show($"Педагог {SelectedTeacher.Name} Задействован в учебном плане. Удаление невозможно.");
                 return;
             }
             Data.Instance.Teachers.Remove(SelectedTeacher.Id);

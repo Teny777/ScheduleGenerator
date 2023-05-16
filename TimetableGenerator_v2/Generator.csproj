@@ -103,6 +103,7 @@
     <Compile Include="Tools\Garbage.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Utils\ExtensionMethods.cs" />
+    <Compile Include="Utils\LessonModel.cs" />
     <Compile Include="Utils\MinMaxFlow.cs" />
     <Compile Include="Utils\Pair.cs" />
     <Compile Include="Utils\Rand.cs" />
@@ -258,6 +259,9 @@
       <Project>{b7fc974f-b943-441c-839c-24a0a0a6fba9}</Project>
       <Name>RestrictionAnalyzer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.4.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.4.0\build\Fody.targets')" />

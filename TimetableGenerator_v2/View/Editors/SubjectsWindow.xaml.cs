@@ -57,6 +57,11 @@ namespace Generator.View.Editors
 
         private void Remove()
         {
+            if (Data.Instance.Teachers.Any(x => x.Value.Subjects.Any(subject => subject == SelectedSubject)))
+            {
+                System.Windows.MessageBox.Show($"Предмет {SelectedSubject.Name} Выбран для педагога. Удаление невозможно.");
+                return;
+            }
             Subjects.Remove(SelectedSubject);
         }
     }

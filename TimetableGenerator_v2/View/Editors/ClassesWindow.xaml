@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Generator.View.Editors"
         mc:Ignorable="d"
-        Title="Классы"
+        Title="Группы"
         Height="380"
         Width="290"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Icon="../../Icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
