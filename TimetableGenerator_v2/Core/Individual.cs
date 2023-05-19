@@ -62,7 +62,54 @@ namespace Generator.Core
 
         private void CalcRating()
         {
-            Rating += ApplyRestrictions(this.TableToRows());
+            // Rating += ApplyRestrictions(this.TableToRows());
+            Rating += ApplyRestrictions(this.TableToLessonsForClass());
+        }
+
+        public int GetErrors()
+        {
+            var lessons = this.TableToLessonsForClass();
+            var total = 0;
+            foreach (var lesson in lessons)
+            {
+                for (int i = 0; i < 7; ++i)
+                {
+                    if (!CheckValidLessonsForClass(lesson.Value[i]))
+                    {
+                        total++;
+                    }
+                }
+            }
+
+            return total;
+        }
+        private int ApplyRestrictions(Dictionary<Class, List<List<int>>> lessons)
+        {
+            var total = 0;
+            foreach (var lesson in lessons)
+            {
+                for (int i = 0; i < 7; ++i)
+                {
+                    if (CheckValidLessonsForClass(lesson.Value[i]))
+                    {
+                        total += 10;
+                    }
+                    else
+                    {
+                        total -= 20;
+                    }
+                }
+            }
+
+            return total;
+        }
+
+
+        private bool CheckValidLessonsForClass(List<int> lessons)
+        {
+            if (lessons.Count == 0) return true;
+            if (lessons.Count != 2) return false;
+            return Math.Abs(lessons[0] - lessons[1]) == 1;
         }
 
         private int ApplyRestrictions(List<Row> rows)

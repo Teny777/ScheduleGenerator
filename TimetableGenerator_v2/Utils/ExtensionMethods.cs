@@ -514,7 +514,7 @@ namespace Generator.Utils
 
         private static Dictionary<LessonModel, Classroom> GetClassrooms(
             Dictionary<LessonModel, 
-                HashSet<LessonModel>> intersectionsLessons)
+            HashSet<LessonModel>> intersectionsLessons)
         {
             var result = new Dictionary<LessonModel, Classroom>(new LessonModelEqualityComparer());
             foreach (var intersectionsLesson in intersectionsLessons)
@@ -542,6 +542,30 @@ namespace Generator.Utils
                         }
                     }
                 }
+            }
+
+            return result;
+        }
+
+        public static Dictionary<Class, List<List<int>>> TableToLessonsForClass(this Individual individual)
+        {
+            var result = new Dictionary<Class, List<List<int>>>();
+            foreach (var cClass in Data.Instance.Classes)
+            {
+                result.Add(cClass.Value, new List<List<int>>());
+                for (int i = 0; i < 7; ++i)
+                {
+                    result.Last().Value.Add(new List<int>());
+                }
+            }
+
+            for (int i = 0; i < Data.Instance.Lessons.Count; ++i)
+            {
+                var lesson = Data.Instance.Lessons[i];
+                var color = individual.Colors[i];
+                var position = (color - 1) % 6 + 1;
+                var dayOfWeek = (color - 1) / 6 + 1;
+                result[lesson.Class][dayOfWeek].Add(position);
             }
 
             return result;
