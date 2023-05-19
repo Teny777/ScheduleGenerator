@@ -50,7 +50,7 @@ namespace Generator.View.Editors
         {
             var class_ = new Class
             {
-                Name = "00А",
+                Name = "Имя группы",
                 Id = Data.Instance.Classes.Count != 0 ? Data.Instance.Classes.Last().Key + 1 : 1
             };
 

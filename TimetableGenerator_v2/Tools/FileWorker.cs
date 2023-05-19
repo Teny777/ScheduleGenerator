@@ -22,10 +22,15 @@ namespace Generator.Tools
 
         public static void SaveGeneratorFile()
         {
-            if (string.IsNullOrEmpty(_filename) && ChooseFilePathToSave())
+            if (!string.IsNullOrEmpty(_filename))
             {
                 SaveFile();
             }
+            else
+            {
+                SaveGeneratorFileAs();
+            }
+            
         }
 
         public static void SaveGeneratorFileAs()

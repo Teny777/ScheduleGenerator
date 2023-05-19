@@ -41,7 +41,7 @@ namespace Generator.View.Editors
             var teacher = new Teacher
             {
                 Id = Data.Instance.Teachers.Count != 0 ? Data.Instance.Teachers.Last().Key + 1 : 1,
-                Name = "Новый учитель"
+                Name = "Новый педагог"
             };
 
             Data.Instance.Teachers.Add(teacher.Id, teacher);
