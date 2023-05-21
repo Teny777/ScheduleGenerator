@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Generator.View"
+        xmlns:z="clr-namespace:Generator.Utils"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="PlanAddEditWindow" 
@@ -12,6 +13,9 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Icon="../../Icon.ico">
+    <Window.Resources>
+        <z:EnumDescriptionConverter x:Key="enumConverter" />
+    </Window.Resources>
     <Grid>
         <StackPanel>
             <GroupBox Header="Педагог">
@@ -28,6 +32,16 @@
                 <ComboBox ItemsSource="{Binding Classes}"
                           SelectedItem="{Binding SelectedClass}"
                           DisplayMemberPath="Name"/>
+            </GroupBox>
+            <GroupBox Header="Смена">
+                <ComboBox ItemsSource="{Binding Shifts}"
+                          SelectedItem="{Binding SelectedShift}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource enumConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </GroupBox>
 
             <GroupBox Header="Количество часов в неделю">

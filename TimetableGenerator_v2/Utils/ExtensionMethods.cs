@@ -21,31 +21,42 @@ namespace Generator.Utils
             Start = start;
             End = end;
         }
-        public Time(int color)
+        public Time(int color, Shift shift)
         {
-            Time time =  GetTime(color);
+            Time time =  GetTime(color, shift);
             Start = time.Start;
             End = time.End;
         }
-        public static Time GetTime(int color)
+
+        private static Time GetTime(int color, Shift shift)
         {
-            switch ((color - 1) % 6 + 1)
+            if (shift == Shift.First)
             {
-                case 1:
-                    return new Time("8.00", "8.50");
-                case 2:
-                    return new Time("8.50", "9.40");
-                case 3:
-                    return new Time("9.40", "10.30");
-                case 4:
-                    return new Time("10.30", "11.20");
-                case 5:
-                    return new Time("11.20", "12.10");
-                case 6:
-                    return new Time("12.10", "13.00");
-                default:
-                    return null;
+                return ((color - 1) % 6 + 1) switch
+                {
+                    1 => new Time("8.00", "8.50"),
+                    2 => new Time("8.50", "9.40"),
+                    3 => new Time("9.40", "10.30"),
+                    4 => new Time("10.30", "11.20"),
+                    5 => new Time("11.20", "12.10"),
+                    6 => new Time("12.10", "13.00"),
+                    _ => null
+                };
             }
+            else
+            {
+                return ((color - 1) % 6 + 1) switch
+                {
+                    1 => new Time("14.00", "14.50"),
+                    2 => new Time("14.50", "15.40"),
+                    3 => new Time("15.40", "16.30"),
+                    4 => new Time("16.30", "17.20"),
+                    5 => new Time("17.20", "18.10"),
+                    6 => new Time("18.10", "19.00"),
+                    _ => null
+                };
+            }
+            
         }
         public string Start { get; set; }   
         public string End { get; set; } 
@@ -60,6 +71,7 @@ namespace Generator.Utils
         }
         public string Classroom { get; set; } 
         public List<int> Colors { get; set; }
+        public Shift Shift { get; set; }
 
 
         public List<string> GetSchedule()
@@ -70,9 +82,9 @@ namespace Generator.Utils
             for (int i = 0; i < Colors.Count; ++i)
             {
                 int startIdx = i;
-                var start = new Time(Colors[i]);
+                var start = new Time(Colors[i], Shift);
                 while (i + 1 < Colors.Count && Colors[i + 1] - 1 == Colors[i] && (Colors[i + 1] - 1) % 6 != 0) i++;
-                var end = new Time(Colors[i]);
+                var end = new Time(Colors[i], Shift);
                 result[(Colors[i] - 1) / 6] += $"{start.Start}-{end.End} ({i - startIdx + 1})\n";
             }
             return result;
@@ -101,6 +113,7 @@ namespace Generator.Utils
                 if (!timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id].ContainsKey(Data.Instance.Lessons[i].Class.Id)) timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id].Add(Data.Instance.Lessons[i].Class.Id, new GroupInfo());
                 timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Colors.Add(individual.Colors[i]);
                 timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Classroom = Data.Instance.Lessons[i].Classroom.Name;
+                timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Shift = Data.Instance.Lessons[i].Shift;
             }
 
 
@@ -481,7 +494,7 @@ namespace Generator.Utils
                 {
                     for (int z = 0; z < timeTable[i].Count; ++z)
                     {
-                        if (j == z) continue;
+                        if (j == z || timeTable[i][j].Shift != timeTable[i][z].Shift) continue;
                         var lessonModel1 = new LessonModel(timeTable[i][j].Subject, timeTable[i][j].Teacher);
                         var lessonModel2 = new LessonModel(timeTable[i][z].Subject, timeTable[i][z].Teacher);
                         intersectionsLessons[lessonModel1].Add(lessonModel2);
@@ -547,15 +560,15 @@ namespace Generator.Utils
             return result;
         }
 
-        public static Dictionary<Class, List<List<int>>> TableToLessonsForClass(this Individual individual)
+        public static Dictionary<Class, List<List<KeyValuePair<int, Shift>>>> TableToLessonsForClass(this Individual individual)
         {
-            var result = new Dictionary<Class, List<List<int>>>();
+            var result = new Dictionary<Class, List<List<KeyValuePair<int, Shift>>>>();
             foreach (var cClass in Data.Instance.Classes)
             {
-                result.Add(cClass.Value, new List<List<int>>());
+                result.Add(cClass.Value, new List<List<KeyValuePair<int, Shift>>>());
                 for (int i = 0; i < 7; ++i)
                 {
-                    result.Last().Value.Add(new List<int>());
+                    result.Last().Value.Add(new List<KeyValuePair<int, Shift>>());
                 }
             }
 
@@ -565,7 +578,7 @@ namespace Generator.Utils
                 var color = individual.Colors[i];
                 var position = (color - 1) % 6 + 1;
                 var dayOfWeek = (color - 1) / 6 + 1;
-                result[lesson.Class][dayOfWeek].Add(position);
+                result[lesson.Class][dayOfWeek].Add(new KeyValuePair<int, Shift>(position, lesson.Shift));
             }
 
             return result;

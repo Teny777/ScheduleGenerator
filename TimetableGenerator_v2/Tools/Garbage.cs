@@ -215,207 +215,207 @@ namespace Generator.Tools
             // for (int i = 1; i < 5; ++i)
             // {
             //     for (int j = 0; j < 4; ++j)
-            //         lessons.Add(new Lesson(teachers[1], classes[i], subjects[0]));
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[i], subjects[0]), 4));
+            //         lessons.Add(new Lesson(teachers[1], classes[i], subjects[0], Shift.First));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[i], subjects[0], Shift.First), 4));
             // }
             // for (int i = 0; i < 6; ++i)
-            //     lessons.Add(new Lesson(teachers[1], classes[5], subjects[0]));
+            //     lessons.Add(new Lesson(teachers[1], classes[5], subjects[0], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[5], subjects[0]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[1], classes[5], subjects[0], Shift.First), 6));
             //
             // for (int i = 6; i <= 7; ++i)
             // {
             //     for (int j = 0; j < 4; ++j)
-            //         lessons.Add(new Lesson(teachers[2], classes[i], subjects[1]));
+            //         lessons.Add(new Lesson(teachers[2], classes[i], subjects[1], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[i], subjects[1]), 4));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[i], subjects[1], Shift.First), 4));
             // }
             //
             // for (int i = 8; i <= 9; ++i)
             // {
             //     for (int j = 0; j < 2; ++j)
-            //         lessons.Add(new Lesson(teachers[2], classes[i], subjects[1]));
+            //         lessons.Add(new Lesson(teachers[2], classes[i], subjects[1], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[i], subjects[1]), 2));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[2], classes[i], subjects[1], Shift.First), 2));
             // }
             //
             // for (int i = 0; i < 4; ++i)
-            //     lessons.Add(new Lesson(teachers[3], classes[10], subjects[2]));
+            //     lessons.Add(new Lesson(teachers[3], classes[10], subjects[2], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[10], subjects[2]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[10], subjects[2], Shift.First), 4));
             //
             // for (int i = 0; i < 6; ++i)
-            //     lessons.Add(new Lesson(teachers[3], classes[11], subjects[2]));
+            //     lessons.Add(new Lesson(teachers[3], classes[11], subjects[2], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[11], subjects[2]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[11], subjects[2], Shift.First), 6));
             //
             // for (int i = 0; i < 8; ++i)
-            //     lessons.Add(new Lesson(teachers[3], classes[12], subjects[2]));
+            //     lessons.Add(new Lesson(teachers[3], classes[12], subjects[2], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[12], subjects[2]), 8));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[12], subjects[2], Shift.First), 8));
             //
             // for (int i = 0; i < 9; ++i)
-            //     lessons.Add(new Lesson(teachers[3], classes[13], subjects[2]));
+            //     lessons.Add(new Lesson(teachers[3], classes[13], subjects[2], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[13], subjects[2]), 9));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[3], classes[13], subjects[2], Shift.First), 9));
             //
             // for (int i = 0; i < 4; ++i)
-            //     lessons.Add(new Lesson(teachers[4], classes[14], subjects[3]));
+            //     lessons.Add(new Lesson(teachers[4], classes[14], subjects[3], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[14], subjects[3]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[14], subjects[3], Shift.First), 4));
             //
             //
             // for (int i = 0; i < 6; ++i)
-            //     lessons.Add(new Lesson(teachers[4], classes[15], subjects[3]));
+            //     lessons.Add(new Lesson(teachers[4], classes[15], subjects[3], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[15], subjects[3]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[15], subjects[3], Shift.First), 6));
             //
             // for (int i = 0; i < 8; ++i)
-            //     lessons.Add(new Lesson(teachers[4], classes[16], subjects[3]));
+            //     lessons.Add(new Lesson(teachers[4], classes[16], subjects[3], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[16], subjects[3]), 8));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[16], subjects[3], Shift.First), 8));
             //
             //
             // for (int i = 0; i < 9; ++i)
-            //     lessons.Add(new Lesson(teachers[4], classes[17], subjects[4]));
+            //     lessons.Add(new Lesson(teachers[4], classes[17], subjects[4], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[17], subjects[4]), 9));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[4], classes[17], subjects[4], Shift.First), 9));
             //
             //
             // for (int i = 18; i <= 24; ++i)
             // {
             //     for (int j = 0; j < 2; ++j)
-            //         lessons.Add(new Lesson(teachers[5], classes[i], subjects[1]));
+            //         lessons.Add(new Lesson(teachers[5], classes[i], subjects[1], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[i], subjects[1]), 2));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[5], classes[i], subjects[1], Shift.First), 2));
             // }
             //
             // for (int i = 0; i < 4; ++i)
-            //     lessons.Add(new Lesson(teachers[6], classes[25], subjects[5]));
+            //     lessons.Add(new Lesson(teachers[6], classes[25], subjects[5], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[25], subjects[5]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[25], subjects[5], Shift.First), 4));
             //
             // for (int i = 0; i < 6; ++i)
-            //     lessons.Add(new Lesson(teachers[6], classes[26], subjects[6]));
+            //     lessons.Add(new Lesson(teachers[6], classes[26], subjects[6], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[26], subjects[6]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[6], classes[26], subjects[6], Shift.First), 6));
             //
             // for (int i = 0; i < 4; ++i)
-            //     lessons.Add(new Lesson(teachers[7], classes[27], subjects[7]));
+            //     lessons.Add(new Lesson(teachers[7], classes[27], subjects[7], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[27], subjects[7]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[27], subjects[7], Shift.First), 4));
             //
             // for (int i = 28; i <= 30; ++i)
             // {
             //     for (int j = 0; j < 6; ++j)
-            //         lessons.Add(new Lesson(teachers[7], classes[i], subjects[7]));
+            //         lessons.Add(new Lesson(teachers[7], classes[i], subjects[7], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[i], subjects[7]), 6));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[i], subjects[7], Shift.First), 6));
             // }
             //
             // for (int i = 31; i <= 32; ++i)
             // {
             //     for (int j = 0; j < 4; ++j)
-            //         lessons.Add(new Lesson(teachers[7], classes[i], subjects[5]));
+            //         lessons.Add(new Lesson(teachers[7], classes[i], subjects[5], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[i], subjects[5]), 4));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[i], subjects[5], Shift.First), 4));
             //
             // }
             //
             // for (int j = 0; j < 4; ++j)
-            //     lessons.Add(new Lesson(teachers[7], classes[33], subjects[8]));
+            //     lessons.Add(new Lesson(teachers[7], classes[33], subjects[8], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[33], subjects[8]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[7], classes[33], subjects[8], Shift.First), 4));
             //
             // for (int j = 0; j < 6; ++j)
-            //     lessons.Add(new Lesson(teachers[8], classes[34], subjects[9]));
+            //     lessons.Add(new Lesson(teachers[8], classes[34], subjects[9], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[34], subjects[9]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[34], subjects[9], Shift.First), 6));
             //
             //
             // for (int j = 0; j < 2; ++j)
-            //     lessons.Add(new Lesson(teachers[8], classes[35], subjects[10]));
+            //     lessons.Add(new Lesson(teachers[8], classes[35], subjects[10], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[35], subjects[10]), 2));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[35], subjects[10], Shift.First), 2));
             //
             // for (int j = 0; j < 3; ++j)
-            //     lessons.Add(new Lesson(teachers[8], classes[36], subjects[10]));
+            //     lessons.Add(new Lesson(teachers[8], classes[36], subjects[10], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[36], subjects[10]), 3));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[36], subjects[10], Shift.First), 3));
             //
             // for (int j = 0; j < 6; ++j)
-            //     lessons.Add(new Lesson(teachers[8], classes[37], subjects[10]));
+            //     lessons.Add(new Lesson(teachers[8], classes[37], subjects[10], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[37], subjects[10]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[8], classes[37], subjects[10], Shift.First), 6));
             //
             // for (int j = 0; j < 8; ++j)
-            //     lessons.Add(new Lesson(teachers[9], classes[38], subjects[11]));
+            //     lessons.Add(new Lesson(teachers[9], classes[38], subjects[11], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[38], subjects[11]), 8));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[9], classes[38], subjects[11], Shift.First), 8));
             //
             // for (int j = 0; j < 4; ++j)
-            //     lessons.Add(new Lesson(teachers[10], classes[39], subjects[12]));
+            //     lessons.Add(new Lesson(teachers[10], classes[39], subjects[12], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[39], subjects[12]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[39], subjects[12], Shift.First), 4));
             //
             // for (int i = 40; i <= 41; ++i)
             // {
             //     for (int j = 0; j < 6; ++j)
-            //         lessons.Add(new Lesson(teachers[10], classes[i], subjects[12]));
+            //         lessons.Add(new Lesson(teachers[10], classes[i], subjects[12], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[i], subjects[12]), 6));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[i], subjects[12], Shift.First), 6));
             // }
             //
             //
             // for (int j = 0; j < 8; ++j)
-            //     lessons.Add(new Lesson(teachers[10], classes[42], subjects[12]));
+            //     lessons.Add(new Lesson(teachers[10], classes[42], subjects[12], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[42], subjects[12]), 8));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[10], classes[42], subjects[12], Shift.First), 8));
             //
             // for (int i = 43; i <= 44; ++i)
             // {
             //     for (int j = 0; j < 4; ++j)
-            //         lessons.Add(new Lesson(teachers[11], classes[i], subjects[13]));
+            //         lessons.Add(new Lesson(teachers[11], classes[i], subjects[13], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[i], subjects[13]), 4));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[i], subjects[13], Shift.First), 4));
             // }
             //
             // for (int i = 45; i <= 46; ++i)
             // {
             //     for (int j = 0; j < 6; ++j)
-            //         lessons.Add(new Lesson(teachers[11], classes[i], subjects[13]));
+            //         lessons.Add(new Lesson(teachers[11], classes[i], subjects[13], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[i], subjects[13]), 6));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[i], subjects[13], Shift.First), 6));
             // }
             //
             // for (int j = 0; j < 9; ++j)
-            //     lessons.Add(new Lesson(teachers[11], classes[47], subjects[13]));
+            //     lessons.Add(new Lesson(teachers[11], classes[47], subjects[13], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[47], subjects[13]), 9));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[11], classes[47], subjects[13], Shift.First), 9));
             //
             //
             // for (int j = 0; j < 6; ++j)
-            //     lessons.Add(new Lesson(teachers[12], classes[48], subjects[14]));
+            //     lessons.Add(new Lesson(teachers[12], classes[48], subjects[14], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[48], subjects[14]), 6));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[48], subjects[14], Shift.First), 6));
             //
             // for (int j = 0; j < 8; ++j)
-            //     lessons.Add(new Lesson(teachers[12], classes[49], subjects[14]));
+            //     lessons.Add(new Lesson(teachers[12], classes[49], subjects[14], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[49], subjects[14]), 8));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[49], subjects[14], Shift.First), 8));
             //
             // for (int i = 50; i <= 53; ++i)
             // {
             //     for (int j = 0; j < 4; ++j)
-            //         lessons.Add(new Lesson(teachers[12], classes[i], subjects[5]));
+            //         lessons.Add(new Lesson(teachers[12], classes[i], subjects[5], Shift.First));
             //
-            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[i], subjects[5]), 4));
+            //     lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[i], subjects[5], Shift.First), 4));
             // }
             //
             // for (int j = 0; j < 4; ++j)
-            //     lessons.Add(new Lesson(teachers[12], classes[54], subjects[8]));
+            //     lessons.Add(new Lesson(teachers[12], classes[54], subjects[8], Shift.First));
             //
-            // lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[54], subjects[8]), 4));
+            // lesEdit.Add(new LessonEditor(new Lesson(teachers[12], classes[54], subjects[8], Shift.First), 4));
             //
             // for (int i = 55; i <= 57; ++i)
             //     AddLessonEditor(15, 13, i, 4);
@@ -476,9 +476,9 @@ namespace Generator.Tools
             var subjects = Data.Instance.Subjects;
 
             for (int j = 0; j < cnt; ++j)
-                lessons.Add(new Lesson(teachers[teacherId], classes[classId], subjects[subjectId]));
+                lessons.Add(new Lesson(teachers[teacherId], classes[classId], subjects[subjectId], Shift.First));
 
-            lesEdit.Add(new LessonEditor(new Lesson(teachers[teacherId], classes[classId], subjects[subjectId]), cnt));
+            lesEdit.Add(new LessonEditor(new Lesson(teachers[teacherId], classes[classId], subjects[subjectId], Shift.First), cnt));
 
 
 

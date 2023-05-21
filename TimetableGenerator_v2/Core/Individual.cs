@@ -66,24 +66,24 @@ namespace Generator.Core
             Rating += ApplyRestrictions(this.TableToLessonsForClass());
         }
 
-        public int GetErrors()
-        {
-            var lessons = this.TableToLessonsForClass();
-            var total = 0;
-            foreach (var lesson in lessons)
-            {
-                for (int i = 0; i < 7; ++i)
-                {
-                    if (!CheckValidLessonsForClass(lesson.Value[i]))
-                    {
-                        total++;
-                    }
-                }
-            }
-
-            return total;
-        }
-        private int ApplyRestrictions(Dictionary<Class, List<List<int>>> lessons)
+        // public int GetErrors()
+        // {
+        //     var lessons = this.TableToLessonsForClass();
+        //     var total = 0;
+        //     foreach (var lesson in lessons)
+        //     {
+        //         for (int i = 0; i < 7; ++i)
+        //         {
+        //             if (!CheckValidLessonsForClass(lesson.Value[i]))
+        //             {
+        //                 total++;
+        //             }
+        //         }
+        //     }
+        //
+        //     return total;
+        // }
+        private int ApplyRestrictions(Dictionary<Class, List<List<KeyValuePair<int, Shift>>>> lessons)
         {
             var total = 0;
             foreach (var lesson in lessons)
@@ -105,11 +105,12 @@ namespace Generator.Core
         }
 
 
-        private bool CheckValidLessonsForClass(List<int> lessons)
+        private bool CheckValidLessonsForClass(List<KeyValuePair<int, Shift>> lessons)
         {
             if (lessons.Count == 0) return true;
             if (lessons.Count != 2) return false;
-            return Math.Abs(lessons[0] - lessons[1]) == 1;
+            if (lessons[0].Value != lessons[1].Value) return false;
+            return Math.Abs(lessons[0].Key - lessons[1].Key) == 1;
         }
 
         private int ApplyRestrictions(List<Row> rows)
@@ -151,7 +152,8 @@ namespace Generator.Core
 
         private bool IsAdjacent(int i, int j)
         {
-            return Data.Instance.Mas[Data.Instance.Lessons[ColorizeOrder[i]].Id, Data.Instance.Lessons[ColorizeOrder[j]].Id];
+            return Data.Instance.Mas[Data.Instance.Lessons[ColorizeOrder[i]].Id, Data.Instance.Lessons[ColorizeOrder[j]].Id] 
+                   && Data.Instance.Lessons[ColorizeOrder[i]].Shift == Data.Instance.Lessons[ColorizeOrder[j]].Shift;
         }
 
         private void Encode() // закодировать - приведение к виду, удобному для скрещивания

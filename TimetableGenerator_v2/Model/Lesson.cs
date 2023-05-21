@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using Generator.Utils;
 
 namespace Generator.Model
 {
@@ -24,15 +25,16 @@ namespace Generator.Model
         public Subject Subject { get; set; }
 
         public Classroom Classroom { get; set; }
-
-
         public int Id { get; set; }
+        public Shift Shift { get; set; }
+        public string ShiftDescription => Shift.GetDescription();
 
-        public Lesson(Teacher teacher, Class tclass, Subject subject)
+        public Lesson(Teacher teacher, Class tclass, Subject subject, Shift shift)
         {
             Teacher = teacher;
             Class = tclass;
             Subject = subject;
+            Shift = shift;
         }
 
     }

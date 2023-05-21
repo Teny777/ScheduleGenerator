@@ -73,7 +73,7 @@
                                             Width="2*"
                                             Binding="{Binding Lesson.Teacher.Name}"/>
                         <DataGridTextColumn Header="Группа"
-                                            Width="1.5*"
+                                            Width="*"
                                             Binding="{Binding Lesson.Class.Name}"/>
                         <DataGridTextColumn Header="Предмет"
                                             Width="2*"
@@ -81,6 +81,9 @@
                         <DataGridTextColumn Header="Часы"
                                             Width="*"
                                             Binding="{Binding Count}"/>
+                        <DataGridTextColumn Header="Смена"
+                                            Width="*"
+                                            Binding="{Binding Lesson.ShiftDescription}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>

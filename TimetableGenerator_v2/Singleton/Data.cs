@@ -36,8 +36,14 @@ namespace Generator.Singleton
         public Dictionary<int, Class> Classes { get; set; } = new Dictionary<int, Class>();
         public Dictionary<int, Teacher> Teachers { get; set; } = new Dictionary<int, Teacher>();
         
-        public ObservableCollection<Classroom> Classrooms = new ObservableCollection<Classroom>();
+        public ObservableCollection<Classroom> Classrooms { get; set; } = new ObservableCollection<Classroom>();
         
+        public ObservableCollection<Shift> Shifts { get; set; } = new ObservableCollection<Shift>
+        {
+            Shift.First,
+            Shift.Second
+        };
+
         public int N => Lessons.Count;
 
         [field: NonSerialized]

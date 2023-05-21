@@ -46,6 +46,7 @@ namespace Generator.View.Editors
                 SelectedTeacher = _lessonEditor.Lesson.Teacher;
                 SelectedSubject = _lessonEditor.Lesson.Subject;
                 SelectedClass = _lessonEditor.Lesson.Class;
+                SelectedShift = _lessonEditor.Lesson.Shift;
                 Count = _lessonEditor.Count;
             }
         }
@@ -53,11 +54,12 @@ namespace Generator.View.Editors
         public ObservableCollection<Teacher> Teachers => new ObservableCollection<Teacher>(Data.Instance.Teachers.Values);
         public ObservableCollection<Subject> Subjects => SelectedTeacher?.Subjects;
         public ObservableCollection<Class> Classes => new ObservableCollection<Class>(Data.Instance.Classes.Values);
-
-
+        public ObservableCollection<Shift> Shifts  => new ObservableCollection<Shift>(Data.Instance.Shifts);
+        
         public Teacher SelectedTeacher { get; set; }
         public Subject SelectedSubject { get; set; }
         public Class SelectedClass { get; set; }
+        public Shift SelectedShift { get; set; }
 
         public int Count { get; set; } = 1;
 
@@ -73,7 +75,7 @@ namespace Generator.View.Editors
                 throw new Exception("нельзя использовать при изменении.");
             }
             
-            return new LessonEditor(new Lesson(SelectedTeacher, SelectedClass, SelectedSubject), Count);
+            return new LessonEditor(new Lesson(SelectedTeacher, SelectedClass, SelectedSubject, SelectedShift), Count);
         }
 
         private void SubmitPlan()
@@ -83,6 +85,7 @@ namespace Generator.View.Editors
                 _lessonEditor.Lesson.Teacher = SelectedTeacher;
                 _lessonEditor.Lesson.Subject = SelectedSubject;
                 _lessonEditor.Lesson.Class = SelectedClass;
+                _lessonEditor.Lesson.Shift = SelectedShift;
                 _lessonEditor.Count = Count;
             }
 
