@@ -1,0 +1,70 @@
+﻿<Window x:Class="Generator.View.Editors.RestrictionBuilderAddEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Generator.View.Editors"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="PlanAddEditWindow" 
+        Height="435.667"
+        Width="304.667"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Icon="../../Icon.ico">
+    <Grid>
+        <StackPanel>
+            <GroupBox Header="Предмет">
+                <ComboBox ItemsSource="{Binding Subjects}"
+                          SelectedItem="{Binding SelectedSubject}" 
+                          DisplayMemberPath="Name"/>
+            </GroupBox>
+            <GroupBox Header="Группа">
+                <ComboBox ItemsSource="{Binding Classes}"
+                          SelectedItem="{Binding SelectedClass}"
+                          DisplayMemberPath="Name"/>
+            </GroupBox>
+            
+            <GroupBox Header="Дни недели">
+                <ListBox ItemsSource="{Binding AllDaysOfWeek}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ListBoxItem>
+                                <CheckBox IsChecked="{Binding IsChecked}"
+                                          Content="{Binding DayOfWeekModel.Name}" />
+                            </ListBoxItem>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+            
+            <GroupBox Header="Количество часов в выбранные дни">
+                <xctk:IntegerUpDown DefaultValue="1"
+                                    Minimum="0"
+                                    Maximum="40"
+                                    TextAlignment="Left"
+                                    Value="{Binding Count}"/>
+            </GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0" Header="Вес+">
+                    <xctk:IntegerUpDown DefaultValue="1"
+                                        Minimum="0"
+                                        TextAlignment="Left"
+                                        Value="{Binding WeightPositive}"/>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Header="Вес-">
+                    <xctk:IntegerUpDown DefaultValue="1"
+                                        Minimum="0"
+                                        TextAlignment="Left"
+                                        Value="{Binding WeightNegative}"/>
+                </GroupBox>
+            </Grid>
+            <Button Content="{Binding CommandText}"
+                    Command="{Binding SubmitRestrictionBuilderCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -92,10 +92,10 @@ namespace Generator.Tools
             //     { 14, new Teacher(14, "Печенкина Екатерина Валерьевна", new ObservableCollection<Subject>{ Data.Instance.Subjects[16], Data.Instance.Subjects[17]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[12]) },
             //     { 15, new Teacher(15, "Рычин Владислав Викторович", new ObservableCollection<Subject>{ Data.Instance.Subjects[18]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[9]) },
             //     { 16, new Teacher(16, "Страхов Матвей Сергеевич", new ObservableCollection<Subject>{ Data.Instance.Subjects[18]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms),  Data.Instance.Classrooms[4] ) },
-            //     { 17, new Teacher(17, "Тарантина Татьяна Владимировна", new ObservableCollection<Subject>{ Data.Instance.Subjects[19]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[13]) }, 
+            //     { 17, new Teacher(17, "Тарантина Татьяна Владимировна", new ObservableCollection<Subject>{ Data.Instance.Subjects[19]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[9]) }, 
             //     { 18, new Teacher(18, "Тарасова Анна Сергеевна", new ObservableCollection<Subject>{ Data.Instance.Subjects[20], Data.Instance.Subjects[21]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[1])},
-            //     { 19, new Teacher(19, "Хилютич Ольга Федоровна", new ObservableCollection<Subject>{ Data.Instance.Subjects[5], Data.Instance.Subjects[22], Data.Instance.Subjects[23]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[14])}, 
-            //     { 20, new Teacher(20, "Якупова Инга Сергеевна", new ObservableCollection<Subject>{ Data.Instance.Subjects[1]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[15])},
+            //     { 19, new Teacher(19, "Хилютич Ольга Федоровна", new ObservableCollection<Subject>{ Data.Instance.Subjects[5], Data.Instance.Subjects[22], Data.Instance.Subjects[23]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[10])}, 
+            //     { 20, new Teacher(20, "Якупова Инга Сергеевна", new ObservableCollection<Subject>{ Data.Instance.Subjects[1]}, new ObservableCollection<Classroom>(Data.Instance.Classrooms), Data.Instance.Classrooms[12])},
             //
             // };
             // #endregion

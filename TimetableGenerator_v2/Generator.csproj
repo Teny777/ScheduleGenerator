@@ -96,6 +96,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Restriction\RestrictionBuilderModel.cs" />
+    <Compile Include="Core\Restriction\RestrictionModel.cs" />
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Shift.cs" />
     <Compile Include="Singleton\Data.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Tools\FileWorker.cs" />
     <Compile Include="Tools\Garbage.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="Utils\DaysOfWeek.cs" />
     <Compile Include="Utils\EnumDescriptionConverter.cs" />
     <Compile Include="Utils\EnumHelper.cs" />
     <Compile Include="Utils\ExtensionMethods.cs" />
@@ -121,6 +124,12 @@
     </Compile>
     <Compile Include="View\Editors\RestrictionAddEditWindow.xaml.cs">
       <DependentUpon>RestrictionAddEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\RestrictionBuilderAddEditWindow.xaml.cs">
+      <DependentUpon>RestrictionBuilderAddEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\RestrictionBuilderWindow.xaml.cs">
+      <DependentUpon>RestrictionBuilderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Editors\RestrictionsWindow.xaml.cs">
       <DependentUpon>RestrictionsWindow.xaml</DependentUpon>
@@ -175,6 +184,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Editors\RestrictionBuilderAddEditWindow.xaml" />
+    <Page Include="View\Editors\RestrictionBuilderWindow.xaml" />
     <Page Include="View\Editors\RestrictionsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

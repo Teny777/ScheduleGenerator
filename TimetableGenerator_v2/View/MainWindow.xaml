@@ -41,6 +41,8 @@
             </MenuItem>
             
             <MenuItem Header="Расписание">
+                <MenuItem Header="Задать ограничения"
+                          Command="{Binding SetRestrictionsCommand}"/>
                 <MenuItem Header="Параметры создания" 
                           Command="{Binding SettingsGenerationCommand}"/>
                 <MenuItem Header="Создать" 

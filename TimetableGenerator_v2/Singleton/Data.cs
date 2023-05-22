@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
+using Generator.Utils;
 
 namespace Generator.Singleton
 {
@@ -35,14 +36,24 @@ namespace Generator.Singleton
         public List<Lesson> Lessons { get; set; } = new List<Lesson>();
         public Dictionary<int, Class> Classes { get; set; } = new Dictionary<int, Class>();
         public Dictionary<int, Teacher> Teachers { get; set; } = new Dictionary<int, Teacher>();
-        
         public ObservableCollection<Classroom> Classrooms { get; set; } = new ObservableCollection<Classroom>();
-        
         public ObservableCollection<Shift> Shifts { get; set; } = new ObservableCollection<Shift>
         {
             Shift.First,
             Shift.Second
         };
+        public ObservableCollection<DayOfWeekModel> DaysOfWeek { get; set; } = new ObservableCollection<DayOfWeekModel>
+        {
+            new DayOfWeekModel(0, "Понедельник", "Пн"),
+            new DayOfWeekModel(1, "Вторник", "Вт"),
+            new DayOfWeekModel(2, "Среда", "Ср"),
+            new DayOfWeekModel(3, "Четверг", "Чт"),
+            new DayOfWeekModel(4, "Пятница", "Пт"),
+            new DayOfWeekModel(5, "Суббота", "Сб"),
+            new DayOfWeekModel(6, "Воскресенье", "Вс"),
+        };
+        public ObservableCollection<RestrictionBuilderModel> RestrictionBuilderModels { get; set; } = 
+            new ObservableCollection<RestrictionBuilderModel>();
 
         public int N => Lessons.Count;
 

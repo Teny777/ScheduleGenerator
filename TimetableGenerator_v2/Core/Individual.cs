@@ -85,32 +85,60 @@ namespace Generator.Core
         // }
         private int ApplyRestrictions(Dictionary<Class, List<List<KeyValuePair<int, Shift>>>> lessons)
         {
+            var restrictions = new Dictionary<Class, List<RestrictionModel>>();
+            foreach (var cClass in Data.Instance.Classes.Values)
+            {
+                restrictions.Add(cClass, new List<RestrictionModel>());
+                for (int i = 0; i < 7; ++i)
+                    restrictions[cClass].Add(new RestrictionModel(2, 10, 20, false));
+            }
+
+            foreach (var restrictionBuilderModel in Data.Instance.RestrictionBuilderModels)
+            {
+                foreach (var dayOfWeekModel in restrictionBuilderModel.DaysOfWeek)
+                {
+                    restrictions[restrictionBuilderModel.Class][dayOfWeekModel.Index] = new RestrictionModel(
+                        restrictionBuilderModel.Count,
+                        restrictionBuilderModel.WeightPositive,
+                        restrictionBuilderModel.WeightNegative,
+                        true);
+                }
+            }
+            
             var total = 0;
             foreach (var lesson in lessons)
             {
                 for (int i = 0; i < 7; ++i)
                 {
-                    if (CheckValidLessonsForClass(lesson.Value[i]))
+                    var restrictionBuilderModel = restrictions[lesson.Key][i];
+                    if (CheckValidLessonsForClass(lesson.Value[i], restrictionBuilderModel.Count, restrictionBuilderModel.IsImportant))
                     {
-                        total += 10;
+                        total += restrictionBuilderModel.WeightPositive;
                     }
                     else
                     {
-                        total -= 20;
+                        total -= restrictionBuilderModel.WeightNegative;
                     }
                 }
             }
-
+            
             return total;
         }
 
 
-        private bool CheckValidLessonsForClass(List<KeyValuePair<int, Shift>> lessons)
+        private bool CheckValidLessonsForClass(List<KeyValuePair<int, Shift>> lessons, int count, bool isImportant)
         {
-            if (lessons.Count == 0) return true;
-            if (lessons.Count != 2) return false;
-            if (lessons[0].Value != lessons[1].Value) return false;
-            return Math.Abs(lessons[0].Key - lessons[1].Key) == 1;
+            if (!isImportant && lessons.Count < 2) return true;
+            if (lessons.Count != count) return false;
+            if (lessons.Select(x => x.Value).Distinct().Count() != 1) return false;
+            var sortedLessons = lessons.OrderBy(x => x.Key).ToList();
+            
+            for (int i = 1; i < sortedLessons.Count; ++i)
+            {
+                if (sortedLessons[i].Key - sortedLessons[i - 1].Key != 1) return false;
+            }
+            
+            return true;
         }
 
         private int ApplyRestrictions(List<Row> rows)

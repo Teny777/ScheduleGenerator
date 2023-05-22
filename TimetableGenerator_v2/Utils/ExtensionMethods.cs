@@ -469,7 +469,7 @@ namespace Generator.Utils
         {
             var result = new List<Row>();
             var lessonModelEqualityComparer = new LessonModelEqualityComparer();
-            var intersectionsLessons = new Dictionary<LessonModel, HashSet<LessonModel>>(lessonModelEqualityComparer);
+            var intersectionsClasses = new Dictionary<LessonModel, HashSet<LessonModel>>(lessonModelEqualityComparer);
             
             var timeTable = new Dictionary<int, List<Lesson>>();
             for (int i = 1; i < 50; ++i)
@@ -478,13 +478,13 @@ namespace Generator.Utils
             for (int i = 0; i < Data.Instance.N; ++i)
             {
                 timeTable[individual.Colors[i]].Add(Data.Instance.Lessons[i]);
-                var subject = Data.Instance.Lessons[i].Subject;
+                var cClass = Data.Instance.Lessons[i].Class;
                 var teacher = Data.Instance.Lessons[i].Teacher;
-                var lessonModel = new LessonModel(subject, teacher);
+                var lessonModel = new LessonModel(cClass, teacher);
                 
-                if (!intersectionsLessons.ContainsKey(lessonModel))
+                if (!intersectionsClasses.ContainsKey(lessonModel))
                 {
-                    intersectionsLessons.Add(lessonModel, new HashSet<LessonModel>(lessonModelEqualityComparer));
+                    intersectionsClasses.Add(lessonModel, new HashSet<LessonModel>(lessonModelEqualityComparer));
                 }
             }
 
@@ -495,14 +495,14 @@ namespace Generator.Utils
                     for (int z = 0; z < timeTable[i].Count; ++z)
                     {
                         if (j == z || timeTable[i][j].Shift != timeTable[i][z].Shift) continue;
-                        var lessonModel1 = new LessonModel(timeTable[i][j].Subject, timeTable[i][j].Teacher);
-                        var lessonModel2 = new LessonModel(timeTable[i][z].Subject, timeTable[i][z].Teacher);
-                        intersectionsLessons[lessonModel1].Add(lessonModel2);
+                        var lessonModel1 = new LessonModel(timeTable[i][j].Class, timeTable[i][j].Teacher);
+                        var lessonModel2 = new LessonModel(timeTable[i][z].Class, timeTable[i][z].Teacher);
+                        intersectionsClasses[lessonModel1].Add(lessonModel2);
                     }
                 }
             }
 
-            var classrooms = GetClassrooms(intersectionsLessons);
+            var classrooms = GetClassrooms(intersectionsClasses);
             
             for (int i = 1; i < 43; i++) 
             {
@@ -512,7 +512,7 @@ namespace Generator.Utils
                 {
                     var c = timeTable[i][j];
                     c.Classroom = new Classroom(string.Empty);
-                    if (classrooms.TryGetValue(new LessonModel(c.Subject, c.Teacher), out var value))
+                    if (classrooms.TryGetValue(c.Class, out var value))
                     {
                         c.Classroom = value;
                     }
@@ -525,17 +525,17 @@ namespace Generator.Utils
         }
 
 
-        private static Dictionary<LessonModel, Classroom> GetClassrooms(
+        private static Dictionary<Class, Classroom> GetClassrooms(
             Dictionary<LessonModel, 
             HashSet<LessonModel>> intersectionsLessons)
         {
-            var result = new Dictionary<LessonModel, Classroom>(new LessonModelEqualityComparer());
+            var result = new Dictionary<Class, Classroom>();
             foreach (var intersectionsLesson in intersectionsLessons)
             {
                 var assigned = new HashSet<Classroom>();
                 foreach (var lesson in intersectionsLesson.Value)
                 {
-                    if (result.TryGetValue(lesson, out var value))
+                    if (result.TryGetValue(lesson.Class, out var value))
                     {
                         assigned.Add(value);
                     }
@@ -543,7 +543,7 @@ namespace Generator.Utils
 
                 if (!assigned.Contains(intersectionsLesson.Key.Teacher.PriorityClassroom))
                 {
-                    result[intersectionsLesson.Key] = intersectionsLesson.Key.Teacher.PriorityClassroom;
+                    result[intersectionsLesson.Key.Class] = intersectionsLesson.Key.Teacher.PriorityClassroom;
                 }
                 else
                 {
@@ -551,7 +551,7 @@ namespace Generator.Utils
                     {
                         if (!assigned.Contains(classroom))
                         {
-                            result[intersectionsLesson.Key] = classroom;
+                            result[intersectionsLesson.Key.Class] = classroom;
                         }
                     }
                 }
@@ -577,7 +577,7 @@ namespace Generator.Utils
                 var lesson = Data.Instance.Lessons[i];
                 var color = individual.Colors[i];
                 var position = (color - 1) % 6 + 1;
-                var dayOfWeek = (color - 1) / 6 + 1;
+                var dayOfWeek = (color - 1) / 6;
                 result[lesson.Class][dayOfWeek].Add(new KeyValuePair<int, Shift>(position, lesson.Shift));
             }
 
