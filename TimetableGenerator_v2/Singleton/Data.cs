@@ -94,7 +94,7 @@ namespace Generator.Singleton
             {
                 for (int j = i + 1; j < N; j++)
                 {
-                    if (Lessons[i].Teacher == Lessons[j].Teacher || Lessons[i].Class == Lessons[j].Class)
+                    if (Lessons[i].Teacher == Lessons[j].Teacher || Lessons[i].Class == Lessons[j].Class || Lessons[i].Teacher.PriorityClassroom == Lessons[j].Teacher.PriorityClassroom)
                     {
                         Mas[i, j] = Mas[j, i] = true;
                     }

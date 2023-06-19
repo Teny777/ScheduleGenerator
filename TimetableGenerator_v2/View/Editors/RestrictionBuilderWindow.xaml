@@ -26,7 +26,7 @@
                       IsReadOnly="True"
                       SelectionMode="Single">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Предмет"
+                    <DataGridTextColumn Header="Объединение"
                                         Width="5*"
                                         Binding="{Binding Subject.Name}" />
                     <DataGridTextColumn Header="Группа"

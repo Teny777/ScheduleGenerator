@@ -78,14 +78,18 @@ namespace Generator.Utils
         {
             Colors.Sort();
             var result = new List<string>();
-            for (int i = 0; i < 6; ++i) result.Add(string.Empty);
+            for (int i = 0; i < 7; ++i) result.Add(string.Empty);
             for (int i = 0; i < Colors.Count; ++i)
             {
                 int startIdx = i;
                 var start = new Time(Colors[i], Shift);
                 while (i + 1 < Colors.Count && Colors[i + 1] - 1 == Colors[i] && (Colors[i + 1] - 1) % 6 != 0) i++;
                 var end = new Time(Colors[i], Shift);
-                result[(Colors[i] - 1) / 6] += $"{start.Start}-{end.End} ({i - startIdx + 1})\n";
+                var day = (Colors[i] - 1) / 6;
+                if (day < 7)
+                {
+                    result[(Colors[i] - 1) / 6] += $"{start.Start}-{end.End} ({i - startIdx + 1})\n";
+                }
             }
             return result;
         }
@@ -112,7 +116,7 @@ namespace Generator.Utils
                 if (!timetable[Data.Instance.Lessons[i].Subject.Id].ContainsKey(Data.Instance.Lessons[i].Teacher.Id)) timetable[Data.Instance.Lessons[i].Subject.Id].Add(Data.Instance.Lessons[i].Teacher.Id, new Dictionary<int, GroupInfo>());
                 if (!timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id].ContainsKey(Data.Instance.Lessons[i].Class.Id)) timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id].Add(Data.Instance.Lessons[i].Class.Id, new GroupInfo());
                 timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Colors.Add(individual.Colors[i]);
-                timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Classroom = Data.Instance.Lessons[i].Classroom.Name;
+                timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Classroom = Data.Instance.Lessons[i].Teacher.PriorityClassroom.Name;
                 timetable[Data.Instance.Lessons[i].Subject.Id][Data.Instance.Lessons[i].Teacher.Id][Data.Instance.Lessons[i].Class.Id].Shift = Data.Instance.Lessons[i].Shift;
             }
 
@@ -472,7 +476,7 @@ namespace Generator.Utils
             var intersectionsClasses = new Dictionary<LessonModel, HashSet<LessonModel>>(lessonModelEqualityComparer);
             
             var timeTable = new Dictionary<int, List<Lesson>>();
-            for (int i = 1; i < 50; ++i)
+            for (int i = 1; i < 100; ++i)
                 timeTable.Add(i, new List<Lesson>());
 
             for (int i = 0; i < Data.Instance.N; ++i)
@@ -502,21 +506,21 @@ namespace Generator.Utils
                 }
             }
 
-            var classrooms = GetClassrooms(intersectionsClasses);
+            // var classrooms = GetClassrooms(intersectionsClasses);
             
-            for (int i = 1; i < 43; i++) 
+            for (int i = 1; i < 100; i++) 
             {
                 var x = (i - 1) % 6 + 1;
                 var dayOfWeek = (i - 1) / 6 + 1;
                 for (int j = 0; j < timeTable[i].Count; ++j)
                 {
                     var c = timeTable[i][j];
-                    c.Classroom = new Classroom(string.Empty);
-                    if (classrooms.TryGetValue(c.Class, out var value))
-                    {
-                        c.Classroom = value;
-                    }
-                    var row = new Row(c.Teacher.Name, c.Subject.Name, c.Classroom.Name, c.Class.Name, x, dayOfWeek);
+                    // c.Classroom = new Classroom(string.Empty);
+                    // if (classrooms.TryGetValue(c.Class, out var value))
+                    // {
+                    //     c.Classroom = value;
+                    // }
+                    var row = new Row(c.Teacher.Name, c.Subject.Name, c.Teacher.PriorityClassroom.Name, c.Class.Name, x, dayOfWeek);
                     result.Add(row);
                 }
             }
@@ -578,7 +582,10 @@ namespace Generator.Utils
                 var color = individual.Colors[i];
                 var position = (color - 1) % 6 + 1;
                 var dayOfWeek = (color - 1) / 6;
-                result[lesson.Class][dayOfWeek].Add(new KeyValuePair<int, Shift>(position, lesson.Shift));
+                if (dayOfWeek < 7)
+                {
+                    result[lesson.Class][dayOfWeek].Add(new KeyValuePair<int, Shift>(position, lesson.Shift));
+                }
             }
 
             return result;

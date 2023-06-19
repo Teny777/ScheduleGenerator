@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Generator.View.Editors"
         mc:Ignorable="d"
-        Title="Предметы"
+        Title="Детские объединения"
         Height="380"
         Width="290"
         WindowStartupLocation="CenterOwner"

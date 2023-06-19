@@ -14,7 +14,7 @@
         Icon="../../Icon.ico">
     <Grid>
         <StackPanel>
-            <GroupBox Header="Предмет">
+            <GroupBox Header="Объединение">
                 <ComboBox ItemsSource="{Binding Subjects}"
                           SelectedItem="{Binding SelectedSubject}" 
                           DisplayMemberPath="Name"/>

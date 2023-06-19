@@ -23,7 +23,7 @@
                           SelectedItem="{Binding SelectedTeacher}" 
                           DisplayMemberPath="Name"/>
             </GroupBox>
-            <GroupBox Header="Предмет">
+            <GroupBox Header="Объединение">
                 <ComboBox ItemsSource="{Binding Subjects}"
                           SelectedItem="{Binding SelectedSubject}"
                           DisplayMemberPath="Name"/>

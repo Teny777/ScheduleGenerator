@@ -30,7 +30,7 @@
             </MenuItem> 
             
             <MenuItem Header="Справочник">
-                <MenuItem Header="Предметы" 
+                <MenuItem Header="Объединения" 
                           Command="{Binding SubjectsMenuCommand}"/>
                 <MenuItem Header="Группы" 
                           Command="{Binding ClassesMenuCommand}"/>
@@ -77,7 +77,7 @@
                         <DataGridTextColumn Header="Группа"
                                             Width="*"
                                             Binding="{Binding Lesson.Class.Name}"/>
-                        <DataGridTextColumn Header="Предмет"
+                        <DataGridTextColumn Header="Объединение"
                                             Width="2*"
                                             Binding="{Binding Lesson.Subject.Name}"/>
                         <DataGridTextColumn Header="Часы"

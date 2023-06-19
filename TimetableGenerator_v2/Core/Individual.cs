@@ -62,7 +62,7 @@ namespace Generator.Core
 
         private void CalcRating()
         {
-            // Rating += ApplyRestrictions(this.TableToRows());
+            Rating += ApplyRestrictions(this.TableToRows());
             Rating += ApplyRestrictions(this.TableToLessonsForClass());
         }
 
@@ -128,7 +128,7 @@ namespace Generator.Core
 
         private bool CheckValidLessonsForClass(List<KeyValuePair<int, Shift>> lessons, int count, bool isImportant)
         {
-            if (!isImportant && lessons.Count < 2) return true;
+            if (!isImportant && lessons.Count == 0) return true;
             if (lessons.Count != count) return false;
             if (lessons.Select(x => x.Value).Distinct().Count() != 1) return false;
             var sortedLessons = lessons.OrderBy(x => x.Key).ToList();
